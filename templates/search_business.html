@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Search Business</h1>
+<form method="get">
+  <input type="text" name="q" placeholder="Search businesses..." value="{{ query }}">
+  <button type="submit">Search</button>
+</form>
+<ul>
+  {% for item in products %}
+    <li>{{ item.name }}</li>
+  {% empty %}
+    <li>No businesses or tags found.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

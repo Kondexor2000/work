@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Twoje portfolio</h2>
+
+    {% if products %}
+        <div class="row mt-4">
+            {% for portfolio in products %}
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ portfolio.title }}</h5>
+                            <p class="card-text">{{ portfolio.description|truncatechars:150 }}</p>
+                            <a href="{% url 'cv-detail' user_pk=request.user.pk %}" class="btn btn-primary btn-sm">Zobacz szczegóły</a>
+                            <a href="{% url 'update-portfolio' portfolio_id=portfolio.id %}" class="btn btn-outline-secondary btn-sm">Edytuj</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info mt-4">
+            Nie masz jeszcze żadnych portfolio.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

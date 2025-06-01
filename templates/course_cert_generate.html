@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Generowanie certyfikatu</h2>
+
+    {% if products %}
+        <div class="alert alert-success mt-4">
+            <strong>Gratulacje!</strong> Ukończyłeś kurs i uzyskałeś certyfikat.
+        </div>
+
+        <ul class="list-group mt-3">
+            {% for certificate in products %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>{{ certificate.name }}</strong><br>
+                        Kurs: {{ certificate.course.title }}<br>
+                        Data wygenerowania: {{ certificate.created_at|date:"d.m.Y" }}
+                    </div>
+                    {% if certificate.file %}
+                        <a href="{{ certificate.file.url }}" class="btn btn-sm btn-primary" download>Pobierz PDF</a>
+                    {% else %}
+                        <span class="text-muted">Plik PDF nie jest dostępny.</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="alert alert-warning mt-4">
+            <strong>Brak certyfikatu.</strong> Musisz najpierw ukończyć testy i osiągnąć wymagany wynik.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

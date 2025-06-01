@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Businesses Managed</h1>
+<ul>
+  {% for business in products %}
+    <li>{{ business.name }}</li>
+  {% empty %}
+    <li>No businesses found.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

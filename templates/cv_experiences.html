@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>My CV Experiences</h1>
+<ul>
+  {% for exp in products %}
+    <li>{{ exp.position }} at {{ exp.company }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}

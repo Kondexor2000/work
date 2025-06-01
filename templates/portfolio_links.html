@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Portfolio Links</h1>
+<ul>
+  {% for link in products %}
+    <li><a href="{{ link.url }}">{{ link.url }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}

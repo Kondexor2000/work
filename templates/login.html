@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 350px;
+            width: 100%;
+        }
+        input[type="text"], input[type="password"], button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        label {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        label input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h2>Login</h2>
+    <form method="post" onsubmit="return validateLoginForm()">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <label>
+            <input type="checkbox" name="remember_me"> Remember me
+        </label>
+        <button type="submit">Login</button>
+    </form>
+
+    <script>
+        function validateLoginForm() {
+            const username = document.querySelector('input[name="username"]');
+            const password = document.querySelector('input[name="password"]');
+            
+            if (username && username.value.trim() === "") {
+                alert("Please enter your username.");
+                username.focus();
+                return false;
+            }
+            if (password && password.value.trim() === "") {
+                alert("Please enter your password.");
+                password.focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
