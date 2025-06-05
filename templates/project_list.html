@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Twoje CV</h2>
+
+    {% if products %}
+        <div class="row mt-4">
+            {% for cv in products %}
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ cv.title }}</h5>
+                            <p class="card-text">{{ cv.summary|truncatechars:150 }}</p>
+                            <a href="{% url 'cv-detail' user_pk=user.id %}" class="btn btn-primary btn-sm">Zobacz szczegóły</a>
+                            <a href="{% url 'update-cv' cv_id=cv.id %}" class="btn btn-outline-secondary btn-sm">Edytuj</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info mt-4">
+            Nie masz jeszcze żadnego CV.
+        </div>
+    {% endif %}
+
+    <a href="{% url 'update_cv' %}">Zobacz zaakceptowane oferty</a>
+</div>
+{% endblock %}
