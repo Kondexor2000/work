@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Items</h1>
+<h1>Subjects for "{{ course.title }}"</h1>
 <ul>
   {% for item in products %}
     <li>{{ item }}</li>

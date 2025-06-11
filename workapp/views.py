@@ -889,7 +889,7 @@ def subject_to_course_view(request, course_id):
         logger.exception(f"Error retrieving subjects for course {course_id} by user {request.user}: {e}")
         return HttpResponse("An error occurred while retrieving subjects.", status=500)
 
-    return render(request, template_name, {'products': products})
+    return render(request, template_name, {'course': course,'products': products})
 
 @login_required
 @transaction.atomic
