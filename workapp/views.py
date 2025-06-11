@@ -410,7 +410,7 @@ class AddQuestionView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('subject_to_course_view')  # jeśli nie potrzebujesz ID, może zostać
+        return reverse('subject_to_course_view', args=[self.kwargs['course_id']])  # jeśli nie potrzebujesz ID, może zostać
 
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
