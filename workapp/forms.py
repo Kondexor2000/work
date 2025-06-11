@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from .models import CV, HR, Business, TagBusiness, TagCourse, TagPortfolio, Test, CategoryCourse, CategoryEmploy, OffersJob,OffersJobUser, Course, Subject, Questions, Answers, Portfolio, Projects, Link, Experience, User
 
 class CVForm(forms.ModelForm):
@@ -17,18 +18,60 @@ class BusinessForm(forms.ModelForm):
         fields = ['name']
 
 class OfferJobsForm(forms.ModelForm):
-    tags = forms.ModelMultipleChoiceField(
+    tags_select = forms.ModelMultipleChoiceField(
         queryset=TagBusiness.objects.all(),
-        widget=forms.CheckboxSelectMultiple # lub inny widget, np. forms.SelectMultiple
+        required=False,
+        widget=forms.CheckboxSelectMultiple
     )
-    category = forms.ModelMultipleChoiceField(
+
+    tags_input = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Wpisz nowe tagi, oddzielone przecinkami'
+        })
+    )
+
+    category = forms.ModelChoiceField(
         queryset=CategoryEmploy.objects.all(),
-        widget=forms.CheckboxSelectMultiple # lub inny widget, np. forms.SelectMultiple
+        widget=forms.Select
     )
 
     class Meta:
         model = OffersJob
-        fields = ['title', 'tags', 'category', 'file']
+        fields = ['title', 'category', 'file']  # tags nie jest bezpośrednio w Meta
+
+    def clean_tags_input(self):
+        input_tags = self.cleaned_data.get('tags_input', '')
+        tag_names = [t.strip() for t in input_tags.split(',') if t.strip()]
+        errors = []
+
+        for name in tag_names:
+            if TagBusiness.objects.filter(name__iexact=name).exists():
+                errors.append(f"Tag '{name}' już istnieje. Wybierz go z listy zamiast wpisywać.")
+
+        if errors:
+            raise ValidationError(errors)
+
+        return tag_names  # lista stringów, używana później w save()
+
+    def save(self, commit=True):
+        offer = super().save(commit=False)
+        if commit:
+            offer.save()
+
+        offer.tags.clear()
+
+        # dodanie tagów z listy
+        for tag in self.cleaned_data.get('tags_select', []):
+            offer.tags.add(tag)
+
+        # dodanie nowych tagów (przeszły już walidację)
+        new_tag_names = self.cleaned_data.get('tags_input', [])
+        for name in new_tag_names:
+            tag = TagBusiness.objects.create(name=name)
+            offer.tags.add(tag)
+
+        return offer
 
 class UpdateOfferJobUserForm(forms.ModelForm):
     class Meta:
@@ -43,18 +86,59 @@ class AddOfferJobUserForm(forms.ModelForm):
         fields = ['user']
 
 class CourseForm(forms.ModelForm):
-    category = forms.ModelMultipleChoiceField(
+    category = forms.ModelChoiceField(
         queryset=CategoryCourse.objects.all(),
-        widget=forms.CheckboxSelectMultiple # lub inny widget, np. forms.SelectMultiple
+        widget=forms.Select  # lub np. forms.RadioSelect
     )
-    tags = forms.ModelMultipleChoiceField(
+    tags_select = forms.ModelMultipleChoiceField(
         queryset=TagCourse.objects.all(),
-        widget=forms.CheckboxSelectMultiple # lub inny widget, np. forms.SelectMultiple
+        required=False,
+        widget=forms.CheckboxSelectMultiple
+    )
+
+    tags_input = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Wpisz nowe tagi, oddzielone przecinkami'
+        })
     )
 
     class Meta:
         model = Course
-        fields = ['title', 'tags', 'category']
+        fields = ['title', 'category']
+
+    def clean_tags_input(self):
+        input_tags = self.cleaned_data.get('tags_input', '')
+        tag_names = [t.strip() for t in input_tags.split(',') if t.strip()]
+        errors = []
+
+        for name in tag_names:
+            if TagCourse.objects.filter(name__iexact=name).exists():
+                errors.append(f"Tag '{name}' już istnieje. Wybierz go z listy zamiast wpisywać.")
+
+        if errors:
+            raise ValidationError(errors)
+
+        return tag_names  # lista stringów, używana później w save()
+
+    def save(self, commit=True):
+        offer = super().save(commit=False)
+        if commit:
+            offer.save()
+
+        offer.tags.clear()
+
+        # dodanie tagów z listy
+        for tag in self.cleaned_data.get('tags_select', []):
+            offer.tags.add(tag)
+
+        # dodanie nowych tagów (przeszły już walidację)
+        new_tag_names = self.cleaned_data.get('tags_input', [])
+        for name in new_tag_names:
+            tag = TagCourse.objects.create(name=name)
+            offer.tags.add(tag)
+
+        return offer
 
 class SubjectForm(forms.ModelForm):
     class Meta:
@@ -77,14 +161,55 @@ class AnswerForm(forms.ModelForm):
         fields = ['answer']
 
 class PortfolioForm(forms.ModelForm):
-    tags = forms.ModelMultipleChoiceField(
+    tags_select = forms.ModelMultipleChoiceField(
         queryset=TagPortfolio.objects.all(),
-        widget=forms.CheckboxSelectMultiple # lub inny widget, np. forms.SelectMultiple
+        required=False,
+        widget=forms.CheckboxSelectMultiple
+    )
+
+    tags_input = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Wpisz nowe tagi, oddzielone przecinkami'
+        })
     )
 
     class Meta:
         model = Portfolio
-        fields = ['tags', 'title']
+        fields = ['title']
+
+    def clean_tags_input(self):
+        input_tags = self.cleaned_data.get('tags_input', '')
+        tag_names = [t.strip() for t in input_tags.split(',') if t.strip()]
+        errors = []
+
+        for name in tag_names:
+            if TagPortfolio.objects.filter(name__iexact=name).exists():
+                errors.append(f"Tag '{name}' już istnieje. Wybierz go z listy zamiast wpisywać.")
+
+        if errors:
+            raise ValidationError(errors)
+
+        return tag_names  # lista stringów, używana później w save()
+
+    def save(self, commit=True):
+        offer = super().save(commit=False)
+        if commit:
+            offer.save()
+
+        offer.tags.clear()
+
+        # dodanie tagów z listy
+        for tag in self.cleaned_data.get('tags_select', []):
+            offer.tags.add(tag)
+
+        # dodanie nowych tagów (przeszły już walidację)
+        new_tag_names = self.cleaned_data.get('tags_input', [])
+        for name in new_tag_names:
+            tag = TagPortfolio.objects.create(name=name)
+            offer.tags.add(tag)
+
+        return offer
 
 class ProjectForm(forms.ModelForm):
     class Meta:
