@@ -117,7 +117,7 @@ class AddHRView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('add-offer-jobs')
+        return reverse('add_offer_jobs')
 
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
@@ -130,7 +130,7 @@ class AddHRView(LoginRequiredMixin, CreateView):
 class AddBusinessView(LoginRequiredMixin, CreateView):
     form_class = BusinessForm
     template_name = 'add_business.html'
-    success_url = reverse_lazy('add-hr')
+    success_url = reverse_lazy('add_hr')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -234,7 +234,7 @@ class UpdateOfferJobsUserView(LoginRequiredMixin, UpdateView):
 class AddCourseView(LoginRequiredMixin, CreateView):
     form_class = CourseForm
     template_name = 'add_course.html'
-    success_url = reverse_lazy('add-subject')
+    success_url = reverse_lazy('add_subject')
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -286,7 +286,7 @@ class DeleteCourseView(LoginRequiredMixin, DeleteView):
 class AddSubjectView(LoginRequiredMixin, CreateView):
     form_class = SubjectForm
     template_name = 'add_subject.html'
-    success_url = reverse_lazy('add-test')
+    success_url = reverse_lazy('add_test')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -338,7 +338,7 @@ class DeleteSubjectView(LoginRequiredMixin, DeleteView):
 class AddTestView(LoginRequiredMixin, CreateView):
     form_class = TestForm
     template_name = 'add_test.html'
-    success_url = reverse_lazy('add-question')
+    success_url = reverse_lazy('add_question')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -390,7 +390,7 @@ class DeleteTestView(LoginRequiredMixin, DeleteView):
 class AddQuestionView(LoginRequiredMixin, CreateView):
     form_class = QuestionForm
     template_name = 'add_question.html'
-    success_url = reverse_lazy('read-course')
+    success_url = reverse_lazy('subject_to_course_view')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -479,7 +479,7 @@ class AddAnswersView(LoginRequiredMixin, CreateView):
 class AddPortfolioView(LoginRequiredMixin, CreateView):
     form_class = PortfolioForm
     template_name = 'add_portfolio.html'
-    success_url = reverse_lazy('add-project')
+    success_url = reverse_lazy('portfolio_to_user_view')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -527,7 +527,7 @@ class AddProjectView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('add-link', kwargs={'portfolio_id': self.kwargs['portfolio_id']})
+        return reverse('my_portfolio_projects_view', kwargs={'portfolio_id': self.kwargs['portfolio_id']})
 
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
@@ -572,7 +572,7 @@ class AddLinkView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('read-portfolio')
+        return reverse('my_portfolio_links_view')
 
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
@@ -647,7 +647,7 @@ class UpdateCVView(LoginRequiredMixin, UpdateView):
 class AddExperienceView(LoginRequiredMixin, CreateView):
     form_class = ExperienceForm
     template_name = 'add_experience.html'
-    success_url = reverse_lazy('read-cv')
+    success_url = reverse_lazy('my_cv_experience_view')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
