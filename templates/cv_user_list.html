@@ -13,8 +13,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ cv.title }}</h5>
                             <p class="card-text">{{ cv.summary|truncatechars:150 }}</p>
-                            <a href="{% url 'cv-detail' user_pk=request.user.pk %}" class="btn btn-primary btn-sm">Zobacz szczegóły</a>
-                            <a href="{% url 'update-cv' cv_id=cv.id %}" class="btn btn-outline-secondary btn-sm">Edytuj</a>
+                            <a href="{% url 'update_cv' cv_id=cv.id %}" class="btn btn-outline-secondary btn-sm">Edytuj</a>
                         </div>
                     </div>
                 </div>
