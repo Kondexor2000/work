@@ -291,7 +291,6 @@ class AddSubjectView(LoginRequiredMixin, CreateView):
     template_name = 'add_subject.html'
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
         form.instance.course_id = self.kwargs['course_id']  # <-- ustawienie relacji z Course
         return super().form_valid(form)
 
@@ -346,7 +345,6 @@ class AddTestView(LoginRequiredMixin, CreateView):
     template_name = 'add_test.html'
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
         form.instance.subject_id = self.kwargs['subject_id']  # <-- ustawienie relacji z Subject
         return super().form_valid(form)
 
@@ -405,7 +403,6 @@ class AddQuestionView(LoginRequiredMixin, CreateView):
     template_name = 'add_question.html'
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
         form.instance.test_id = self.kwargs['test_id']  # <-- ustawienie relacji z Test
         return super().form_valid(form)
 
