@@ -4,7 +4,11 @@
 <h1>Subjects for "{{ course.title }}"</h1>
 <ul>
   {% for item in products %}
-    <li>{{ item }}</li>
+    <li>{{ item.title }}</li>
+    <li>{{ item.descrption }}</li>
+    {% if item.file %}
+      <li><img src="{{ item.file.url }}" alt="{{ item.title }}" style="max-width: 300px;" /></li>
+    {% endif %}
   {% empty %}
     <li>No items found.</li>
   {% endfor %}
