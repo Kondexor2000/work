@@ -231,14 +231,17 @@ class UpdateOfferJobsUserView(LoginRequiredMixin, UpdateView):
     
 # === COURSE ===
 
+
 class AddCourseView(LoginRequiredMixin, CreateView):
     form_class = CourseForm
     template_name = 'add_course.html'
-    success_url = reverse_lazy('add_subject')
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('add_subject', args=[self.object.id])
 
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
@@ -286,11 +289,14 @@ class DeleteCourseView(LoginRequiredMixin, DeleteView):
 class AddSubjectView(LoginRequiredMixin, CreateView):
     form_class = SubjectForm
     template_name = 'add_subject.html'
-    success_url = reverse_lazy('add_test')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        form.instance.course_id = self.kwargs['course_id']  # <-- ustawienie relacji z Course
         return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('add_test', args=[self.kwargs['course_id'], self.object.id])
 
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
@@ -338,11 +344,18 @@ class DeleteSubjectView(LoginRequiredMixin, DeleteView):
 class AddTestView(LoginRequiredMixin, CreateView):
     form_class = TestForm
     template_name = 'add_test.html'
-    success_url = reverse_lazy('add_question')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        form.instance.subject_id = self.kwargs['subject_id']  # <-- ustawienie relacji z Subject
         return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('add_question', args=[
+            self.kwargs['course_id'],
+            self.kwargs['subject_id'],
+            self.object.id
+        ])
 
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
@@ -390,11 +403,14 @@ class DeleteTestView(LoginRequiredMixin, DeleteView):
 class AddQuestionView(LoginRequiredMixin, CreateView):
     form_class = QuestionForm
     template_name = 'add_question.html'
-    success_url = reverse_lazy('subject_to_course_view')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        form.instance.test_id = self.kwargs['test_id']  # <-- ustawienie relacji z Test
         return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('subject_to_course_view')  # jeśli nie potrzebujesz ID, może zostać
 
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
