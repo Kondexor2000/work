@@ -476,9 +476,9 @@ class AddAnswersView(LoginRequiredMixin, CreateView):
 
         next_question = Questions.objects.filter(test=test, id__gt=question.id).order_by('id').first()
         if next_question:
-            return redirect('answer-question', course_id=test.subject.course.id, subject_id=test.subject.id, test_id=test.id, question_id=next_question.id)
+            return redirect('answer_question', course_id=test.subject.course.id, subject_id=test.subject.id, test_id=test.id, question_id=next_question.id)
         else:
-            return redirect('test-summary', test_id=test.id)
+            return redirect('search_stores', test_id=test.id)
 
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
