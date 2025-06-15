@@ -96,7 +96,7 @@ class Certificate(models.Model):
 
 class Test(models.Model):
     title = models.CharField(max_length=255)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, null=True, blank=True)
     is_finish = models.BooleanField(default=False)
 
     def __str__(self):
