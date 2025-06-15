@@ -158,7 +158,7 @@ class QuestionForm(forms.ModelForm):
 class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answers
-        fields = ['answer']
+        fields = ['answer', 'question']
 
 class PortfolioForm(forms.ModelForm):
     tags_select = forms.ModelMultipleChoiceField(
