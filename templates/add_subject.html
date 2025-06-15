@@ -2,7 +2,7 @@
 {% block title %}Dodaj Przedmiot{% endblock %}
 {% block content %}
 <h2>Dodaj Przedmiot</h2>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Zapisz</button>
