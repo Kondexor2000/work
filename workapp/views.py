@@ -978,7 +978,7 @@ def search_stores(request, subject_id):
         logger.error(f"Error processing certificate for user {request.user}: {e}")
         return HttpResponse("An error occurred while processing your request.", status=500)
 
-    return render(request, template_name, {'products': products})
+    return render(request, template_name, {'products': products, 'test_score': test_score})
 
 @transaction.atomic
 def test_score_to_user_view(request):

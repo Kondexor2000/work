@@ -29,6 +29,9 @@
     {% else %}
         <div class="alert alert-warning mt-4">
             <strong>Brak certyfikatu.</strong> Musisz najpierw ukończyć testy i osiągnąć wymagany wynik.
+            {% for certificate in test_score %}
+                <strong>{{ certificate.score }}</strong>
+            {% endfor %}
         </div>
     {% endif %}
 </div>
