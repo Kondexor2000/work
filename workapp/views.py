@@ -945,7 +945,7 @@ def test_to_question_view(request, test_id):
 
 @transaction.atomic
 @login_required
-def search_stores(request, id_course):
+def search_stores(request, course_id):
     template_name = 'course_cert_generate.html'
 
     if not check_template(template_name, request):
@@ -953,7 +953,7 @@ def search_stores(request, id_course):
         return HttpResponseNotFound("Template not found.")
 
     try:
-        course = get_object_or_404(Course, id=id_course)
+        course = get_object_or_404(Course, id=course_id)
         tests = Test.objects.filter(course=course)
         test_score = TestScore.objects.filter(user=request.user, test__in=tests).order_by('-id').first()
 
