@@ -166,6 +166,12 @@ class AddOfferJobsView(LoginRequiredMixin, CreateView):
         if not check_template(self.template_name, request):
             return HttpResponse("Brak pliku .html")
         return super().dispatch(request, *args, **kwargs)
+    
+    def get_success_url(self):
+        return reverse('add_offer_jobs', kwargs={
+            'business_id': self.kwargs.get('business_id'),
+            'hr_id': self.object.pk,
+        })
 
 
 class DeleteOffersJobsView(LoginRequiredMixin, DeleteView):
