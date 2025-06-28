@@ -689,6 +689,8 @@ class AddExperienceView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('my_cv_experience_view')
 
     def form_valid(self, form):
+        cv = self.kwargs.get('cv_id')
+        form.instance.cv = cv
         form.instance.user = self.request.user
         return super().form_valid(form)
 
