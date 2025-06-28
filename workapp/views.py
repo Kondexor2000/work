@@ -132,6 +132,9 @@ class AddBusinessView(LoginRequiredMixin, CreateView):
     template_name = 'add_business.html'
     success_url = reverse_lazy('add_hr')
 
+    def get_success_url(self):
+        return reverse('add_hr', args=[self.object.id])
+
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
@@ -622,6 +625,9 @@ class AddCVView(LoginRequiredMixin, CreateView):
     form_class = CVForm
     template_name = 'add_cv.html'
     success_url = reverse_lazy('add_experience')
+
+    def get_success_url(self):
+        return reverse('add_experience', args=[self.object.id])
 
     def form_valid(self, form):
         form.instance.user = self.request.user
