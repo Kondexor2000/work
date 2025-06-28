@@ -123,7 +123,9 @@ class AddHRView(LoginRequiredMixin, CreateView):
         return response
 
     def get_success_url(self):
-        return reverse('add_offer_jobs')
+        business_id = self.kwargs.get('business_id')
+        hr_id = self.object.id
+        return reverse('add_offer_jobs', kwargs={'business_id': business_id, 'hr_id': hr_id})
 
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
