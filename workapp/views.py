@@ -111,7 +111,7 @@ class AddHRView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         business_id = self.kwargs.get('business_id')
-        business = get_object_or_404(Business, id=business_id, user=self.request.user)
+        business = get_object_or_404(Business, id=business_id)
         form.instance.user = self.request.user
         form.instance.business = business
         return super().form_valid(form)
