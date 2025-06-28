@@ -156,22 +156,31 @@ class AddBusinessView(LoginRequiredMixin, CreateView):
 class AddOfferJobsView(LoginRequiredMixin, CreateView):
     form_class = OfferJobsForm
     template_name = 'add_offer_jobs.html'
-    success_url = reverse_lazy('search_portfolio')
 
     def form_valid(self, form):
+        business_id = self.kwargs.get('business_id')
+        hr_id = self.kwargs.get('hr_id')
+
+        business = get_object_or_404(Business, id=business_id)
+        hr = get_object_or_404(HR, id=hr_id, user=self.request.user)
+
         form.instance.user = self.request.user
+        form.instance.business = business  # assuming ForeignKey
+        form.instance.hr = hr  # assuming ForeignKey
+
         return super().form_valid(form)
+
+    def get_success_url(self):
+        # Redirect to the same add offer page (for multiple entries)
+        return reverse('add_offer_jobs', kwargs={
+            'business_id': self.kwargs.get('business_id'),
+            'hr_id': self.kwargs.get('hr_id'),
+        })
 
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
             return HttpResponse("Brak pliku .html")
         return super().dispatch(request, *args, **kwargs)
-    
-    def get_success_url(self):
-        return reverse('add_offer_jobs', kwargs={
-            'business_id': self.kwargs.get('business_id'),
-            'hr_id': self.object.pk,
-        })
 
 
 class DeleteOffersJobsView(LoginRequiredMixin, DeleteView):
