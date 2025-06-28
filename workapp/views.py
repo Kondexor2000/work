@@ -113,8 +113,14 @@ class AddHRView(LoginRequiredMixin, CreateView):
         business_id = self.kwargs.get('business_id')
         business = get_object_or_404(Business, id=business_id)
         form.instance.user = self.request.user
-        form.instance.business = business
-        return super().form_valid(form)
+
+        # save first to get the HR instance with a primary key
+        response = super().form_valid(form)
+
+        # now set the many-to-many relation
+        form.instance.business.set([business])
+
+        return response
 
     def get_success_url(self):
         return reverse('add_offer_jobs')
