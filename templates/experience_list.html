@@ -14,10 +14,6 @@
                     <small>Od: {{ experience.start_date }} &nbsp;–&nbsp;
                         {% if experience.end_date %}Do: {{ experience.end_date }}{% else %}Obecnie{% endif %}
                     </small>
-                    <div class="mt-2">
-                        <a href="{% url 'update_experience' experience.id %}" class="btn btn-sm btn-outline-secondary">Edytuj</a>
-                        <a href="{% url 'delete_experience' experience.id %}" class="btn btn-sm btn-outline-danger">Usuń</a>
-                    </div>
                 </div>
             {% endfor %}
         </div>
