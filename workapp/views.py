@@ -158,24 +158,21 @@ class AddOfferJobsView(LoginRequiredMixin, CreateView):
     template_name = 'add_offer_jobs.html'
 
     def form_valid(self, form):
-        if HR.objects.filter(user=self.request.user).exists():
-            form.add_error(None, "You already have an HR profile.")
-            return self.form_invalid(form)
-
         business_id = self.kwargs.get('business_id')
+        hr_id = self.kwargs.get('hr_id')
+
         business = get_object_or_404(Business, id=business_id)
+        hr = get_object_or_404(HR, id=hr_id, user=self.request.user)
 
         form.instance.user = self.request.user
-        response = super().form_valid(form)
-        form.instance.business.set([business])
-        return response
+        form.instance.business = business  # assuming ForeignKey or ManyToMany handled in model
+        form.instance.hr = hr  # assuming ForeignKey to HR in OfferJobs model
+
+        return super().form_valid(form)
 
     def get_success_url(self):
-        # Redirect to the same add offer page (for multiple entries)
-        return reverse('add_offer_jobs', kwargs={
-            'business_id': self.kwargs.get('business_id'),
-            'hr_id': self.kwargs.get('hr_id'),
-        })
+        # Redirect wherever you want after creating an OfferJob
+        return reverse('search_portfolio')
 
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
