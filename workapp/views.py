@@ -755,7 +755,7 @@ class UpdateExperienceView(LoginRequiredMixin, UpdateView):
         return get_object_or_404(Experience, id=experience_id, cv=cv_id, cv__user=self.request.user)
 
     def get_success_url(self):
-        return reverse('my_cv_experience_view', kwargs={'user_pk': self.request.user.pk})
+        return reverse('my_cv_experience_view')
 
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
