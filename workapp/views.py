@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.shortcuts import redirect, render
 from django.template.loader import get_template
+from django.contrib.auth import login
 from django.template import TemplateDoesNotExist
 import logging
 from django.http import HttpResponse, Http404, HttpResponseNotFound
@@ -44,6 +45,7 @@ class SignUpView(CreateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
+        login(self.request, self.object)
         messages.success(self.request, "Registration successful. Please log in.")
         return response
 
