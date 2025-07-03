@@ -15,6 +15,7 @@
                         {% if experience.end_date %}Do: {{ experience.end_date }}{% else %}Obecnie{% endif %}
                     </small>
                 </div>
+                <a href="{% url 'update_experience' cv_id=cexperience.cv.id experience_id=experience.id %}">Edytuj doświadczenie</a>
             {% endfor %}
         </div>
     {% else %}

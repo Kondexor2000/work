@@ -8,7 +8,15 @@
 <h2>Portfolios</h2>
 <ul>
   {% for item in portfolios %}
-    <li>{{ item.title }}</li>
+    <li>
+      {{ item.title }}
+      <a href="{% url 'portfolio_projects_view' portfolio_id=item.id %}">
+        <button type="button">Projects</button>
+      </a>
+      <a href="{% url 'portfolio_links_view' portfolio_id=item.id %}">
+        <button type="button">Links</button>
+      </a>
+    </li>
   {% endfor %}
 </ul>
 <h2>Tags</h2>

@@ -7,4 +7,22 @@
     {{ form.as_p }}
     <button type="submit">Zapisz zmiany</button>
 </form>
+<a href="{% url 'update_subject' course_id=course.id subject_id=subject.id %}">
+    <button type="button">Edytuj tematy</button>
+</a>
+<a href="{% url 'delete_subject' course_id=course.id subject_id=subject.id %}">
+    <button type="button">Usuń tematy</button>
+</a>
+<a href="{% url 'update_test' course_id=course.id subject_id=subject.id test_id=test.id %}">
+    <button type="button">Edytuj testy</button>
+</a>
+<a href="{% url 'delete_test' course_id=course.id subject_id=subject.id test_id=test.id %}">
+    <button type="button">Usuń testy</button>
+</a>
+<a href="{% url 'update_question' course_id=course.id subject_id=subject.id test_id=test.id question_id=question.id %}">
+    <button type="button">Edytuj pytania</button>
+</a>
+<a href="{% url 'delete_question' course_id=course.id subject_id=subject.id test_id=test.id question_id=question.id %}">
+    <button type="button">Usuń pytania</button>
+</a>
 {% endblock %}

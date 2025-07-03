@@ -32,14 +32,14 @@ def check_template(template_name, request):
 class SignUpView(CreateView):
     form_class = UserCreationForm
     template_name = 'signup.html'
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('index')
 
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
             return HttpResponse("Template not found.")
         if request.user.is_authenticated:
             messages.info(request, "You are already registered and logged in.")
-            return redirect('add-post')
+            return redirect('index')
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
@@ -94,7 +94,7 @@ class CustomLoginView(LoginView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('add_course')
+        return reverse_lazy('index')
 
 class CustomLogoutView(LoginRequiredMixin, LogoutView):
     next_page = 'login'
@@ -131,6 +131,24 @@ class AddHRView(LoginRequiredMixin, CreateView):
         if not check_template(self.template_name, request):
             return HttpResponse("Brak pliku .html")
         return super().dispatch(request, *args, **kwargs)
+    
+class UpdateHRView(LoginRequiredMixin, UpdateView):
+    model = HR
+    form_class = HRForm
+    template_name = 'update_hr.html'
+
+    def get_object(self, queryset=None):
+        hr_id = self.kwargs.get('hr_id')
+        business_id = self.kwargs.get('business_id')
+        return get_object_or_404(HR, id=hr_id, business=business_id, user=self.request.user)
+
+    def get_success_url(self):
+        return reverse('subject_to_test_view', kwargs={'user_pk': self.request.user.pk})
+
+    def dispatch(self, request, *args, **kwargs):
+        if not check_template(self.template_name, request):
+            return HttpResponse("Brak pliku .html")
+        return super().dispatch(request, *args, **kwargs)
 
 
 # === Business ===
@@ -146,6 +164,23 @@ class AddBusinessView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+    def dispatch(self, request, *args, **kwargs):
+        if not check_template(self.template_name, request):
+            return HttpResponse("Brak pliku .html")
+        return super().dispatch(request, *args, **kwargs)
+    
+class UpdateBusinessView(LoginRequiredMixin, UpdateView):
+    model = Business
+    form_class = BusinessForm
+    template_name = 'update_business.html'
+
+    def get_object(self, queryset=None):
+        business_id = self.kwargs.get('business_id')
+        return get_object_or_404(Business, id=business_id)
+
+    def get_success_url(self):
+        return reverse('subject_to_test_view', kwargs={'user_pk': self.request.user.pk})
 
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
@@ -235,7 +270,7 @@ class UpdateOfferJobsUserView(LoginRequiredMixin, UpdateView):
 
     def get_object(self, queryset=None):
         offers_job_id = self.kwargs.get('offers_job_id')
-        return get_object_or_404(OffersJobUser, offer__id=offers_job_id, user=self.request.user)
+        return get_object_or_404(OffersJobUser, offer=offers_job_id, user=self.request.user)
 
     def get_success_url(self):
         return reverse('search_offers_job', kwargs={'user_pk': self.request.user.pk})
@@ -332,8 +367,9 @@ class UpdateSubjectView(LoginRequiredMixin, UpdateView):
     template_name = 'update_subject.html'
 
     def get_object(self, queryset=None):
+        course_id = self.kwargs.get('course_id')
         subject_id = self.kwargs.get('subject_id')
-        return get_object_or_404(Subject, id=subject_id, user=self.request.user)
+        return get_object_or_404(Subject, id=subject_id, course=course_id, user=self.request.user)
 
     def get_success_url(self):
         return reverse('subject_to_test_view', kwargs={'user_pk': self.request.user.pk})
@@ -349,8 +385,9 @@ class DeleteSubjectView(LoginRequiredMixin, DeleteView):
     template_name = 'delete_subject.html'
 
     def get_object(self, queryset=None):
+        course_id = self.kwargs.get('course_id')
         subject_id = self.kwargs.get('subject_id')
-        return get_object_or_404(Subject, id=subject_id, user=self.request.user)
+        return get_object_or_404(Subject, id=subject_id, course=course_id, user=self.request.user)
 
     def get_success_url(self):
         return reverse('add_subject', kwargs={'user_pk': self.request.user.pk})
@@ -390,8 +427,9 @@ class UpdateTestView(LoginRequiredMixin, UpdateView):
     template_name = 'update_test.html'
 
     def get_object(self, queryset=None):
+        subject_id = self.kwargs.get('subject_id')
         test_id = self.kwargs.get('test_id')
-        return get_object_or_404(Test, id=test_id, user=self.request.user)
+        return get_object_or_404(Test, id=test_id, subject=subject_id, user=self.request.user)
 
     def get_success_url(self):
         return reverse('test_to_question_view', kwargs={'user_pk': self.request.user.pk})
@@ -407,8 +445,9 @@ class DeleteTestView(LoginRequiredMixin, DeleteView):
     template_name = 'delete_test.html'
 
     def get_object(self, queryset=None):
+        subject_id = self.kwargs.get('subject_id')
         test_id = self.kwargs.get('test_id')
-        return get_object_or_404(Test, id=test_id, user=self.request.user)
+        return get_object_or_404(Test, id=test_id, subject=subject_id, user=self.request.user)
 
     def get_success_url(self):
         return reverse('add_test', kwargs={'user_pk': self.request.user.pk})
@@ -444,8 +483,9 @@ class UpdateQuestionView(LoginRequiredMixin, UpdateView):
     template_name = 'update_question.html'
 
     def get_object(self, queryset=None):
+        test_id = self.kwargs.get('test_id')
         question_id = self.kwargs.get('question_id')
-        return get_object_or_404(Questions, id=question_id, user=self.request.user)
+        return get_object_or_404(Questions, id=question_id, test=test_id, user=self.request.user)
 
     def get_success_url(self):
         return reverse('test_to_question_view', kwargs={'user_pk': self.request.user.pk})
@@ -461,8 +501,9 @@ class DeleteQuestionView(LoginRequiredMixin, DeleteView):
     template_name = 'delete_question.html'
 
     def get_object(self, queryset=None):
+        test_id = self.kwargs.get('test_id')
         question_id = self.kwargs.get('question_id')
-        return get_object_or_404(Questions, id=question_id, user=self.request.user)
+        return get_object_or_404(Questions, id=question_id, test=test_id, user=self.request.user)
 
     def get_success_url(self):
         return reverse('add_question', kwargs={'user_pk': self.request.user.pk})
@@ -579,7 +620,7 @@ class UpdateProjectView(LoginRequiredMixin, UpdateView):
     def get_object(self, queryset=None):
         portfolio_id = self.kwargs.get('portfolio_id')
         project_id = self.kwargs.get('project_id')
-        return get_object_or_404(Projects, id=project_id, portfolio__id=portfolio_id, portfolio__user=self.request.user)
+        return get_object_or_404(Projects, id=project_id, portfolio=portfolio_id, portfolio__user=self.request.user)
 
     def get_success_url(self):
         return reverse('my_portfolio_projects_view', kwargs={'user_pk': self.request.user.pk})
@@ -624,7 +665,7 @@ class UpdateLinkView(LoginRequiredMixin, UpdateView):
     def get_object(self, queryset=None):
         portfolio_id = self.kwargs.get('portfolio_id')
         link_id = self.kwargs.get('link_id')
-        return get_object_or_404(Link, id=link_id, portfolio__id=portfolio_id, portfolio__user=self.request.user)
+        return get_object_or_404(Link, id=link_id, portfolio=portfolio_id, portfolio__user=self.request.user)
 
     def get_success_url(self):
         return reverse('my_portfolio_links_view', kwargs={'user_pk': self.request.user.pk})
@@ -708,7 +749,8 @@ class UpdateExperienceView(LoginRequiredMixin, UpdateView):
 
     def get_object(self, queryset=None):
         cv_id = self.kwargs.get('cv_id')
-        return get_object_or_404(Experience, id=cv_id, cv__user=self.request.user)
+        experience_id = self.kwargs.get('experience_id')
+        return get_object_or_404(Experience, id=experience_id, cv=cv_id, cv__user=self.request.user)
 
     def get_success_url(self):
         return reverse('my_cv_experience_view', kwargs={'user_pk': self.request.user.pk})
@@ -793,6 +835,36 @@ def accepted_offers_job_user(request):
         return HttpResponse("An error occurred while retrieving categories.", status=500)
     
     return render(request, template_name, {'products': products})
+
+@transaction.atomic
+def offer_jobs_id(request, business_id, hr_id):
+    template_name = 'offer_jobs_id.html'
+    if not check_template(template_name, request):
+        logger.warning(f"Template '{template_name}' not found for user {request.user}.")
+        return HttpResponseNotFound("Template not found.")
+
+    try:
+        products = OffersJob.objects.filter(business=business_id, hr=hr_id)
+    except Exception as e:
+        products = []
+        return HttpResponse("An error occurred while retrieving categories.", status=500)
+    
+    return render(request, template_name, {'products': products})
+
+@transaction.atomic
+def offer_jobs_id_one(request, business_id, hr_id, offer_id):
+    template_name = 'offer_jobs_id_one.html'
+    if not check_template(template_name, request):
+        logger.warning(f"Template '{template_name}' not found for user {request.user}.")
+        return HttpResponseNotFound("Template not found.")
+
+    try:
+        product = get_object_or_404(OffersJob, business=business_id, hr=hr_id, id=offer_id)
+    except Exception as e:
+        logger.error(f"Error retrieving offer: {e}")
+        return HttpResponse("An error occurred while retrieving the offer.", status=500)
+
+    return render(request, template_name, {'product': product})
 
 @transaction.atomic
 def offers_job_user(request):
@@ -1084,6 +1156,23 @@ def cv_to_user_view(request):
 
     try:
         products = CV.objects.filter(user=request.user)
+        logger.info(f"Products retrieved successfully for user {request.user}.")
+    except Exception as e:
+        logger.error(f"Error retrieving categories for user {request.user}: {e}")
+        products = []
+        return HttpResponse("An error occurred while retrieving categories.", status=500)
+    
+    return render(request, template_name, {'products': products})
+
+@transaction.atomic
+def course_user(request):
+    template_name = 'course_user.html'
+    if not check_template(template_name, request):
+        logger.warning(f"Template '{template_name}' not found for user {request.user}.")
+        return HttpResponseNotFound("Template not found.")
+
+    try:
+        products = Course.objects.filter(author=request.user)
         logger.info(f"Products retrieved successfully for user {request.user}.")
     except Exception as e:
         logger.error(f"Error retrieving categories for user {request.user}: {e}")

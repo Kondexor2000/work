@@ -6,4 +6,5 @@
     <li>{{ item.title }}</li>
   {% endfor %}
 </ul>
+<a href="{% url 'update_cv' cv_id=cv.id %}">Edytuj CV</a>
 {% endblock %}

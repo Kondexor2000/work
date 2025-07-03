@@ -17,6 +17,7 @@
                         </div>
                     </div>
                 </div>
+                <a href="{% url 'update_cv' cv_id=cv.id %}">Edytuj CV</a>
             {% endfor %}
         </div>
     {% else %}

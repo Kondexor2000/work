@@ -1,18 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Search Job Offers</h1>
-<form method="get">
-  <input type="text" name="q" placeholder="Search offers..." value="{{ query }}">
-  <button type="submit">Search</button>
-</form>
+<h1>Your Job Offers</h1>
 <ul>
   {% for offer in products %}
-    <li>{{ offer.title }}</li>
+    <li>{{ offer.title - offer.business - offer.category }}</li>
     <a href="{% url 'read_offer_jobs_one' offer_id=offer.id business_id=offer.business.id hr_id=offer.hr.id %}">
         <button type="button">Szczegóły</button>
     </a>
   {% empty %}
-    <li>No offers found.</li>
+    <li>No offers available.</li>
   {% endfor %}
 </ul>
 {% endblock %}

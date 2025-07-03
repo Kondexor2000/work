@@ -4,6 +4,9 @@
 <ul>
   {% for item in products %}
     <li>{{ item.title }}</li>
+    <a href="{% url 'portfolio_projects_view' portfolio_id=item.id %}">Moje projekty</a>
+    <a href="{% url 'portfolio_links_view' portfolio_id=item.id %}">Moje linki</a>
   {% endfor %}
 </ul>
+<a href="{% url 'update_portfolio' portfolio_id=portfolio.id %}">Edytuj portfolio</a>
 {% endblock %}
