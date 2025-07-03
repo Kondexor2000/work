@@ -7,5 +7,10 @@
   {% empty %}
     <li>No businesses found.</li>
   {% endfor %}
+  {% for hri in hr %}
+    <li>{{ business.name }}</li>
+  {% empty %}
+    <li>No businesses found.</li>
+  {% endfor %}
 </ul>
 {% endblock %}

@@ -63,6 +63,7 @@ urlpatterns = [
     path('index', accepted_offers_job_user, name='index'),
     path('course/user/', course_user, name='course_user'),
     path('offers_job/user/', offers_job_user, name='offers_job_user'),
+    path('offers_job/user/created', offers_job_created_by_user, name='offers_job_created_by_user'),
     path('hr/business/', hr_to_business_view, name='hr_to_business_view'),
     path('category/employ/', category_employ_view, name='category_employ_view'),
     path('category/course/', category_course_view, name='category_course_view'),
