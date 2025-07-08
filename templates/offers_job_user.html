@@ -4,6 +4,7 @@
 <ul>
   {% for offer in products %}
     <li>{{ offer.job.title }} - Accepted: {{ offer.is_accept }}</li>
+    <a href="{% url 'update_offer_jobs_user' offers_job_id=offer.id %}">Zaakceptuj</a>
   {% empty %}
     <li>No offers available.</li>
   {% endfor %}

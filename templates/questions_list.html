@@ -4,6 +4,15 @@
 <ul>
   {% for item in products %}
     <li>{{ item }}</li>
+    {% if item.test.subject.course.author = request.user %}
+      <a href="{% url 'update_question' question_id=item.id %}">
+          <button type="button">Edytuj pytania</button>
+      </a>
+      <a href="{% url 'delete_question' question_id=item.id %}">
+          <button type="button">Usuń pytania</button>
+    {% else %}
+      <a href="{% url 'answer_question_user' question_id=item.id %}">Zapisane odpowiedzi</a>
+    {% endif %}
   {% empty %}
     <li>No items found.</li>
   {% endfor %}

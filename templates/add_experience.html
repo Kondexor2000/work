@@ -1,12 +1,41 @@
 {% extends 'base.html' %}
-
-{% block title %}Dodaj Doświadczenie{% endblock %}
-
 {% block content %}
-<h2>Dodaj Doświadczenie</h2>
+<h2>Dodaj doświadczenie</h2>
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Zapisz</button>
+    {{ formset.management_form }}
+    <div id="formset">
+        {% for form in formset %}
+            <div class="question-form">
+                {{ form.as_p }}
+            </div>
+        {% endfor %}
+    </div>
+    <button type="button" id="add-more">Dodaj kolejne doświadczenie</button>
+    <button type="submit">Zapisz doświadczenie</button>
 </form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let totalForms = document.getElementById('id_form-TOTAL_FORMS');
+    let formContainer = document.getElementById('formset');
+    let addButton = document.getElementById('add-more');
+
+    addButton.addEventListener('click', function() {
+        let formCount = parseInt(totalForms.value);
+        let newForm = formContainer.children[0].cloneNode(true);
+        newForm.querySelectorAll('input').forEach(function(input) {
+            input.value = '';
+        });
+        newForm.querySelectorAll('[name]').forEach(function(element) {
+            element.name = element.name.replace(/-\d+-/, '-' + formCount + '-');
+        });
+        newForm.querySelectorAll('[id]').forEach(function(element) {
+            element.id = element.id.replace(/-\d+-/, '-' + formCount + '-');
+        });
+        formContainer.appendChild(newForm);
+        totalForms.value = formCount + 1;
+    });
+});
+</script>
 {% endblock %}

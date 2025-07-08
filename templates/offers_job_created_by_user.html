@@ -4,6 +4,7 @@
 <ul>
   {% for offer in products %}
     <li>{{ offer.title - offer.business - offer.category }}</li>
+    <a href="{% url 'add_offer_jobs_user' offers_job_id=offer.id %}">Zaproś kandydatów</a>
   {% empty %}
     <li>No offers available.</li>
   {% endfor %}

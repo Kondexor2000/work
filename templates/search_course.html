@@ -14,6 +14,12 @@
     </a>
   {% endfor %}
 </ul>
+<a href="{% url 'course_to_certificate_view' %}">
+    <button type="button">Certyfikaty</button>
+</a>
+<a href="{% url 'test_score_to_user_view' %}">
+    <button type="button">Wyniki testów</button>
+</a>
 <h2>Tags</h2>
 <ul>
   {% for tag in tags %}

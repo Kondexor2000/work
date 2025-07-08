@@ -9,6 +9,15 @@
     {% if item.file %}
       <li><img src="{{ item.file.url }}" alt="{{ item.title }}" style="max-width: 300px;" /></li>
     {% endif %}
+    {% if item.course.author = request.user %}
+      <a href="{% url 'subject_to_test_view' subject_id=item.id %}">Test</a>
+      <a href="{% url 'update_subject' subject_id=item.id %}">
+          <button type="button">Edytuj temat</button>
+      </a>
+      <a href="{% url 'delete_subject' subject_id=item.id %}">
+          <button type="button">Usuń temat</button>
+    {% else %}
+      <a href="{% url 'subject_to_test_view' subject_id=item.id %}">Test</a>
   {% empty %}
     <li>No items found.</li>
   {% endfor %}

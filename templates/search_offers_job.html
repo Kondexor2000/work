@@ -5,11 +5,17 @@
   <input type="text" name="q" placeholder="Search offers..." value="{{ query }}">
   <button type="submit">Search</button>
 </form>
+<a href="{% url 'read_offer_jobs' %}">
+      <button type="button">Proponowane oferty pracy</button>
+</a>
 <ul>
   {% for offer in products %}
     <li>{{ offer.title }}</li>
     <a href="{% url 'read_offer_jobs_one' offer_id=offer.id business_id=offer.business.id hr_id=offer.hr.id %}">
         <button type="button">Szczegóły</button>
+    </a>
+    <a href="{% url 'offer_user_to_hr' offer_id=offer.id %}">
+        <button type="button">Aplikuj</button>
     </a>
   {% empty %}
     <li>No offers found.</li>

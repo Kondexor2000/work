@@ -1,5 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from django.forms import modelformset_factory
 from .models import CV, HR, Business, TagBusiness, TagCourse, TagPortfolio, Test, CategoryCourse, CategoryEmploy, OffersJob,OffersJobUser, Course, Subject, Questions, Answers, Portfolio, Projects, Link, Experience, User
 
 class CVForm(forms.ModelForm):
@@ -154,6 +155,41 @@ class QuestionForm(forms.ModelForm):
     class Meta:
         model = Questions
         fields = ['question', 'correct']
+
+QuestionFormSet = modelformset_factory(
+    Questions,
+    fields=['question', 'correct'],
+    extra=1,   # startowo 1 pusty formularz
+    can_delete=True  # pozwala usuwać formularze
+)
+
+SubjectFormSet = modelformset_factory(
+    Subject,
+    fields=['title', 'description', 'file'],
+    extra=1,   # startowo 1 pusty formularz
+    can_delete=True  # pozwala usuwać formularze
+)
+
+ProjectsFormSet = modelformset_factory(
+    Projects,
+    fields=['title', 'file'],
+    extra=1,   # startowo 1 pusty formularz
+    can_delete=True  # pozwala usuwać formularze
+)
+
+LinkFormSet = modelformset_factory(
+    Link,
+    fields=['url'],
+    extra=1,   # startowo 1 pusty formularz
+    can_delete=True  # pozwala usuwać formularze
+)
+
+ExperienceFormSet = modelformset_factory(
+    Experience,
+    fields=['company', 'position'],
+    extra=1,   # startowo 1 pusty formularz
+    can_delete=True  # pozwala usuwać formularze
+)
 
 class AnswerForm(forms.ModelForm):
     class Meta:

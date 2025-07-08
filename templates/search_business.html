@@ -9,7 +9,10 @@
   {% for item in products %}
     <li>{{ item.title }}</li>
     <a href="{% url 'read_offer_jobs' business_id=item.business.id hr_id=item.hr.id %}">
-        <button type="button">Szczegóły</button>
+        <button type="button">Oferty Pracy</button>
+    </a>
+    <a href="{% url 'hr_to_business_view' business_id=item.business.id %}">
+        <button type="button">Dane rekrutera</button>
     </a>
   {% empty %}
     <li>No businesses or tags found.</li>

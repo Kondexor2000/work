@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Edytuj Aplikację{% endblock %}
 {% block content %}
-<h2>Edytuj swoją aplikację</h2>
+<h2>Czy na pewno chcesz zaakceptować zaproszenie do aplikowania na ofertę pracy?</h2>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
