@@ -2,10 +2,6 @@
 {% block content %}
 <h1>Your Job Offers</h1>
 <ul>
-  {% for offer in products %}
-    <li>{{ offer.title }} - {{ offer.business }} - {{ offer.category }}</li>
-  {% empty %}
-    <li>No offers available.</li>
-  {% endfor %}
+  <li>{{ offer.title }} - {{ offer.business }} - {{ offer.category }}</li>
 </ul>
 {% endblock %}
