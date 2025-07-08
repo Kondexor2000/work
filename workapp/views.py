@@ -361,7 +361,7 @@ class AddSubjectView(LoginRequiredMixin, CreateView):
             for instance in formset.save(commit=False):
                 instance.course_id = course_id
                 instance.save()
-            return redirect(reverse('add_test'))
+            return redirect(reverse('subject_to_course_view'))
         return render(request, self.template_name, {'formset': formset})
 
 

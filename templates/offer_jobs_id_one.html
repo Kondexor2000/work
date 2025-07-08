@@ -3,7 +3,7 @@
 <h1>Your Job Offers</h1>
 <ul>
   {% for offer in products %}
-    <li>{{ offer.title - offer.business - offer.category }}</li>
+    <li>{{ offer.title }} - {{ offer.business }} - {{ offer.category }}</li>
   {% empty %}
     <li>No offers available.</li>
   {% endfor %}

@@ -12,5 +12,8 @@
   {% empty %}
     <li>No businesses found.</li>
   {% endfor %}
+  <a href="{% url 'read_offer_jobs' business_id=business.id hr_id=hri.id%}">
+      <button type="button">Proponowane oferty pracy</button>
+</a>
 </ul>
 {% endblock %}

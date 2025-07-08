@@ -9,8 +9,11 @@
     {% if item.file %}
       <li><img src="{{ item.file.url }}" alt="{{ item.title }}" style="max-width: 300px;" /></li>
     {% endif %}
-    {% if item.course.author = request.user %}
+    {% if item.course.author == request.user %}
       <a href="{% url 'subject_to_test_view' subject_id=item.id %}">Test</a>
+      <a href="{% url 'add_test' subject_id=item.id %}">
+          <button type="button">Dodaj test</button>
+      </a>
       <a href="{% url 'update_subject' subject_id=item.id %}">
           <button type="button">Edytuj temat</button>
       </a>

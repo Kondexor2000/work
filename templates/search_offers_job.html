@@ -5,9 +5,6 @@
   <input type="text" name="q" placeholder="Search offers..." value="{{ query }}">
   <button type="submit">Search</button>
 </form>
-<a href="{% url 'read_offer_jobs' %}">
-      <button type="button">Proponowane oferty pracy</button>
-</a>
 <ul>
   {% for offer in products %}
     <li>{{ offer.title }}</li>

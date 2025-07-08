@@ -3,7 +3,7 @@
 <h1>Your Job Offers</h1>
 <ul>
   {% for offer in products %}
-    <li>{{ offer.title - offer.business - offer.category }}</li>
+    <li>{{ offer.title }} - {{ offer.business }} - {{ offer.category }}</li>
     <a href="{% url 'read_offer_jobs_one' offer_id=offer.id business_id=offer.business.id hr_id=offer.hr.id %}">
         <button type="button">Szczegóły</button>
     </a>
