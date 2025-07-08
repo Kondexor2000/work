@@ -4,7 +4,7 @@
 <h1>Businesses Managed</h1>
 <ul>
   {% for business in products %}
-    <li>{{ business.first_name - business.last_name - business.email - business.number_phone }}</li>
+    <li>{{ business.first_name }} - {{ business.last_name }} - {{ business.email }} - {{ business.number_phone }}</li>
     {% for hri in hr %}
       <a href="{% url 'read_offer_jobs' business_id=business.id hr_id=hri.id %}">
           <button type="button">Proponowane oferty pracy</button>
