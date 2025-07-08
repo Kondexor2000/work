@@ -10,15 +10,23 @@
   {% for item in portfolios %}
     <li>
       {{ item.title }}
-      <a href="{% url 'cv_id_view' cv_id=item.user.cv.id %}">
-        <button type="button">Projects</button>
-      </a>
-      <a href="{% url 'portfolio_projects_view' portfolio_id=item.id %}">
-        <button type="button">Projects</button>
-      </a>
-      <a href="{% url 'portfolio_links_view' portfolio_id=item.id %}">
-        <button type="button">Links</button>
-      </a>
+      {% if item.user == request.user %}
+        <a href="{% url 'add_link' portfolio_id=item.id %}">
+          <button type="button">Dodaj linki</button>
+        </a>
+        <a href="{% url 'add_projects' portfolio_id=item.id %}">
+          <button type="button">Dodaj projekty</button>
+        </a>
+      {% else %}
+        <a href="{% url 'cv_id_view' cv_id=item.user.cv.id %}">
+          <button type="button">CV</button>
+        </a>
+        <a href="{% url 'portfolio_projects_view' portfolio_id=item.id %}">
+          <button type="button">Projects</button>
+        </a>
+        <a href="{% url 'portfolio_links_view' portfolio_id=item.id %}">
+          <button type="button">Links</button>
+        </a>
     </li>
   {% endfor %}
 </ul>
