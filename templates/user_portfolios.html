@@ -6,7 +6,7 @@
     <li>{{ item.title }}</li>
     <a href="{% url 'portfolio_projects_view' portfolio_id=item.id %}">Moje projekty</a>
     <a href="{% url 'portfolio_links_view' portfolio_id=item.id %}">Moje linki</a>
+    <a href="{% url 'update_portfolio' portfolio_id=item.id %}">Edytuj portfolio</a>
   {% endfor %}
 </ul>
-<a href="{% url 'update_portfolio' portfolio_id=portfolio.id %}">Edytuj portfolio</a>
 {% endblock %}

@@ -4,7 +4,7 @@
 <ul>
   {% for item in products %}
     <li>{{ item }}</li>
-    {% if item.test.subject.course.author = request.user %}
+    {% if item.test.subject.course.author == request.user %}
       <a href="{% url 'update_question' question_id=item.id %}">
           <button type="button">Edytuj pytania</button>
       </a>

@@ -6,5 +6,5 @@
     <li>{{ exp.position }} at {{ exp.company }}</li>
   {% endfor %}
 </ul>
-<a href="{% url 'update_experience' %}">Zobacz zaakceptowane oferty</a>
+<a href="{% url 'update_experience' cv_id=exp.cv.id experience_id=exp.id %}">Zobacz zaakceptowane oferty</a>
 {% endblock %}

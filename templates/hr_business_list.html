@@ -1,19 +1,19 @@
 {% extends "base.html" %}
+
 {% block content %}
 <h1>Businesses Managed</h1>
 <ul>
   {% for business in products %}
     <li>{{ business.name }}</li>
+    {% for hri in hr %}
+      <a href="{% url 'read_offer_jobs' business_id=business.id hr_id=hri.id %}">
+          <button type="button">Proponowane oferty pracy</button>
+      </a>
+    {% empty %}
+      <li>No HR records found for this business.</li>
+    {% endfor %}
   {% empty %}
     <li>No businesses found.</li>
   {% endfor %}
-  {% for hri in hr %}
-    <li>{{ business.name }}</li>
-  {% empty %}
-    <li>No businesses found.</li>
-  {% endfor %}
-  <a href="{% url 'read_offer_jobs' business_id=business.id hr_id=hri.id%}">
-      <button type="button">Proponowane oferty pracy</button>
-</a>
 </ul>
 {% endblock %}
