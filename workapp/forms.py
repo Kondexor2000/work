@@ -80,7 +80,7 @@ class UpdateOfferJobUserForm(forms.ModelForm):
         fields = ['is_accept']
 
 class AddOfferJobUserForm(forms.ModelForm):
-    user = forms.ModelChoiceField(queryset=User.objects.none(), label="Wyślij zaproszenie do")
+    user = forms.ModelChoiceField(queryset=User.objects.all(), label="Wyślij zaproszenie do")
 
     class Meta:
         model = OffersJobUser
