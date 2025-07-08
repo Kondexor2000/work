@@ -873,12 +873,12 @@ def offer_jobs_id_one(request, business_id, hr_id, offer_id):
         return HttpResponseNotFound("Template not found.")
 
     try:
-        product = get_object_or_404(OffersJob, business=business_id, hr=hr_id, id=offer_id)
+        products = get_object_or_404(OffersJob, business=business_id, hr=hr_id, id=offer_id)
     except Exception as e:
         logger.error(f"Error retrieving offer: {e}")
         return HttpResponse("An error occurred while retrieving the offer.", status=500)
 
-    return render(request, template_name, {'product': product})
+    return render(request, template_name, {'products': products})
 
 #new view
 @transaction.atomic
@@ -897,7 +897,7 @@ def offer_user_to_hr(request, offer_id):
         hr_user = offer.hr.user
         
         # Create the OffersJobUser entry
-        product = OffersJobUser.objects.create(offer=offer, user=hr_user)
+        products = OffersJobUser.objects.create(offer=offer, user=hr_user)
 
         # Success message
         message = "Udało się aplikować na ofertę pracy"
@@ -905,7 +905,7 @@ def offer_user_to_hr(request, offer_id):
         logger.error(f"Error creating OffersJobUser: {e}")
         return HttpResponse("An error occurred while processing the offer.", status=500)
 
-    return render(request, template_name, {'product': product, 'message': message})
+    return render(request, template_name, {'products': products, 'message': message})
 
 @transaction.atomic
 def offers_job_user(request):
