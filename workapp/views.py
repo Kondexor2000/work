@@ -1045,7 +1045,7 @@ def course_to_certificate_view(request):
     return render(request, template_name, {'products': products})
 
 @transaction.atomic
-def subject_to_test_view(request, subject_id):
+def subject_to_test_view(request, subject_id, course_id):
     template_name = 'test_list.html'
     
     if not check_template(template_name, request):
@@ -1053,7 +1053,7 @@ def subject_to_test_view(request, subject_id):
         return HttpResponseNotFound("Template not found.")
 
     try:
-        subject = get_object_or_404(Subject, id=subject_id)
+        subject = get_object_or_404(Subject, id=subject_id, course__id=course_id)
         products = Test.objects.filter(subject=subject)
         logger.info(f"Tests for course {subject.title} retrieved successfully by user {request.user}.")
     except Exception as e:
@@ -1063,7 +1063,7 @@ def subject_to_test_view(request, subject_id):
     return render(request, template_name, {'products': products})
 
 @transaction.atomic
-def test_to_question_view(request, test_id):
+def test_to_question_view(request, subject_id, course_id, test_id):
     template_name = 'questions_list.html'
 
     if not check_template(template_name, request):
@@ -1071,7 +1071,7 @@ def test_to_question_view(request, test_id):
         return HttpResponseNotFound("Template not found.")
 
     try:
-        test = get_object_or_404(Test, id=test_id)
+        test = get_object_or_404(Test, id=test_id, subject__id=subject_id, course__id=course_id)
         products = Questions.objects.filter(test=test)
         logger.info(f"Questions for test '{test.title}' retrieved successfully by user {request.user}.")
     except Exception as e:
