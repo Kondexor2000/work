@@ -355,7 +355,7 @@ class AddSubjectView(LoginRequiredMixin, CreateView):
         return render(request, self.template_name, {'formset': formset})
     
     def post(self, request, *args, **kwargs):
-        formset = SubjectFormSet(request.POST)
+        formset = SubjectFormSet(request.POST, request.FILES)
         if formset.is_valid():
             course_id = self.kwargs['course_id']
             for instance in formset.save(commit=False):
@@ -605,7 +605,7 @@ class AddProjectView(LoginRequiredMixin, CreateView):
         return render(request, self.template_name, {'formset': formset})
     
     def post(self, request, *args, **kwargs):
-        formset = ProjectsFormSet(request.POST)
+        formset = ProjectsFormSet(request.POST, request.FILES)
         if formset.is_valid():
             portfolio_id = self.kwargs['portfolio_id']
             for instance in formset.save(commit=False):
