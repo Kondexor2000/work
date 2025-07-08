@@ -8,7 +8,7 @@
 <ul>
   {% for item in products %}
     <li>{{ item.title }}</li>
-    <a href="{% url 'hr_to_business_view' business_id=item.business.id %}">
+    <a href="{% url 'hr_to_business_view' business_id=item.id %}">
         <button type="button">Dane rekrutera</button>
     </a>
   {% empty %}
