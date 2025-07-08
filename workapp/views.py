@@ -944,7 +944,7 @@ def offers_job_created_by_user(request):
     return render(request, template_name, {'products': products})
 
 @transaction.atomic
-def hr_to_business_view(request):
+def hr_to_business_view(request, business_id):
     template_name = 'hr_business_list.html'
 
     if not check_template(template_name, request):
@@ -952,9 +952,9 @@ def hr_to_business_view(request):
         return HttpResponseNotFound("Template not found.")
 
     try:
-        hr = HR.objects.get(user=request.user)
-        products = hr.business.all()
-        logger.info(f"Businesses retrieved successfully for HR {hr}.")
+        business = Business.objects.get(id=business_id)
+        products = HR.objects.filter(business=business)
+        logger.info(f"Businesses retrieved successfully for HR {products}.")
     except HR.DoesNotExist:
         logger.warning(f"HR profile not found for user {request.user}.")
         return HttpResponse("No HR profile found for this user.", status=404)
@@ -962,7 +962,7 @@ def hr_to_business_view(request):
         logger.exception(f"Unexpected error while retrieving businesses for user {request.user}: {e}")
         return HttpResponse("An error occurred while retrieving businesses.", status=500)
 
-    return render(request, template_name, {'products': products, 'hr': hr})
+    return render(request, template_name, {'products': products})
 
 @transaction.atomic
 @login_required
