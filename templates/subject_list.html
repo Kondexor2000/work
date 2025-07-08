@@ -1,19 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Items</h1>
 <h1>Subjects for "{{ course.title }}"</h1>
 <ul>
   {% for item in products %}
     <li>
       <strong>{{ item.title }}</strong>
       <p>{{ item.description }}</p>
+
       {% if item.file %}
         <img src="{{ item.file.url }}" alt="{{ item.title }}" style="max-width: 300px;" />
       {% endif %}
 
+      <a href="{% url 'subject_to_test_view' course_id=item.course.id subject_id=item.id %}">Test</a>
+
       {% if item.course.author == request.user %}
-        <a href="{% url 'subject_to_test_view' subject_id=item.id %}">Test</a>
         <a href="{% url 'add_test' subject_id=item.id %}">
           <button type="button">Dodaj test</button>
         </a>
@@ -23,8 +24,6 @@
         <a href="{% url 'delete_subject' subject_id=item.id %}">
           <button type="button">Usuń temat</button>
         </a>
-      {% else %}
-        <a href="{% url 'subject_to_test_view' subject_id=item.id %}">Test</a>
       {% endif %}
     </li>
   {% empty %}
