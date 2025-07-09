@@ -526,15 +526,29 @@ class AddAnswersView(LoginRequiredMixin, CreateView):
     template_name = 'add_answers.html'
     success_url = reverse_lazy('search_stores')  # fallback
 
+    def get_question(self):
+        question_id = self.kwargs.get('question_id')
+        return get_object_or_404(Questions, id=question_id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['question'] = self.get_question()
+        return context
+
     @transaction.atomic
     def form_valid(self, form):
         form.instance.user = self.request.user
-        question = form.cleaned_data.get('question')
-        answer_text = form.cleaned_data.get('answer').strip().lower()
-        correct_answer = question.correct.strip().lower()
+        question = self.get_question()
         test = question.test
 
-        test_score, _ = TestScore.objects.get_or_create(user=self.request.user, test=test, defaults={'score': 0, 'minimum': 0})
+        answer_text = form.cleaned_data.get('answer').strip().lower()
+        correct_answer = question.correct.strip().lower()
+
+        test_score, _ = TestScore.objects.get_or_create(
+            user=self.request.user,
+            test=test,
+            defaults={'score': 0, 'minimum': 0}
+        )
 
         if correct_answer in answer_text:
             test_score.score += 1
@@ -543,9 +557,18 @@ class AddAnswersView(LoginRequiredMixin, CreateView):
         form.instance.question = question
         form.save()
 
-        next_question = Questions.objects.filter(test=test, id__gt=question.id).order_by('id').first()
+        # Pobierz kolejne pytanie
+        next_question = Questions.objects.filter(
+            test=test,
+            id__gt=question.id
+        ).order_by('id').first()
+
         if next_question:
-            return redirect('answer_question', course_id=test.subject.course.id, subject_id=test.subject.id, test_id=test.id, question_id=next_question.id)
+            return redirect('answer_question',
+                            course_id=test.subject.course.id,
+                            subject_id=test.subject.id,
+                            test_id=test.id,
+                            question_id=next_question.id)
         else:
             return redirect('search_stores', subject_id=test.subject.id)
 

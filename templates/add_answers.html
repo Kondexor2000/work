@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}Odpowiedz na pytanie{% endblock %}
+
 {% block content %}
-<h2>Odpowiedz</h2>
+<h2>Odpowiedz na pytanie</h2>
+<p>{{ question.question }}</p>
+
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}

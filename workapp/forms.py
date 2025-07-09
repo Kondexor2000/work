@@ -194,7 +194,7 @@ ExperienceFormSet = modelformset_factory(
 class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answers
-        fields = ['answer', 'question']
+        fields = ['answer']
 
 class PortfolioForm(forms.ModelForm):
     tags_select = forms.ModelMultipleChoiceField(
