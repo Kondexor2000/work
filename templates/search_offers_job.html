@@ -5,6 +5,14 @@
   <input type="text" name="q" placeholder="Search offers..." value="{{ query }}">
   <button type="submit">Search</button>
 </form>
+<h2>Categories</h2>
+<ul>
+  {% for cat in categories %}
+    <select>
+			<option>{{ cat.name }}</option>
+	  </select>
+  {% endfor %}
+<ul>
 <ul>
   {% for offer in products %}
     <li>{{ offer.title }}</li>

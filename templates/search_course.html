@@ -6,6 +6,13 @@
   <button type="submit">Search</button>
 </form>
 <h2>Courses</h2>
+<h3>Categories</h3>
+<ul>
+  {% for cat in categories %}
+    <select>
+			<option>{{ cat.name }}</option>
+	  </select>
+  {% endfor %}
 <ul>
   {% for course in courses %}
     <li>{{ course.title }}</li>

@@ -5,7 +5,7 @@
   {% for item in products %}
     <li>{{ item }}</li>
     {% if item.subject.course.author == request.user %}
-      <a href="{% url 'test_to_questions_view' test_id=item.id %}">Pytania</a>
+      <a href="{% url 'test_to_questions_view' course_id=item.subject.course.id subject_id=item.subject.id test_id=item.id %}">Pytania</a>
       <a href="{% url 'update_test' test_id=item.id %}">
           <button type="button">Edytuj test</button>
       </a>
@@ -13,8 +13,7 @@
           <button type="button">Usuń test</button>
       </a>
     {% else %}
-      <a href="{% url 'answer_question' test_id=item.id %}">Wypełnij test</a>
-      <a href="{% url 'test_to_questions_view' test_id=item.id %}">Pytania</a>
+      <a href="{% url 'test_to_questions_view' course_id=item.subject.course.id subject_id=item.subject.id test_id=item.id %}">Wypełnij test</a>
     {% endif %}
   {% empty %}
     <li>No items found.</li>

@@ -1070,15 +1070,31 @@ def test_to_question_view(request, subject_id, course_id, test_id):
         logger.warning(f"Template '{template_name}' not found for user {request.user}.")
         return HttpResponseNotFound("Template not found.")
 
-    try:
-        test = get_object_or_404(Test, id=test_id, subject__id=subject_id, course__id=course_id)
-        products = Questions.objects.filter(test=test)
-        logger.info(f"Questions for test '{test.title}' retrieved successfully by user {request.user}.")
-    except Exception as e:
-        logger.error(f"Error retrieving questions for test ID {test_id}: {e}")
-        return HttpResponse("An error occurred while retrieving questions.", status=500)
+    test = get_object_or_404(Test, id=test_id, subject__id=subject_id, subject__course__id=course_id)
 
-    return render(request, template_name, {'products': products})
+    if test.subject.course.author == request.user:
+        try:
+            products = Questions.objects.filter(test=test)
+            logger.info(f"Questions for test '{test.title}' retrieved successfully by user {request.user}.")
+        except Exception as e:
+            logger.error(f"Error retrieving questions for test ID {test_id}: {e}")
+            return HttpResponse("An error occurred while retrieving questions.", status=500)
+
+        return render(request, template_name, {'products': products})
+    else:
+        # Pobierz pierwsze pytanie
+        first_question = Questions.objects.filter(test=test).first()
+        if first_question:
+            return redirect(
+                'answer_question',
+                course_id=course_id,
+                subject_id=subject_id,
+                test_id=test_id,
+                question_id=first_question.id
+            )
+        else:
+            logger.warning(f"No questions found for test ID {test_id}. Cannot redirect to answer_question.")
+            return HttpResponse("No questions available to answer.", status=404)
 
 @transaction.atomic
 @login_required
