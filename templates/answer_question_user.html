@@ -2,10 +2,8 @@
 {% block content %}
 <h1>My CV Experiences</h1>
 <ul>
-  {% for exp in question %}
-    <li>{{ exp.position }} at {{ exp.company }}</li>
   {% for exp in answer %}
-    <li>{{ exp.position }} at {{ exp.company }}</li>
+    <li>{{ exp.answer }} at {{ exp.question }}</li>
   {% endfor %}
 </ul>
 <a href="{% url 'index' %}">Strona główna</a>

@@ -1348,7 +1348,7 @@ def my_portfolio_links_view(request):
 
 #new view
 @transaction.atomic
-def answer_request_user_view(request, question_id):
+def answer_request_user_view(request):
     template_name = 'answer_question_user.html'
     
     if not check_template(template_name, request):
@@ -1356,14 +1356,14 @@ def answer_request_user_view(request, question_id):
         return HttpResponseNotFound("Template not found.")
     
     try:
-        question = get_object_or_404(Questions, id=question_id)
-        answer = Answers.objects.filter(question=question)
+        user = request.user
+        answer = Answers.objects.filter(user=user)
         logger.info(f"Links retrieved successfully for user {request.user}.")
     except Exception as e:
         logger.error(f"Error retrieving links for user {request.user}: {e}")
         return HttpResponse("An error occurred while retrieving links.", status=500)
     
-    return render(request, template_name, {'question': question, 'answer': answer})
+    return render(request, template_name, {'answer': answer})
 
 @transaction.atomic
 def portfolio_links_view(request, portfolio_id):
