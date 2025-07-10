@@ -3,6 +3,11 @@ from .models import *
 
 # Register your models here.
 
+@admin.register(LoginLog)
+class LoginLogAdmin(admin.ModelAdmin):
+    list_display = ('user', 'ip_address', 'timestamp')
+    search_fields = ('user__username', 'ip_address')
+
 class CategoryEmployAdmin(admin.ModelAdmin):
     list_display = ['name']
 

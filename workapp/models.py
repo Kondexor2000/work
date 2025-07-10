@@ -3,6 +3,11 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+class LoginLog(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    ip_address = models.GenericIPAddressField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
 # === HR i Oferty pracy ===
 
 class TagBusiness(models.Model):
