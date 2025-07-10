@@ -92,9 +92,6 @@ class CustomLoginView(LoginView):
         if not check_template(self.template_name, self.request):
             return HttpResponse("Template not found.")
         
-        ip = self.request.META.get('REMOTE_ADDR')
-        LoginLog.objects.create(user=self.object, ip_address=ip)
-        
         remember_me = form.cleaned_data.get('remember_me', False)
         if remember_me:
             self.request.session.set_expiry(1209600)  # 2 weeks in seconds
