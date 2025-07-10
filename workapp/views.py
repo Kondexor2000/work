@@ -16,7 +16,7 @@ from django.http import HttpResponse, Http404, HttpResponseNotFound
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
-from .models import CV, HR, TagBusiness, TagPortfolio, TagCourse, Test, Portfolio, Projects, Link, Experience, CategoryCourse, CategoryEmploy, Certificate, Course, OffersJob, OffersJobUser, Business, Subject, TestScore, Answers, Questions 
+from .models import CV, HR, TagBusiness, TagPortfolio, TagCourse, Test, Portfolio, Projects, Link, Experience, CategoryCourse, CategoryEmploy, Certificate, Course, OffersJob, OffersJobUser, Business, Subject, TestScore, Answers, Questions, LoginLog
 from .forms import CVForm, HRForm, SubjectForm, AddOfferJobUserForm, UpdateOfferJobUserForm, AnswerForm, CourseForm, TestForm, LinkForm, ProjectForm, BusinessForm, QuestionForm, OfferJobsForm, PortfolioForm, ExperienceForm, QuestionFormSet, ExperienceFormSet, LinkFormSet, ProjectsFormSet, SubjectFormSet
 # Create your views here.
 
@@ -46,6 +46,8 @@ class SignUpView(CreateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
+        ip = self.request.META.get('REMOTE_ADDR')
+        LoginLog.objects.create(user=self.object, ip_address=ip)
         login(self.request, self.object)
         messages.success(self.request, "Registration successful. Please log in.")
         return response
@@ -89,6 +91,9 @@ class CustomLoginView(LoginView):
     def form_valid(self, form):
         if not check_template(self.template_name, self.request):
             return HttpResponse("Template not found.")
+        
+        ip = self.request.META.get('REMOTE_ADDR')
+        LoginLog.objects.create(user=self.object, ip_address=ip)
         
         remember_me = form.cleaned_data.get('remember_me', False)
         if remember_me:
