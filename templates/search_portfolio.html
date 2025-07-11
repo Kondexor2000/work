@@ -17,17 +17,21 @@
         <a href="{% url 'add_project' portfolio_id=item.id %}">
           <button type="button">Dodaj projekty</button>
         </a>
-      {% else %}
+      {% endif %}
+
+      {% if item.user.cv %}
         <a href="{% url 'cv_id_view' cv_id=item.user.cv.id %}">
           <button type="button">CV</button>
         </a>
-        <a href="{% url 'portfolio_projects_view' portfolio_id=item.id %}">
-          <button type="button">Projects</button>
-        </a>
-        <a href="{% url 'portfolio_links_view' portfolio_id=item.id %}">
-          <button type="button">Links</button>
-        </a>
+      {% else %}
+        <span>Brak CV</span>
       {% endif %}
+      <a href="{% url 'portfolio_projects_view' portfolio_id=item.id %}">
+        <button type="button">Projects</button>
+      </a>
+      <a href="{% url 'portfolio_links_view' portfolio_id=item.id %}">
+        <button type="button">Links</button>
+      </a>
     </li>
   {% endfor %}
 </ul>
