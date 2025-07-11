@@ -46,8 +46,6 @@ class SignUpView(CreateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        ip = self.request.META.get('REMOTE_ADDR')
-        LoginLog.objects.create(user=self.object, ip_address=ip)
         login(self.request, self.object)
         messages.success(self.request, "Registration successful. Please log in.")
         return response
