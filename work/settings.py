@@ -78,11 +78,27 @@ WSGI_APPLICATION = 'work.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-}
+USE_LOCAL_DB = os.environ.get('USE_LOCAL_DB', '').lower() == 'true'
 
-
+if USE_LOCAL_DB:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'work',
+            'USER': 'postgres',
+            'PASSWORD': 'postgres',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
+else:
+    DATABASE_URL = os.environ.get('DATABASE_URL')
+    if not DATABASE_URL:
+        print("WARNING: No DATABASE_URL set, using sqlite3 as default database")
+    DATABASES = {
+        'default': dj_database_url.config(default=DATABASE_URL or 'sqlite:///db.sqlite3')
+    }
+    
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -169,3 +185,4 @@ LOGGING = {
         },
     },
 }
+
