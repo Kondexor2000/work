@@ -299,11 +299,11 @@ class SkillsForm(forms.ModelForm):
         fields = ['skill']
 
 class QuestionnaireForm(forms.ModelForm):
-    name = forms.ModelChoiceField(
+    category = forms.ModelChoiceField(
             queryset=Questionnaire.objects.all(),
             widget=forms.Select
         )
     
     class Meta:
         model = Questionnaire
-        fields = ['name']
+        fields = ['category']
