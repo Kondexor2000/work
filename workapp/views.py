@@ -588,8 +588,8 @@ class AddQuestionnaireView(LoginRequiredMixin, CreateView):
         business = get_object_or_404(Course, id=business_id)
         hr = get_object_or_404(Subject, id=hr_id)
 
-        form.instance.business = business  # assuming ForeignKey or ManyToMany handled in model
-        form.instance.hr = hr  # assuming ForeignKey to HR in OfferJobs model
+        form.instance.course = business  # assuming ForeignKey or ManyToMany handled in model
+        form.instance.subject = hr  # assuming ForeignKey to HR in OfferJobs model
 
         return super().form_valid(form)
 
@@ -1528,7 +1528,7 @@ def subject_questionnaire_view(request, course_id, subject_id):
         subject = get_object_or_404(Subject, course__id=course.id, id=subject_id)
         experiences = Questionnaire.objects.filter(subject=subject).aggregate(
             yes_count=Count(Case(When(category="tak", then=1))),
-            no_count=Count(Case(When(category="nie", then=1)))
+            no_count=Count(Case(When(cate="nie", then=1)))
         )
         logger.info(f"Experiences for CV '{subject.title}' retrieved successfully by user {request.user}.")
     except Exception as e:
