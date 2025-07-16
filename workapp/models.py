@@ -172,13 +172,16 @@ class Hobby(models.Model):
     def __str__(self):
         return f"{self.hobby}"
     
-class Questionnaire(models.Model):
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+class QuestionnaireCategory(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return f"{self.name}"
+    
+class Questionnaire(models.Model):
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    category = models.ManyToManyField(QuestionnaireCategory, blank=True)
 
 # === Portfolio i projekty ===
 

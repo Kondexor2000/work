@@ -1528,8 +1528,8 @@ def subject_questionnaire_view(request, course_id, subject_id):
         course = get_object_or_404(Course, id=course_id)
         subject = get_object_or_404(Subject, course__id=course.id, id=subject_id)
         experiences = Questionnaire.objects.filter(subject=subject).aggregate(
-            yes_count=Count(Case(When(answer="tak", then=1))),
-            no_count=Count(Case(When(answer="nie", then=1)))
+            yes_count=Count(Case(When(category="tak", then=1))),
+            no_count=Count(Case(When(category="nie", then=1)))
         )
         logger.info(f"Experiences for CV '{subject.title}' retrieved successfully by user {request.user}.")
     except Exception as e:
