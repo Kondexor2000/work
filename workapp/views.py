@@ -588,7 +588,6 @@ class AddQuestionnaireView(LoginRequiredMixin, CreateView):
         business = get_object_or_404(Course, id=business_id)
         hr = get_object_or_404(Subject, id=hr_id, user=self.request.user)
 
-        form.instance.user = self.request.user
         form.instance.business = business  # assuming ForeignKey or ManyToMany handled in model
         form.instance.hr = hr  # assuming ForeignKey to HR in OfferJobs model
 
