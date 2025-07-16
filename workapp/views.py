@@ -582,10 +582,13 @@ class AddQuestionnaireView(LoginRequiredMixin, CreateView):
     template_name = 'questionnaire.html'
 
     def form_valid(self, form):
+        business_id = self.kwargs.get('course_id')
         hr_id = self.kwargs.get('subject_id')
 
+        business = get_object_or_404(Course, id=business_id)
         hr = get_object_or_404(Subject, id=hr_id)
 
+        form.instance.business = business  # assuming ForeignKey or ManyToMany handled in model
         form.instance.hr = hr  # assuming ForeignKey to HR in OfferJobs model
 
         return super().form_valid(form)
