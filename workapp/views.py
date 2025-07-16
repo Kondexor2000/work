@@ -579,7 +579,7 @@ class AddAnswersView(LoginRequiredMixin, CreateView):
     
 class AddQuestionnaireView(LoginRequiredMixin, CreateView):
     form_class = QuestionnaireForm
-    template_name = 'questionnaire_list.html'
+    template_name = 'questionnaire.html'
 
     def form_valid(self, form):
         business_id = self.kwargs.get('course_id')
