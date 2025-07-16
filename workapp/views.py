@@ -584,7 +584,7 @@ class AddQuestionnaireView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         hr_id = self.kwargs.get('subject_id')
 
-        hr = get_object_or_404(Subject, id=hr_id, user=self.request.user)
+        hr = get_object_or_404(Subject, id=hr_id)
 
         form.instance.hr = hr  # assuming ForeignKey to HR in OfferJobs model
 
