@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import modelformset_factory
-from .models import CV, HR, Business, TagBusiness, TagCourse, TagPortfolio, Test, CategoryCourse, CategoryEmploy, OffersJob,OffersJobUser, Course, Subject, Questions, Answers, Portfolio, Projects, Link, Experience, User, Hobby, Skills, Questionnaire, Education
+from .models import CV, HR, Business, TagBusiness, TagCourse, TagPortfolio, Test, CategoryCourse, CategoryEmploy, OffersJob,OffersJobUser, Course, Subject, Questions, Answers, Portfolio, Projects, Link, Experience, User, Hobby, Skills, Questionnaire, Education, QuestionnaireCategory
 
 class CVForm(forms.ModelForm):
     class Meta:
@@ -300,7 +300,7 @@ class SkillsForm(forms.ModelForm):
 
 class QuestionnaireForm(forms.ModelForm):
     category = forms.ModelChoiceField(
-            queryset=Questionnaire.objects.all(),
+            queryset=QuestionnaireCategory.objects.all(),
             widget=forms.Select
         )
     
