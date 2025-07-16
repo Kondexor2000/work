@@ -2,7 +2,7 @@ from itertools import chain
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.db import transaction
-from django.db.models import Q
+from django.db.models import Q, Count, Case, When
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, UpdateView, DeleteView
@@ -16,8 +16,8 @@ from django.http import HttpResponse, Http404, HttpResponseNotFound
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
-from .models import CV, HR, TagBusiness, TagPortfolio, TagCourse, Test, Portfolio, Projects, Link, Experience, CategoryCourse, CategoryEmploy, Certificate, Course, OffersJob, OffersJobUser, Business, Subject, TestScore, Answers, Questions, LoginLog
-from .forms import CVForm, HRForm, SubjectForm, AddOfferJobUserForm, UpdateOfferJobUserForm, AnswerForm, CourseForm, TestForm, LinkForm, ProjectForm, BusinessForm, QuestionForm, OfferJobsForm, PortfolioForm, ExperienceForm, QuestionFormSet, ExperienceFormSet, LinkFormSet, ProjectsFormSet, SubjectFormSet
+from .models import CV, HR, TagBusiness, TagPortfolio, TagCourse, Test, Portfolio, Projects, Link, Experience, CategoryCourse, CategoryEmploy, Certificate, Course, OffersJob, OffersJobUser, Business, Subject, TestScore, Answers, Questions, Hobby, Skills, Education, Questionnaire
+from .forms import CVForm, HRForm, SubjectForm, AddOfferJobUserForm, UpdateOfferJobUserForm, AnswerForm, CourseForm, TestForm, LinkForm, ProjectForm, BusinessForm, QuestionForm, OfferJobsForm, PortfolioForm, ExperienceForm, QuestionFormSet, ExperienceFormSet, LinkFormSet, ProjectsFormSet, SubjectFormSet, QuestionnaireForm, HobbyForm, SkillsForm, EducationForm, EducationFormSet, SkillsFormSet, HobbyFormSet
 # Create your views here.
 
 logger = logging.getLogger(__name__)
@@ -53,7 +53,7 @@ class SignUpView(CreateView):
 class EditProfileView(LoginRequiredMixin, UpdateView):
     form_class = UserChangeForm
     template_name = 'edit_profile.html'
-    success_url = reverse_lazy('add-course')
+    success_url = reverse_lazy('index')
 
     def get_object(self):
         return self.request.user
@@ -576,6 +576,32 @@ class AddAnswersView(LoginRequiredMixin, CreateView):
         if not check_template(self.template_name, request):
             return HttpResponse("Brak pliku .html")
         return super().dispatch(request, *args, **kwargs)
+    
+class AddQuestionnaireView(LoginRequiredMixin, CreateView):
+    form_class = QuestionnaireForm
+    template_name = 'add_questionnaire.html'
+
+    def form_valid(self, form):
+        business_id = self.kwargs.get('course_id')
+        hr_id = self.kwargs.get('subject_id')
+
+        business = get_object_or_404(Course, id=business_id)
+        hr = get_object_or_404(Subject, id=hr_id, user=self.request.user)
+
+        form.instance.user = self.request.user
+        form.instance.business = business  # assuming ForeignKey or ManyToMany handled in model
+        form.instance.hr = hr  # assuming ForeignKey to HR in OfferJobs model
+
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        # Redirect wherever you want after creating an OfferJob
+        return reverse('thanks')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not check_template(self.template_name, request):
+            return HttpResponse("Brak pliku .html")
+        return super().dispatch(request, *args, **kwargs)
                   
 #Kurs
 
@@ -783,8 +809,112 @@ class UpdateExperienceView(LoginRequiredMixin, UpdateView):
         if not check_template(self.template_name, request):
             return HttpResponse("Brak pliku .html")
         return super().dispatch(request, *args, **kwargs)
+    
+class AddHobbyView(LoginRequiredMixin, CreateView):
+    template_name = 'add_hobby.html'
 
+    def get(self, request, *args, **kwargs):
+        formset = HobbyFormSet(queryset=Hobby.objects.none())
+        return render(request, self.template_name, {'formset': formset})
+    
+    def post(self, request, *args, **kwargs):
+        formset = HobbyFormSet(request.POST)
+        if formset.is_valid():
+            cv_id = self.kwargs['cv_id']
+            for instance in formset.save(commit=False):
+                instance.cv_id = cv_id
+                instance.save()
+            return redirect(reverse('my_cv_hobby_view'))
+        return render(request, self.template_name, {'formset': formset})
+    
+class UpdateHobbyView(LoginRequiredMixin, UpdateView):
+    model = Hobby
+    form_class = HobbyForm
+    template_name = 'update_hobby.html'
 
+    def get_object(self, queryset=None):
+        cv_id = self.kwargs.get('cv_id')
+        experience_id = self.kwargs.get('hobby_id')
+        return get_object_or_404(Hobby, id=experience_id, cv=cv_id, cv__user=self.request.user)
+
+    def get_success_url(self):
+        return reverse('my_cv_hobby_view')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not check_template(self.template_name, request):
+            return HttpResponse("Brak pliku .html")
+        return super().dispatch(request, *args, **kwargs)
+    
+class AddSkillsView(LoginRequiredMixin, CreateView):
+    template_name = 'add_skills.html'
+
+    def get(self, request, *args, **kwargs):
+        formset = SkillsFormSet(queryset=Skills.objects.none())
+        return render(request, self.template_name, {'formset': formset})
+    
+    def post(self, request, *args, **kwargs):
+        formset = SkillsFormSet(request.POST)
+        if formset.is_valid():
+            cv_id = self.kwargs['cv_id']
+            for instance in formset.save(commit=False):
+                instance.cv_id = cv_id
+                instance.save()
+            return redirect(reverse('my_cv_skills_view'))
+        return render(request, self.template_name, {'formset': formset})
+    
+class UpdateSkillsView(LoginRequiredMixin, UpdateView):
+    model = Skills
+    form_class = SkillsForm
+    template_name = 'update_skills.html'
+
+    def get_object(self, queryset=None):
+        cv_id = self.kwargs.get('cv_id')
+        experience_id = self.kwargs.get('skill_id')
+        return get_object_or_404(Skills, id=experience_id, cv=cv_id, cv__user=self.request.user)
+
+    def get_success_url(self):
+        return reverse('my_cv_skills_view')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not check_template(self.template_name, request):
+            return HttpResponse("Brak pliku .html")
+        return super().dispatch(request, *args, **kwargs)
+    
+class AddEducationView(LoginRequiredMixin, CreateView):
+    template_name = 'add_education.html'
+
+    def get(self, request, *args, **kwargs):
+        formset = EducationFormSet(queryset=Education.objects.none())
+        return render(request, self.template_name, {'formset': formset})
+    
+    def post(self, request, *args, **kwargs):
+        formset = EducationFormSet(request.POST)
+        if formset.is_valid():
+            cv_id = self.kwargs['cv_id']
+            for instance in formset.save(commit=False):
+                instance.cv_id = cv_id
+                instance.save()
+            return redirect(reverse('my_cv_education_view'))
+        return render(request, self.template_name, {'formset': formset})
+    
+class UpdateEducationView(LoginRequiredMixin, UpdateView):
+    model = Education
+    form_class = EducationForm
+    template_name = 'update_education.html'
+
+    def get_object(self, queryset=None):
+        cv_id = self.kwargs.get('cv_id')
+        experience_id = self.kwargs.get('education_id')
+        return get_object_or_404(Education, id=experience_id, cv=cv_id, cv__user=self.request.user)
+
+    def get_success_url(self):
+        return reverse('my_cv_education_view')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not check_template(self.template_name, request):
+            return HttpResponse("Brak pliku .html")
+        return super().dispatch(request, *args, **kwargs)
+    
 @transaction.atomic
 @login_required
 def search_business(request):
@@ -1223,6 +1353,28 @@ def portfolio_to_user_view(request):
     return render(request, template_name, {'products': products})
 
 @transaction.atomic
+def cv_to_id_view(request, cv_id):
+    template_name = 'cv_id_list.html'
+    if not check_template(template_name, request):
+        logger.warning(f"Template '{template_name}' not found for user {request.user}.")
+        return HttpResponseNotFound("Template not found.")
+
+    try:
+        products = get_object_or_404(CV, id=cv_id)
+        logger.info(f"Products retrieved successfully for user {request.user}.")
+    except Exception as e:
+        logger.error(f"Error retrieving categories for user {request.user}: {e}")
+        products = []
+        return HttpResponse("An error occurred while retrieving categories.", status=500)
+    
+    return render(request, template_name, {'products': products})
+
+@transaction.atomic
+def thanking_view(request):
+    template_name = 'thanks.html'
+    return render(request, template_name)
+
+@transaction.atomic
 def cv_to_user_view(request):
     template_name = 'cv_user_list.html'
     if not check_template(template_name, request):
@@ -1255,6 +1407,136 @@ def course_user(request):
         return HttpResponse("An error occurred while retrieving categories.", status=500)
     
     return render(request, template_name, {'products': products})
+
+@transaction.atomic
+def my_cv_hobby_view(request):
+    template_name = 'my_hobby_list.html'
+    
+    if not check_template(template_name, request):
+        logger.warning(f"Template '{template_name}' not found for user {request.user}.")
+        return HttpResponseNotFound("Template not found.")
+    
+    try:
+        cv = get_object_or_404(CV, user=request.user)
+        experiences = Hobby.objects.filter(cv=cv)
+        logger.info(f"Experiences for CV '{cv.title}' retrieved successfully by user {request.user}.")
+    except Exception as e:
+        logger.error(f"Error retrieving experiences for user {request.user}: {e}")
+        return HttpResponse("An error occurred while retrieving experiences.", status=500)
+    
+    return render(request, template_name, {'products': experiences})
+
+@transaction.atomic
+def cv_hobby_view(request, cv_id):
+    template_name = 'hobby_list.html'
+    
+    if not check_template(template_name, request):
+        logger.warning(f"Template '{template_name}' not found for user {request.user}.")
+        return HttpResponseNotFound("Template not found.")
+    
+    try:
+        cv = get_object_or_404(CV, id=cv_id)
+        experiences = Hobby.objects.filter(cv=cv)
+        logger.info(f"Experiences for CV '{cv.title}' retrieved successfully by user {request.user}.")
+    except Exception as e:
+        logger.error(f"Error retrieving experiences for user {request.user}: {e}")
+        return HttpResponse("An error occurred while retrieving experiences.", status=500)
+    
+    return render(request, template_name, {'products': experiences})
+
+@transaction.atomic
+def my_cv_education_view(request):
+    template_name = 'my_education_list.html'
+    
+    if not check_template(template_name, request):
+        logger.warning(f"Template '{template_name}' not found for user {request.user}.")
+        return HttpResponseNotFound("Template not found.")
+    
+    try:
+        cv = get_object_or_404(CV, user=request.user)
+        experiences = Education.objects.filter(cv=cv)
+        logger.info(f"Experiences for CV '{cv.title}' retrieved successfully by user {request.user}.")
+    except Exception as e:
+        logger.error(f"Error retrieving experiences for user {request.user}: {e}")
+        return HttpResponse("An error occurred while retrieving experiences.", status=500)
+    
+    return render(request, template_name, {'products': experiences})
+
+@transaction.atomic
+def cv_education_view(request, cv_id):
+    template_name = 'education_list.html'
+    
+    if not check_template(template_name, request):
+        logger.warning(f"Template '{template_name}' not found for user {request.user}.")
+        return HttpResponseNotFound("Template not found.")
+    
+    try:
+        cv = get_object_or_404(CV, id=cv_id)
+        experiences = Education.objects.filter(cv=cv)
+        logger.info(f"Experiences for CV '{cv.title}' retrieved successfully by user {request.user}.")
+    except Exception as e:
+        logger.error(f"Error retrieving experiences for user {request.user}: {e}")
+        return HttpResponse("An error occurred while retrieving experiences.", status=500)
+    
+    return render(request, template_name, {'products': experiences})
+
+@transaction.atomic
+def my_cv_skills_view(request):
+    template_name = 'my_skills_list.html'
+    
+    if not check_template(template_name, request):
+        logger.warning(f"Template '{template_name}' not found for user {request.user}.")
+        return HttpResponseNotFound("Template not found.")
+    
+    try:
+        cv = get_object_or_404(CV, user=request.user)
+        experiences = Skills.objects.filter(cv=cv)
+        logger.info(f"Experiences for CV '{cv.title}' retrieved successfully by user {request.user}.")
+    except Exception as e:
+        logger.error(f"Error retrieving experiences for user {request.user}: {e}")
+        return HttpResponse("An error occurred while retrieving experiences.", status=500)
+    
+    return render(request, template_name, {'products': experiences})
+
+@transaction.atomic
+def cv_skills_view(request, cv_id):
+    template_name = 'skills_list.html'
+    
+    if not check_template(template_name, request):
+        logger.warning(f"Template '{template_name}' not found for user {request.user}.")
+        return HttpResponseNotFound("Template not found.")
+    
+    try:
+        cv = get_object_or_404(CV, id=cv_id)
+        experiences = Skills.objects.filter(cv=cv)
+        logger.info(f"Experiences for CV '{cv.title}' retrieved successfully by user {request.user}.")
+    except Exception as e:
+        logger.error(f"Error retrieving experiences for user {request.user}: {e}")
+        return HttpResponse("An error occurred while retrieving experiences.", status=500)
+    
+    return render(request, template_name, {'products': experiences})
+
+@transaction.atomic
+def subject_questionnaire_view(request, course_id, subject_id):
+    template_name = 'questionnaire_list.html'
+    
+    if not check_template(template_name, request):
+        logger.warning(f"Template '{template_name}' not found for user {request.user}.")
+        return HttpResponseNotFound("Template not found.")
+    
+    try:
+        course = get_object_or_404(Course, id=course_id)
+        subject = get_object_or_404(Subject, course__id=course.id, id=subject_id)
+        experiences = Questionnaire.objects.filter(subject=subject).aggregate(
+            yes_count=Count(Case(When(answer="tak", then=1))),
+            no_count=Count(Case(When(answer="nie", then=1)))
+        )
+        logger.info(f"Experiences for CV '{subject.title}' retrieved successfully by user {request.user}.")
+    except Exception as e:
+        logger.error(f"Error retrieving experiences for user {request.user}: {e}")
+        return HttpResponse("An error occurred while retrieving experiences.", status=500)
+    
+    return render(request, template_name, {'products': experiences})
 
 @transaction.atomic
 def my_cv_experience_view(request):

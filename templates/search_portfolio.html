@@ -17,10 +17,22 @@
         <a href="{% url 'add_project' portfolio_id=item.id %}">
           <button type="button">Dodaj projekty</button>
         </a>
+        <a href="{% url 'add_education' cv_id=item.user.cv.id %}">
+          <button type="button">Dodaj wykształcenie</button>
+        </a>
+        <a href="{% url 'add_skill' cv_id=item.user.cv.id %}">
+          <button type="button">Dodaj umiejętności</button>
+        </a>
+        <a href="{% url 'add_experience' cv_id=item.user.cv.id %}">
+          <button type="button">Dodaj doświadczenie</button>
+        </a>
+        <a href="{% url 'add_hobby' cv_id=item.user.cv.id %}">
+          <button type="button">Dodaj zainteresowania</button>
+        </a>
       {% endif %}
 
       {% if item.user.cv %}
-        <a href="{% url 'cv_id_view' cv_id=item.user.cv.id %}">
+        <a href="{% url 'cv_to_id_view' cv_id=item.user.cv.id %}">
           <button type="button">CV</button>
         </a>
       {% else %}

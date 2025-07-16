@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import modelformset_factory
-from .models import CV, HR, Business, TagBusiness, TagCourse, TagPortfolio, Test, CategoryCourse, CategoryEmploy, OffersJob,OffersJobUser, Course, Subject, Questions, Answers, Portfolio, Projects, Link, Experience, User
+from .models import CV, HR, Business, TagBusiness, TagCourse, TagPortfolio, Test, CategoryCourse, CategoryEmploy, OffersJob,OffersJobUser, Course, Subject, Questions, Answers, Portfolio, Projects, Link, Experience, User, Hobby, Skills, Questionnaire, Education
 
 class CVForm(forms.ModelForm):
     class Meta:
@@ -191,6 +191,27 @@ ExperienceFormSet = modelformset_factory(
     can_delete=True  # pozwala usuwać formularze
 )
 
+SkillsFormSet = modelformset_factory(
+    Skills,
+    fields=['skill'],
+    extra=1,   # startowo 1 pusty formularz
+    can_delete=True  # pozwala usuwać formularze
+)
+
+HobbyFormSet = modelformset_factory(
+    Hobby,
+    fields=['hobby'],
+    extra=1,   # startowo 1 pusty formularz
+    can_delete=True  # pozwala usuwać formularze
+)
+
+EducationFormSet = modelformset_factory(
+    Education,
+    fields=['fields_of_state', 'place'],
+    extra=1,   # startowo 1 pusty formularz
+    can_delete=True  # pozwala usuwać formularze
+)
+
 class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answers
@@ -261,3 +282,28 @@ class ExperienceForm(forms.ModelForm):
     class Meta:
         model = Experience
         fields = ['company', 'position']
+
+class HobbyForm(forms.ModelForm):
+    class Meta:
+        model = Hobby
+        fields = ['hobby']
+
+class EducationForm(forms.ModelForm):
+    class Meta:
+        model = Education
+        fields = ['fields_of_state', 'place']
+
+class SkillsForm(forms.ModelForm):
+    class Meta:
+        model = Skills
+        fields = ['skill']
+
+class QuestionnaireForm(forms.ModelForm):
+    name = forms.ModelChoiceField(
+            queryset=Questionnaire.objects.all(),
+            widget=forms.Select
+        )
+    
+    class Meta:
+        model = Questionnaire
+        fields = ['name']

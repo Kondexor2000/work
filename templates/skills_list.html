@@ -3,20 +3,24 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h2>Doświadczenie zawodowe</h2>
+    <h2>Twoje CV</h2>
 
     {% if products %}
-        <div class="list-group mt-4">
-            {% for experience in products %}
-                <div class="list-group-item list-group-item-action mb-3 shadow-sm">
-                    <h5 class="mb-1">{{ experience.position }} - {{ experience.company }}</h5>
+        <div class="row mt-4">
+            {% for cv in products %}
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ cv.skill }}</h5>
+                        </div>
+                    </div>
                 </div>
             {% endfor %}
         </div>
         <a href="{% url 'cv_to_id_view' cv_id=products.cv.id %}">Wróć do CV</a>
     {% else %}
         <div class="alert alert-info mt-4">
-            Brak doświadczenia
+            Nie masz jeszcze żadnego CV.
         </div>
         <a href="{% url 'search_portfolio' %}">Szukaj dalej</a>
     {% endif %}

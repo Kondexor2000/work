@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Wyniki ankiet</h2>
+
+    {% if products %}
+        <div class="list-group mt-4">
+            <div class="list-group-item list-group-item-action mb-3 shadow-sm">
+                <p>Tak</p><h5 class="mb-1">{{ products.yes_count }}</h5>
+                <p>Nie</p><h5 class="mb-1">{{ products.no_count }}</h5>
+            </div>
+            <a href="{% url 'subject_to_course_view' course_id=experience.course.id subject_id=experience.id %}">Wstecz</a>
+        </div>
+    {% else %}
+        <div class="alert alert-info mt-4">
+            Nikt nie wypełnił ankiet
+        </div>
+        <a href="{% url 'index' %}">Strona główna</a>
+    {% endif %}
+
+</div>
+{% endblock %}

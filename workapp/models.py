@@ -149,6 +149,36 @@ class Experience(models.Model):
 
     def __str__(self):
         return f"{self.position} at {self.company}"
+    
+class Education(models.Model):
+    cv = models.ForeignKey(CV, on_delete=models.CASCADE)
+    fields_of_state = models.CharField(max_length=255)
+    place = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"{self.fields_of_state} at {self.place}"
+    
+class Skills(models.Model):
+    cv = models.ForeignKey(CV, on_delete=models.CASCADE)
+    skill = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"{self.skill}"
+    
+class Hobby(models.Model):
+    cv = models.ForeignKey(CV, on_delete=models.CASCADE)
+    hobby = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"{self.hobby}"
+    
+class Questionnaire(models.Model):
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.name}"
 
 # === Portfolio i projekty ===
 

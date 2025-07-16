@@ -4,3 +4,75 @@ WARNING 2025-06-01 21:03:39,371 log Not Found: /favicon.ico
 WARNING 2025-06-01 21:03:39,372 basehttp "GET /favicon.ico HTTP/1.1" 404 11502
 WARNING 2025-07-15 19:43:58,653 log Not Found: /favicon.ico
 WARNING 2025-07-15 19:43:58,654 basehttp "GET /favicon.ico HTTP/1.1" 404 12658
+WARNING 2025-07-16 22:48:48,284 log Not Found: /favicon.ico
+WARNING 2025-07-16 22:48:48,285 basehttp "GET /favicon.ico HTTP/1.1" 404 15207
+ERROR 2025-07-16 22:49:18,754 log Internal Server Error: /cv/user/experience/
+ERROR 2025-07-16 22:49:18,755 basehttp "GET /cv/user/experience/ HTTP/1.1" 500 47
+ERROR 2025-07-16 22:49:22,183 log Internal Server Error: /cv/user/skill/
+ERROR 2025-07-16 22:49:22,184 basehttp "GET /cv/user/skill/ HTTP/1.1" 500 47
+ERROR 2025-07-16 22:49:32,757 log Internal Server Error: /cv/user/hobby/
+ERROR 2025-07-16 22:49:32,758 basehttp "GET /cv/user/hobby/ HTTP/1.1" 500 47
+ERROR 2025-07-16 22:49:37,679 log Internal Server Error: /cv/user/education/
+ERROR 2025-07-16 22:49:37,679 basehttp "GET /cv/user/education/ HTTP/1.1" 500 47
+ERROR 2025-07-16 22:54:01,175 log Internal Server Error: /cv/user/experience/
+ERROR 2025-07-16 22:54:01,175 basehttp "GET /cv/user/experience/ HTTP/1.1" 500 47
+ERROR 2025-07-16 23:14:14,883 log Internal Server Error: /cv/user/experience/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1557, in my_cv_experience_view
+    return render(request, template_name, {'products': experiences})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\kondz\venv\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\kondz\venv\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'add_hobby' with keyword arguments '{'cv_id': ''}' not found. 1 pattern(s) tried: ['cv/(?P<cv_id>[0-9]+)/hobby/create\\Z']
+ERROR 2025-07-16 23:14:14,886 basehttp "GET /cv/user/experience/ HTTP/1.1" 500 188598

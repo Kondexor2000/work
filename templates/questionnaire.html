@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Odpowiedz na pytanie{% endblock %}
+
+{% block content %}
+<h2>Czy temat kursu jest przydatny?</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Wyślij odpowiedź</button>
+</form>
+{% endblock %}

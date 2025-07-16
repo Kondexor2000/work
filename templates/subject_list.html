@@ -24,6 +24,11 @@
         <a href="{% url 'delete_subject' course_id=item.course.id subject_id=item.id %}">
           <button type="button">Usuń temat</button>
         </a>
+        <a href="{% url 'sub_quest' course_id=item.course.id subject_id=item.id %}">
+          <button type="button">Wyniki ankiety</button>
+        </a>
+      {% else %}
+        <a href="{% url 'add_questionnaire' course_id=item.course.id subject_id=item.id %}">Ankieta</a>
       {% endif %}
     </li>
   {% empty %}
