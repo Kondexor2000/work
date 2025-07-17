@@ -1333,6 +1333,34 @@ def search_portfolio(request):
         'query': query
     })
 
+@transaction.atomic
+@login_required
+def search_cv(request):
+    template_name = 'search_cv.html'
+
+    if not check_template(template_name, request):
+        logger.warning(f"Template '{template_name}' not found for user {request.user}.")
+        return HttpResponseNotFound("Template not found.")
+
+    query = request.GET.get('q', '').strip()
+    portfolios = []
+
+    try:
+        if query:
+            portfolios = CV.objects.filter(Q(title__icontains=query))
+        else:
+            portfolios = CV.objects.all()
+
+        logger.info(f"Search executed by {request.user}: query='{query}'")
+    except Exception as e:
+        logger.error(f"Error during search for user {request.user}: {e}")
+        return HttpResponse("An error occurred during the search.", status=500)
+
+    return render(request, template_name, {
+        'portfolios': portfolios,
+        'query': query
+    })
+
 
 @transaction.atomic
 def portfolio_to_user_view(request):
@@ -1423,7 +1451,7 @@ def my_cv_hobby_view(request):
         logger.error(f"Error retrieving experiences for user {request.user}: {e}")
         return HttpResponse("An error occurred while retrieving experiences.", status=500)
     
-    return render(request, template_name, {'products': experiences})
+    return render(request, template_name, {'products': experiences, 'cv_id': cv.id})
 
 @transaction.atomic
 def cv_hobby_view(request, cv_id):
@@ -1459,7 +1487,7 @@ def my_cv_education_view(request):
         logger.error(f"Error retrieving experiences for user {request.user}: {e}")
         return HttpResponse("An error occurred while retrieving experiences.", status=500)
     
-    return render(request, template_name, {'products': experiences})
+    return render(request, template_name, {'products': experiences, 'cv_id': cv.id})
 
 @transaction.atomic
 def cv_education_view(request, cv_id):
@@ -1495,7 +1523,7 @@ def my_cv_skills_view(request):
         logger.error(f"Error retrieving experiences for user {request.user}: {e}")
         return HttpResponse("An error occurred while retrieving experiences.", status=500)
     
-    return render(request, template_name, {'products': experiences})
+    return render(request, template_name, {'products': experiences, 'cv_id': cv.id})
 
 @transaction.atomic
 def cv_skills_view(request, cv_id):
@@ -1553,7 +1581,7 @@ def my_cv_experience_view(request):
         logger.error(f"Error retrieving experiences for user {request.user}: {e}")
         return HttpResponse("An error occurred while retrieving experiences.", status=500)
     
-    return render(request, template_name, {'products': experiences})
+    return render(request, template_name, {'products': experiences, 'cv_id': cv.id})
 
 @transaction.atomic
 def cv_id_view(request, cv_id):

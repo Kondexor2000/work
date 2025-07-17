@@ -11,10 +11,10 @@
                 <div class="list-group-item list-group-item-action mb-3 shadow-sm">
                     <h5 class="mb-1">{{ experience.hobby }}</h5>
                 </div>
-                <a href="{% url 'update_hobby' cv_id=experience.cv.id experience_id=experience.id %}">Edytuj zainteresowania</a>
+                <a href="{% url 'update_hobby' cv_id=experience.cv.id hobby_id=experience.id %}">Edytuj zainteresowania</a>
             {% endfor %}
         </div>
-        <a href="{% url 'add_hobby' cv_id=products.cv.id %}">Dodaj zainteresowania</a>
+        <a href="{% url 'add_hobby' cv_id=cv_id %}">Dodaj zainteresowania</a>
         <a href="{% url 'index' %}">Strona główna</a>
     {% else %}
         <div class="alert alert-info mt-4">

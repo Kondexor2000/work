@@ -84,6 +84,7 @@ urlpatterns = [
     path('course/<int:subject_id>/certificate/', search_stores, name='search_stores'),
     path('course/user/test-scores/', test_score_to_user_view, name='test_score_to_user_view'),
     path('search/portfolio/', search_portfolio, name='search_portfolio'),
+    path('search/cv/', search_cv, name='search_cv'),
     path('portfolio/user/', portfolio_to_user_view, name='portfolio_to_user_view'),
     path('cv/user/', cv_to_user_view, name='cv_to_user_view'),
     path('cv/<int:cv_id>/', cv_to_id_view, name='cv_to_id_view'),

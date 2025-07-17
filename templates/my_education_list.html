@@ -14,7 +14,7 @@
                 <a href="{% url 'update_education' cv_id=experience.cv.id education_id=experience.id %}">Edytuj wykształcenie</a>
             {% endfor %}
         </div>
-        <a href="{% url 'add_education' cv_id=products.cv.id %}">Dodaj wykształcenie</a>
+        <a href="{% url 'add_education' cv_id=cv_id %}">Dodaj wykształcenie</a>
         <a href="{% url 'index' %}">Strona główna</a>
     {% else %}
         <div class="alert alert-info mt-4">

@@ -299,11 +299,13 @@ class SkillsForm(forms.ModelForm):
         fields = ['skill']
 
 class QuestionnaireForm(forms.ModelForm):
-    category = forms.ModelChoiceField(
-            queryset=QuestionnaireCategory.objects.all(),
-            widget=forms.Select
-        )
-    
     class Meta:
         model = Questionnaire
         fields = ['category']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Ogranicz do tylko "tak" i "nie"
+        self.fields['category'].queryset = QuestionnaireCategory.objects.filter(name__in=["tak", "nie"])
+        self.fields['category'].widget = forms.CheckboxSelectMultiple()

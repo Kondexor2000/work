@@ -18,7 +18,7 @@
                 <a href="{% url 'update_experience' cv_id=experience.cv.id experience_id=experience.id %}">Edytuj doświadczenie</a>
             {% endfor %}
         </div>
-        <a href="{% url 'add_hobby' cv_id=products.cv.id %}">Dodaj doświadczenie</a>
+        <a href="{% url 'add_hobby' cv_id=cv_id %}">Dodaj doświadczenie</a>
         <a href="{% url 'index' %}">Strona główna</a>
     {% else %}
         <div class="alert alert-info mt-4">

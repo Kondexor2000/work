@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Search Portfolios</h1>
+<form method="get">
+  <input type="text" name="q" value="{{ query }}" placeholder="Search...">
+  <button type="submit">Search</button>
+</form>
+<h2>Portfolios</h2>
+<ul>
+  {% for item in portfolios %}
+    <li>
+      {{ item.title }}
+      {% if item.user == request.user %}
+        <a href="{% url 'add_education' cv_id=item.id %}">
+          <button type="button">Dodaj wykształcenie</button>
+        </a>
+        <a href="{% url 'add_skill' cv_id=item.id %}">
+          <button type="button">Dodaj umiejętności</button>
+        </a>
+        <a href="{% url 'add_experience' cv_id=item.id %}">
+          <button type="button">Dodaj doświadczenie</button>
+        </a>
+        <a href="{% url 'add_hobby' cv_id=item.id %}">
+          <button type="button">Dodaj zainteresowania</button>
+        </a>
+      {% else %}
+        <a href="{% url 'cv_to_id_view' cv_id=item.id %}">
+          <button type="button">CV</button>
+        </a>
+        <a href="{% url 'cv_education_view' cv_id=item.id %}">
+          <button type="button">Wykształcenie</button>
+        </a>
+        <a href="{% url 'cv_skills_view' cv_id=item.id %}">
+          <button type="button">Umiejętności</button>
+        </a>
+        <a href="{% url 'cv_id_view' cv_id=item.id %}">
+          <button type="button">Doświadczenie</button>
+        </a>
+        <a href="{% url 'cv_hobby_view' cv_id=item.id %}">
+          <button type="button">Zainteresowania</button>
+        </a>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}
