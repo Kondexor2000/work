@@ -307,5 +307,5 @@ class QuestionnaireForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         # Ogranicz do tylko "tak" i "nie"
-        self.fields['category'].queryset = QuestionnaireCategory.objects.filter(name__in=["tak", "nie"])
+        self.fields['category'].queryset = QuestionnaireCategory.objects.all()
         self.fields['category'].widget = forms.CheckboxSelectMultiple()
