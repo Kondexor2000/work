@@ -18,10 +18,10 @@
                     </div>
                 </div>
             </div>
-            <a href="{% url 'cv_experience_view' cv_id=cv.id %}">Moje doświadczenie</a>
-            <a href="{% url 'cv_skills_view' cv_id=cv.id  %}">Moje umiejetności</a>
-            <a href="{% url 'cv_hobby_view' cv_id=cv.id %}">Moje hobby</a>
-            <a href="{% url 'cv_education_view' cv_id=cv.id %}">Moje wykształcenie</a>
+            <a href="{% url 'cv_experience_view' cv_id=products.id %}">Moje doświadczenie</a>
+            <a href="{% url 'cv_skills_view' cv_id=products.id  %}">Moje umiejetności</a>
+            <a href="{% url 'cv_hobby_view' cv_id=products.id %}">Moje hobby</a>
+            <a href="{% url 'cv_education_view' cv_id=products.id %}">Moje wykształcenie</a>
         </div>
     {% else %}
         <div class="alert alert-info mt-4">
