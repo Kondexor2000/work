@@ -299,7 +299,7 @@ class SkillsForm(forms.ModelForm):
         fields = ['skill']
 
 class QuestionnaireForm(forms.ModelForm):
-    category = forms.ModelMultipleChoiceField(
+    category = forms.ModelChoiceField(
             queryset=QuestionnaireCategory.objects.all(),
             widget=forms.Select
         )

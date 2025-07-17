@@ -180,7 +180,7 @@ class QuestionnaireCategory(models.Model):
     
 class Questionnaire(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    category = models.ManyToManyField(QuestionnaireCategory, blank=True)
+    category = models.ForeignKey(QuestionnaireCategory, on_delete=models.CASCADE, null=True, blank=True)
 
 # === Portfolio i projekty ===
 
