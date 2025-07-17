@@ -308,4 +308,4 @@ class QuestionnaireForm(forms.ModelForm):
 
         # Ogranicz do tylko "tak" i "nie"
         self.fields['category'].queryset = QuestionnaireCategory.objects.all()
-        self.fields['category'].widget = forms.CheckboxSelectMultiple()
+        self.fields['category'].widget = forms.Select
