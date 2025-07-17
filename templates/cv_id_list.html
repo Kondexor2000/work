@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <a href="{% url 'cv_experience_view' cv_id=cv.id %}">Moje doświadczenie</a>
-                <a href="{% url 'cv_skills_view'cv_id=cv.id  %}">Moje umiejetności</a>
+                <a href="{% url 'cv_skills_view' cv_id=cv.id  %}">Moje umiejetności</a>
                 <a href="{% url 'cv_hobby_view' cv_id=cv.id %}">Moje hobby</a>
                 <a href="{% url 'cv_education_view' cv_id=cv.id %}">Moje wykształcenie</a>
             {% endfor %}
