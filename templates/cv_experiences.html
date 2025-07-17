@@ -4,7 +4,7 @@
 <ul>
   {% for exp in products %}
     <li>{{ exp.position }} at {{ exp.company }}</li>
+    <a href="{% url 'update_experience' cv_id=exp.cv.id experience_id=exp.id %}">Edytuj doświadczenie</a>
   {% endfor %}
 </ul>
-<a href="{% url 'update_experience' cv_id=exp.cv.id experience_id=exp.id %}">Zobacz zaakceptowane oferty</a>
 {% endblock %}
