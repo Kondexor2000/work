@@ -1,19 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Businesses Managed</h1>
+<h1>Businesses Managed: {{ business.name }}</h1>
+
 <ul>
-  {% for business in products %}
-    <li>{{ business.first_name }} - {{ business.last_name }} - {{ business.email }} - {{ business.number_phone }}</li>
-    {% for hri in hr %}
-      <a href="{% url 'read_offer_jobs' business_id=business.id hr_id=hri.id %}">
+  {% for hr in hr_list %}
+    <li>
+      HR User: {{ hr.user.username }} - Email: {{ hr.user.email }}
+      <a href="{% url 'read_offer_jobs' business_id=business.id hr_id=hr.id %}">
           <button type="button">Proponowane oferty pracy</button>
       </a>
-    {% empty %}
-      <li>W tej chwili brak ofert pracy</li>
-    {% endfor %}
+    </li>
   {% empty %}
-    <li>No businesses found.</li>
+    <li>Brak HR powiązanych z tym biznesem.</li>
   {% endfor %}
 </ul>
 {% endblock %}

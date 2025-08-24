@@ -146,7 +146,8 @@ class UpdateHRView(LoginRequiredMixin, UpdateView):
         return get_object_or_404(HR, id=hr_id, business=business_id, user=self.request.user)
 
     def get_success_url(self):
-        return reverse('hr_to_business_view')
+        business = self.object.business.first()  # jeśli to ManyToMany
+        return reverse('hr_to_business_view', kwargs={'business_id': business.id})
 
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
@@ -183,7 +184,7 @@ class UpdateBusinessView(LoginRequiredMixin, UpdateView):
         return get_object_or_404(Business, id=business_id)
 
     def get_success_url(self):
-        return reverse('hr_to_business_view')
+        return reverse('hr_to_business_view', kwargs={'business_id': self.object.id})
 
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
@@ -220,20 +221,21 @@ class AddOfferJobsView(LoginRequiredMixin, CreateView):
         return super().dispatch(request, *args, **kwargs)
 
 
+
 class DeleteOffersJobsView(LoginRequiredMixin, DeleteView):
     model = OffersJob
     template_name = 'delete_offer_jobs.html'
 
     def get_object(self, queryset=None):
         offer_jobs_id = self.kwargs.get('offer_jobs_id')
-        return get_object_or_404(OffersJob, id=offer_jobs_id, user=self.request.user)
+        return get_object_or_404(OffersJob, id=offer_jobs_id)
 
-    def delete(self, request, *args, **kwargs):
+    def form_valid(self, form):
         offer = self.get_object()
-        if offer.user == self.request.user:
-            return super().delete(request, *args, **kwargs)
-        messages.error(request, "Nie masz uprawnień do usunięcia tej oferty.")
-        return redirect('offers_job_created_by_user')
+        if offer.hr.user != self.request.user:
+            messages.error(self.request, "Nie masz uprawnień do usunięcia tej oferty.")
+            return redirect('offers_job_created_by_user')
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse('offers_job_created_by_user')
@@ -273,7 +275,7 @@ class UpdateOfferJobsUserView(LoginRequiredMixin, UpdateView):
 
     def get_object(self, queryset=None):
         offers_job_id = self.kwargs.get('offers_job_id')
-        return get_object_or_404(OffersJobUser, offer=offers_job_id, user=self.request.user)
+        return get_object_or_404(OffersJobUser, offer__id=offers_job_id, user=self.request.user)
 
     def get_success_url(self):
         return reverse('index')
@@ -373,7 +375,7 @@ class UpdateSubjectView(LoginRequiredMixin, UpdateView):
     def get_object(self, queryset=None):
         course_id = self.kwargs.get('course_id')
         subject_id = self.kwargs.get('subject_id')
-        return get_object_or_404(Subject, id=subject_id, course=course_id, user=self.request.user)
+        return get_object_or_404(Subject, id=subject_id, course=course_id)
 
     def get_success_url(self):
         return reverse('subject_to_test_view')
@@ -391,7 +393,7 @@ class DeleteSubjectView(LoginRequiredMixin, DeleteView):
     def get_object(self, queryset=None):
         course_id = self.kwargs.get('course_id')
         subject_id = self.kwargs.get('subject_id')
-        return get_object_or_404(Subject, id=subject_id, course=course_id, user=self.request.user)
+        return get_object_or_404(Subject, id=subject_id, course=course_id)
 
     def get_success_url(self):
         return reverse('add_subject')
@@ -433,7 +435,7 @@ class UpdateTestView(LoginRequiredMixin, UpdateView):
     def get_object(self, queryset=None):
         subject_id = self.kwargs.get('subject_id')
         test_id = self.kwargs.get('test_id')
-        return get_object_or_404(Test, id=test_id, subject=subject_id, user=self.request.user)
+        return get_object_or_404(Test, id=test_id, subject=subject_id)
 
     def get_success_url(self):
         return reverse('test_to_question_view')
@@ -451,7 +453,7 @@ class DeleteTestView(LoginRequiredMixin, DeleteView):
     def get_object(self, queryset=None):
         subject_id = self.kwargs.get('subject_id')
         test_id = self.kwargs.get('test_id')
-        return get_object_or_404(Test, id=test_id, subject=subject_id, user=self.request.user)
+        return get_object_or_404(Test, id=test_id, subject=subject_id)
 
     def get_success_url(self):
         return reverse('add_test')
@@ -490,7 +492,7 @@ class UpdateQuestionView(LoginRequiredMixin, UpdateView):
     def get_object(self, queryset=None):
         test_id = self.kwargs.get('test_id')
         question_id = self.kwargs.get('question_id')
-        return get_object_or_404(Questions, id=question_id, test=test_id, user=self.request.user)
+        return get_object_or_404(Questions, id=question_id, test=test_id)
 
     def get_success_url(self):
         return reverse('test_to_question_view')
@@ -508,7 +510,7 @@ class DeleteQuestionView(LoginRequiredMixin, DeleteView):
     def get_object(self, queryset=None):
         test_id = self.kwargs.get('test_id')
         question_id = self.kwargs.get('question_id')
-        return get_object_or_404(Questions, id=question_id, test=test_id, user=self.request.user)
+        return get_object_or_404(Questions, id=question_id, test=test_id)
 
     def get_success_url(self):
         return reverse('add_question')
@@ -699,7 +701,7 @@ class AddLinkView(LoginRequiredMixin, CreateView):
             for instance in formset.save(commit=False):
                 instance.portfolio_id = portfolio_id
                 instance.save()
-            return redirect(reverse('my_portfolio_link_view'))
+            return redirect(reverse('my_portfolio_links_view'))
         return render(request, self.template_name, {'formset': formset})
 
 
@@ -1102,8 +1104,8 @@ def hr_to_business_view(request, business_id):
 
     try:
         business = Business.objects.get(id=business_id)
-        products = HR.objects.filter(business=business)
-        logger.info(f"Businesses retrieved successfully for HR {products}.")
+        hr_list = HR.objects.filter(business=business)
+        logger.info(f"Businesses retrieved successfully for HR {hr_list}.")
     except HR.DoesNotExist:
         logger.warning(f"HR profile not found for user {request.user}.")
         return HttpResponse("No HR profile found for this user.", status=404)
@@ -1111,7 +1113,12 @@ def hr_to_business_view(request, business_id):
         logger.exception(f"Unexpected error while retrieving businesses for user {request.user}: {e}")
         return HttpResponse("An error occurred while retrieving businesses.", status=500)
 
-    return render(request, template_name, {'products': products})
+    context = {
+        'business': business,
+        'hr_list': hr_list,
+        'user': request.user,
+    }
+    return render(request, template_name, context)
 
 @transaction.atomic
 @login_required

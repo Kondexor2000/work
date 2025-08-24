@@ -380,3 +380,1946 @@ Traceback (most recent call last):
     raise NoReverseMatch(msg)
 django.urls.exceptions.NoReverseMatch: Reverse for 'update_skill' with keyword arguments '{'cv_id': 1, 'experience_id': 1}' not found. 1 pattern(s) tried: ['cv/(?P<cv_id>[0-9]+)/skill/(?P<skill_id>[0-9]+)/update\\Z']
 ERROR 2025-07-17 11:16:38,803 basehttp "GET /cv/user/skill/ HTTP/1.1" 500 200682
+ERROR 2025-08-08 16:31:50,976 log Internal Server Error: /index
+ERROR 2025-08-08 16:31:50,986 log Internal Server Error: /course/user/
+ERROR 2025-08-08 16:31:50,996 log Internal Server Error: /offers_job/user/
+ERROR 2025-08-08 16:31:51,007 log Internal Server Error: /offers_job/user/created
+ERROR 2025-08-08 16:31:51,019 log Internal Server Error: /course/user/test-scores/
+ERROR 2025-08-08 16:31:51,033 log Internal Server Error: /portfolio/user/
+ERROR 2025-08-08 16:31:51,045 log Internal Server Error: /cv/user/
+ERROR 2025-08-08 16:31:51,057 log Internal Server Error: /cv/user/experience/
+ERROR 2025-08-08 16:31:51,067 log Internal Server Error: /cv/user/hobby/
+ERROR 2025-08-08 16:31:51,078 log Internal Server Error: /cv/user/education/
+ERROR 2025-08-08 16:31:51,088 log Internal Server Error: /cv/user/skill/
+ERROR 2025-08-08 16:31:51,100 log Internal Server Error: /portfolio/user/projects/
+ERROR 2025-08-08 16:31:51,110 log Internal Server Error: /portfolio/user/links/
+ERROR 2025-08-08 16:31:51,433 log Internal Server Error: /thanks/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1399, in thanking_view
+    return render(request, template_name)
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:31:51,442 log Internal Server Error: /answer/
+ERROR 2025-08-08 16:31:51,474 log Internal Server Error: /course/1/subject/1/questionnaire
+ERROR 2025-08-08 16:31:51,684 log Internal Server Error: /offers_job/user/1
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1057, in offer_user_to_hr
+    return render(request, template_name, {'products': products, 'message': message})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:31:51,698 log Internal Server Error: /business/1/hr/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1114, in hr_to_business_view
+    return render(request, template_name, {'products': products})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:31:51,711 log Internal Server Error: /course/1/subject/1/test/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1212, in subject_to_test_view
+    return render(request, template_name, {'products': products})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:31:51,742 log Internal Server Error: /cv/1/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1394, in cv_to_id_view
+    return render(request, template_name, {'products': products})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:31:51,754 log Internal Server Error: /cv/1/experience/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1599, in cv_id_view
+    return render(request, template_name, {'products': experiences})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:31:51,766 log Internal Server Error: /cv/1/hobby/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1469, in cv_hobby_view
+    return render(request, template_name, {'products': experiences})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:31:51,779 log Internal Server Error: /cv/1/education/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1505, in cv_education_view
+    return render(request, template_name, {'products': experiences})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:31:51,792 log Internal Server Error: /cv/1/skill/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1541, in cv_skills_view
+    return render(request, template_name, {'products': experiences})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:31:51,804 log Internal Server Error: /portfolio/1/project/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1617, in portfolio_projects_view
+    return render(request, template_name, {'products': projects})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:31:51,815 log Internal Server Error: /portfolio/1/link/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1690, in portfolio_links_view
+    return render(request, template_name, {'products': links})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:36:08,133 log Internal Server Error: /index
+ERROR 2025-08-08 16:36:08,136 log Internal Server Error: /course/user/
+ERROR 2025-08-08 16:36:08,138 log Internal Server Error: /offers_job/user/
+ERROR 2025-08-08 16:36:08,139 log Internal Server Error: /offers_job/user/created
+ERROR 2025-08-08 16:36:08,143 log Internal Server Error: /course/user/test-scores/
+ERROR 2025-08-08 16:36:08,147 log Internal Server Error: /portfolio/user/
+ERROR 2025-08-08 16:36:08,150 log Internal Server Error: /cv/user/
+ERROR 2025-08-08 16:36:08,152 log Internal Server Error: /cv/user/experience/
+ERROR 2025-08-08 16:36:08,154 log Internal Server Error: /cv/user/hobby/
+ERROR 2025-08-08 16:36:08,157 log Internal Server Error: /cv/user/education/
+ERROR 2025-08-08 16:36:08,159 log Internal Server Error: /cv/user/skill/
+ERROR 2025-08-08 16:36:08,161 log Internal Server Error: /portfolio/user/projects/
+ERROR 2025-08-08 16:36:08,164 log Internal Server Error: /portfolio/user/links/
+ERROR 2025-08-08 16:36:08,177 log Internal Server Error: /thanks/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1399, in thanking_view
+    return render(request, template_name)
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:36:08,180 log Internal Server Error: /answer/
+ERROR 2025-08-08 16:36:08,190 log Internal Server Error: /course/1/subject/1/questionnaire
+ERROR 2025-08-08 16:36:08,220 log Internal Server Error: /offers_job/user/1
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1057, in offer_user_to_hr
+    return render(request, template_name, {'products': products, 'message': message})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:36:08,226 log Internal Server Error: /business/1/hr/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1114, in hr_to_business_view
+    return render(request, template_name, {'products': products})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:36:08,231 log Internal Server Error: /course/1/subject/1/test/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1212, in subject_to_test_view
+    return render(request, template_name, {'products': products})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:36:08,243 log Internal Server Error: /cv/1/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1394, in cv_to_id_view
+    return render(request, template_name, {'products': products})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:36:08,247 log Internal Server Error: /cv/1/experience/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1599, in cv_id_view
+    return render(request, template_name, {'products': experiences})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:36:08,252 log Internal Server Error: /cv/1/hobby/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1469, in cv_hobby_view
+    return render(request, template_name, {'products': experiences})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:36:08,257 log Internal Server Error: /cv/1/education/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1505, in cv_education_view
+    return render(request, template_name, {'products': experiences})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:36:08,261 log Internal Server Error: /cv/1/skill/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1541, in cv_skills_view
+    return render(request, template_name, {'products': experiences})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:36:08,266 log Internal Server Error: /portfolio/1/project/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1617, in portfolio_projects_view
+    return render(request, template_name, {'products': projects})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:36:08,271 log Internal Server Error: /portfolio/1/link/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1690, in portfolio_links_view
+    return render(request, template_name, {'products': links})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:43:31,716 log Internal Server Error: /index
+ERROR 2025-08-08 16:43:31,718 log Internal Server Error: /course/user/
+ERROR 2025-08-08 16:43:31,720 log Internal Server Error: /offers_job/user/
+ERROR 2025-08-08 16:43:31,722 log Internal Server Error: /offers_job/user/created
+ERROR 2025-08-08 16:43:31,726 log Internal Server Error: /course/user/test-scores/
+ERROR 2025-08-08 16:43:31,731 log Internal Server Error: /portfolio/user/
+ERROR 2025-08-08 16:43:31,734 log Internal Server Error: /cv/user/
+ERROR 2025-08-08 16:43:31,736 log Internal Server Error: /cv/user/experience/
+ERROR 2025-08-08 16:43:31,738 log Internal Server Error: /cv/user/hobby/
+ERROR 2025-08-08 16:43:31,741 log Internal Server Error: /cv/user/education/
+ERROR 2025-08-08 16:43:31,743 log Internal Server Error: /cv/user/skill/
+ERROR 2025-08-08 16:43:31,745 log Internal Server Error: /portfolio/user/projects/
+ERROR 2025-08-08 16:43:31,747 log Internal Server Error: /portfolio/user/links/
+ERROR 2025-08-08 16:43:31,761 log Internal Server Error: /thanks/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1399, in thanking_view
+    return render(request, template_name)
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:43:31,764 log Internal Server Error: /answer/
+ERROR 2025-08-08 16:43:31,774 log Internal Server Error: /course/1/subject/1/questionnaire
+ERROR 2025-08-08 16:43:31,806 log Internal Server Error: /offers_job/user/1
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1057, in offer_user_to_hr
+    return render(request, template_name, {'products': products, 'message': message})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:43:31,811 log Internal Server Error: /business/1/hr/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1114, in hr_to_business_view
+    return render(request, template_name, {'products': products})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:43:31,818 log Internal Server Error: /course/1/subject/1/test/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1212, in subject_to_test_view
+    return render(request, template_name, {'products': products})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:43:31,829 log Internal Server Error: /cv/1/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1394, in cv_to_id_view
+    return render(request, template_name, {'products': products})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:43:31,833 log Internal Server Error: /cv/1/experience/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1599, in cv_id_view
+    return render(request, template_name, {'products': experiences})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:43:31,837 log Internal Server Error: /cv/1/hobby/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1469, in cv_hobby_view
+    return render(request, template_name, {'products': experiences})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:43:31,841 log Internal Server Error: /cv/1/education/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1505, in cv_education_view
+    return render(request, template_name, {'products': experiences})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:43:31,846 log Internal Server Error: /cv/1/skill/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1541, in cv_skills_view
+    return render(request, template_name, {'products': experiences})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:43:31,851 log Internal Server Error: /portfolio/1/project/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1617, in portfolio_projects_view
+    return render(request, template_name, {'products': projects})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:43:31,855 log Internal Server Error: /portfolio/1/link/
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.3568.0_x64__qbz5n2kfra8p0\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\kondz\work\workapp\views.py", line 1690, in portfolio_links_view
+    return render(request, template_name, {'products': links})
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:51:13,365 log Internal Server Error: /business
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:54:28,235 log Internal Server Error: /business
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 16:54:59,796 log Internal Server Error: /business
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\test\utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\kondz\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'eduwork.png'
+ERROR 2025-08-08 17:51:51,055 log Internal Server Error: /offer_jobs/4/delete
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\kondz\venv\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\kondz\work\workapp\views.py", line 244, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+  File "C:\Users\kondz\venv\lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\kondz\venv\lib\site-packages\django\views\generic\edit.py", line 275, in post
+    self.object = self.get_object()
+  File "C:\Users\kondz\work\workapp\views.py", line 229, in get_object
+    return get_object_or_404(OffersJob, id=offer_jobs_id, user=self.request.user)
+  File "C:\Users\kondz\venv\lib\site-packages\django\shortcuts.py", line 85, in get_object_or_404
+    return queryset.get(*args, **kwargs)
+  File "C:\Users\kondz\venv\lib\site-packages\django\db\models\query.py", line 623, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+  File "C:\Users\kondz\venv\lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "C:\Users\kondz\venv\lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\kondz\venv\lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\kondz\venv\lib\site-packages\django\db\models\sql\query.py", line 1502, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\kondz\venv\lib\site-packages\django\db\models\sql\query.py", line 1533, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\kondz\venv\lib\site-packages\django\db\models\sql\query.py", line 1383, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+  File "C:\Users\kondz\venv\lib\site-packages\django\db\models\sql\query.py", line 1193, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "C:\Users\kondz\venv\lib\site-packages\django\db\models\sql\query.py", line 1681, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'user' into field. Choices are: business, business_id, category, category_id, file, hr, hr_id, id, offersjobuser, tags, title
+WARNING 2025-08-08 17:51:51,619 log Not Found: /offers_job/user/created
+WARNING 2025-08-08 17:54:05,564 log Not Found: /offers_job/user/created
+WARNING 2025-08-08 17:56:22,962 log Not Found: /offers_job/user/created
+WARNING 2025-08-08 18:01:25,766 log Not Found: /offers_job/user/created
+WARNING 2025-08-08 18:05:01,497 log Not Found: /offers_job/user/created
+WARNING 2025-08-08 18:06:24,884 log Not Found: /offers_job/user/created
+WARNING 2025-08-08 18:07:29,838 log Not Found: /offers_job/user/created
+WARNING 2025-08-08 18:12:11,347 log Not Found: /offer_jobs/3/delete
+WARNING 2025-08-08 18:12:12,425 log Not Found: /offers_job/user/created
+WARNING 2025-08-08 18:14:09,931 log Not Found: /offer_jobs/3/delete
+WARNING 2025-08-08 18:14:11,008 log Not Found: /offers_job/user/created
+WARNING 2025-08-08 18:20:05,852 log Not Found: /offer_jobs/3/delete
+WARNING 2025-08-08 18:20:06,930 log Not Found: /offers_job/user/created
+WARNING 2025-08-08 18:25:58,241 log Not Found: /offers_job/user/created
+WARNING 2025-08-09 14:21:21,896 log Not Found: /offers_job/user/created
+WARNING 2025-08-09 14:24:49,974 log Not Found: /offers_job/user/created
+WARNING 2025-08-09 14:31:32,220 log Not Found: /offers_job/user/created
+WARNING 2025-08-09 14:32:53,330 log Not Found: /offers_job/user/created
+WARNING 2025-08-09 14:38:16,834 log Not Found: /offers_job/user/created
+WARNING 2025-08-09 14:45:37,459 log Not Found: /offers_job/user/created
+WARNING 2025-08-09 14:48:05,900 log Not Found: /offers_job/user/created
+WARNING 2025-08-09 14:53:27,042 log Not Found: /offers_job/user/created
+ERROR 2025-08-09 14:54:44,457 log Internal Server Error: /business/3/update
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\kondz\venv\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\kondz\work\workapp\views.py", line 191, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+  File "C:\Users\kondz\venv\lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\kondz\venv\lib\site-packages\django\views\generic\edit.py", line 208, in post
+    return super().post(request, *args, **kwargs)
+  File "C:\Users\kondz\venv\lib\site-packages\django\views\generic\edit.py", line 153, in post
+    return self.form_valid(form)
+  File "C:\Users\kondz\venv\lib\site-packages\django\views\generic\edit.py", line 136, in form_valid
+    return super().form_valid(form)
+  File "C:\Users\kondz\venv\lib\site-packages\django\views\generic\edit.py", line 65, in form_valid
+    return HttpResponseRedirect(self.get_success_url())
+  File "C:\Users\kondz\work\workapp\views.py", line 186, in get_success_url
+    return reverse('hr_to_business_view')
+  File "C:\Users\kondz\venv\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\kondz\venv\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'hr_to_business_view' with no arguments not found. 1 pattern(s) tried: ['business/(?P<business_id>[0-9]+)/hr/\\Z']
+WARNING 2025-08-09 14:54:46,172 log Not Found: /offers_job/user/created
+WARNING 2025-08-09 14:56:37,758 log Not Found: /offers_job/user/created
+WARNING 2025-08-09 15:00:59,407 log Not Found: /offers_job/user/created
+WARNING 2025-08-09 15:02:08,735 log Not Found: /offers_job/user/created
+WARNING 2025-08-09 15:06:06,066 log Not Found: /business/2/hr/
+WARNING 2025-08-09 15:06:06,854 log Not Found: /business/3/hr/
+WARNING 2025-08-09 15:06:09,992 log Not Found: /offers_job/user/created
+WARNING 2025-08-09 15:06:50,311 log Not Found: /offers_job/user/created
+WARNING 2025-08-09 15:14:25,779 log Not Found: /offers_job/user/created
+WARNING 2025-08-09 15:25:07,413 log Not Found: /offers_job/user/created
+WARNING 2025-08-09 15:28:10,464 log Not Found: /offers_job/user/created
+WARNING 2025-08-09 15:31:11,746 log Not Found: /offers_job/user/created
+WARNING 2025-08-09 15:34:13,800 log Not Found: /offers_job/user/created
+WARNING 2025-08-09 15:37:19,388 log Not Found: /offers_job/user/created
+WARNING 2025-08-10 06:53:37,227 log Not Found: /offers_job/user/created
+WARNING 2025-08-10 06:56:16,549 log Not Found: /offers_job/user/created
+WARNING 2025-08-10 07:13:49,454 log Not Found: /offers_job/user/created
+WARNING 2025-08-10 07:25:27,335 log Not Found: /offers_job/user/created
+WARNING 2025-08-10 07:27:44,961 log Not Found: /offers_job/user/created
+WARNING 2025-08-10 07:29:09,235 log Not Found: /offers_job/user/created
+WARNING 2025-08-10 07:32:47,946 log Not Found: /offers_job/user/created
+WARNING 2025-08-10 07:36:20,274 log Not Found: /offers_job/user/created
+WARNING 2025-08-10 07:37:31,317 log Not Found: /offers_job/user/created
+WARNING 2025-08-10 07:38:49,991 log Not Found: /offers_job/user/created
+WARNING 2025-08-10 07:42:25,577 log Not Found: /offers_job/user/created
+ERROR 2025-08-10 07:42:28,636 log Internal Server Error: /portfolio/3/link
+Traceback (most recent call last):
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\kondz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\kondz\venv\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\kondz\venv\lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+  File "C:\Users\kondz\venv\lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\kondz\work\workapp\views.py", line 704, in post
+    return redirect(reverse('my_portfolio_link_view'))
+  File "C:\Users\kondz\venv\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\kondz\venv\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'my_portfolio_link_view' not found. 'my_portfolio_link_view' is not a valid view function or pattern name.
+WARNING 2025-08-10 07:45:22,860 log Not Found: /offers_job/user/created
+WARNING 2025-08-10 07:54:37,287 log Not Found: /offers_job/user/created
+WARNING 2025-08-10 07:56:19,866 log Not Found: /offers_job/user/created
+WARNING 2025-08-10 08:00:13,935 log Not Found: /offers_job/user/created
+WARNING 2025-08-10 08:07:56,934 log Not Found: /offers_job/user/created
+WARNING 2025-08-10 08:09:52,396 log Not Found: /offers_job/user/created
+WARNING 2025-08-10 08:11:50,184 log Not Found: /offers_job/user/created
+WARNING 2025-08-10 08:13:09,224 log Not Found: /offers_job/user/created
+WARNING 2025-08-10 08:20:59,311 log Not Found: /offers_job/user/created
+WARNING 2025-08-10 08:24:25,317 log Not Found: /offers_job/user/created
+WARNING 2025-08-10 08:27:30,442 log Not Found: /offers_job/user/created
+WARNING 2025-08-10 08:30:00,634 log Not Found: /offers_job/user/created

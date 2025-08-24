@@ -14,4 +14,5 @@ def get_client_ip(request):
 @receiver(user_logged_in)
 def log_user_login(sender, request, user, **kwargs):
     ip = get_client_ip(request)
-    LoginLog.objects.create(user=user, ip_address=ip)
+    if ip:
+        LoginLog.objects.create(user=user, ip_address=ip)
