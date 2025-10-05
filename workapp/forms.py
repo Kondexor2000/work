@@ -6,7 +6,7 @@ from .models import CV, HR, Business, TagBusiness, TagCourse, TagPortfolio, Test
 class CVForm(forms.ModelForm):
     class Meta:
         model = CV
-        fields = ['title', 'first_name', 'last_name', 'email', 'number_phone']  # Zmieniono: 'e-mail' → 'email'
+        fields = ['title', 'first_name', 'last_name', 'email', 'number_phone', 'street', 'number_house', 'code', 'city']  # Zmieniono: 'e-mail' → 'email'
 
 class HRForm(forms.ModelForm):
     class Meta:
@@ -213,6 +213,11 @@ EducationFormSet = modelformset_factory(
 )
 
 class AnswerForm(forms.ModelForm):
+    answer = forms.ModelChoiceField(
+            queryset=Answers.objects.all(),
+            widget=forms.CheckboxInput
+        )
+    
     class Meta:
         model = Answers
         fields = ['answer']

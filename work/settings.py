@@ -30,6 +30,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+# informacja, że za SSL odpowiada Nginx
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+# wymuszanie HTTPS (opcjonalnie)
+SECURE_SSL_REDIRECT = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
 # Application definition
 
@@ -41,7 +48,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'workapp',
-    'templates'
+    'templates',
+    'django_extensions',
+    'openai'
 ]
 
 MIDDLEWARE = [

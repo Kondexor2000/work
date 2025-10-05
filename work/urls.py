@@ -102,4 +102,7 @@ urlpatterns = [
     path('portfolio/user/projects/', my_portfolio_projects_view, name='my_portfolio_projects_view'),
     path('portfolio/user/links/', my_portfolio_links_view, name='my_portfolio_links_view'),
     path('portfolio/<int:portfolio_id>/link/', portfolio_links_view, name='portfolio_links_view'),
+    path("test/<int:test_id>/generate/", generate_questions_view, name="generate_questions"),
+    path("user/<int:user_id>/adapt/", adapt_questions_view, name="adapt_questions"),
+    path("test/<int:test_id>/user/<int:user_id>/pipeline/", prepare_and_adapt_view, name="prepare_adapt"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

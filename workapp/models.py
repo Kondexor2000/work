@@ -138,6 +138,10 @@ class CV(models.Model):
     last_name = models.CharField(max_length=255)
     email = models.EmailField()
     number_phone = models.CharField(max_length=20)
+    street = models.CharField(max_length=100, default="Kowalskiego")
+    number_house = models.CharField(max_length=10, default="1")
+    code = models.CharField(max_length=10, default="64-920")
+    city = models.CharField(max_length=50, default="Poznań")
 
     def __str__(self):
         return self.title
