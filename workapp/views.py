@@ -9,15 +9,18 @@ from django.views.generic import CreateView, UpdateView, DeleteView
 from django.shortcuts import redirect, render
 from django.template.loader import get_template
 from django.views import View
+from django.utils import timezone
 from django.contrib.auth import login
 from django.template import TemplateDoesNotExist
 import logging
+from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, Http404, HttpResponseNotFound
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
-from .models import CV, HR, TagBusiness, TagPortfolio, TagCourse, Test, Portfolio, Projects, Link, Experience, CategoryCourse, CategoryEmploy, Certificate, Course, OffersJob, OffersJobUser, Business, Subject, TestScore, Answers, Questions, Hobby, Skills, Education, Questionnaire
-from .forms import CVForm, HRForm, SubjectForm, AddOfferJobUserForm, UpdateOfferJobUserForm, AnswerForm, CourseForm, TestForm, LinkForm, ProjectForm, BusinessForm, QuestionForm, OfferJobsForm, PortfolioForm, ExperienceForm, QuestionFormSet, ExperienceFormSet, LinkFormSet, ProjectsFormSet, SubjectFormSet, QuestionnaireForm, HobbyForm, SkillsForm, EducationForm, EducationFormSet, SkillsFormSet, HobbyFormSet
+from .models import CV, HR, Opinion, TagBusiness, TagPortfolio, TagCourse, Test, Portfolio, Projects, Link, Experience, CategoryCourse, CategoryEmploy, Certificate, Course, OffersJob, OffersJobUser, Business, Subject, TestScore, Answers, Questions, Hobby, Skills, Education, Questionnaire, Transmition, Comment
+from .forms import CVForm, OpinionForm, HRForm, SubjectForm, AddOfferJobUserForm, UpdateOfferJobUserForm, AnswerForm, CourseForm, TestForm, LinkForm, ProjectForm, BusinessForm, QuestionForm, OfferJobsForm, PortfolioForm, ExperienceForm, QuestionFormSet, ExperienceFormSet, LinkFormSet, ProjectsFormSet, SubjectFormSet, QuestionnaireForm, HobbyForm, SkillsForm, EducationForm, EducationFormSet, SkillsFormSet, HobbyFormSet, TransmitionForm, CommentForm
+#from .utils import rsa_encrypt, pq_encrypt
 # Create your views here.
 
 logger = logging.getLogger(__name__)
@@ -467,7 +470,7 @@ class DeleteTestView(LoginRequiredMixin, DeleteView):
 # === QUESTIONS ===
 
 class AddQuestionView(LoginRequiredMixin, View):
-    template_name = 'add_questions.html'
+    template_name = 'add_question.html'
     
     def get(self, request, *args, **kwargs):
         formset = QuestionFormSet(queryset=Questions.objects.none())
@@ -958,6 +961,8 @@ def search_offers_job(request):
     query = request.GET.get('q', '').strip()
     category_id = request.GET.get('category')
     categories = CategoryEmploy.objects.all()
+    tags_id = request.GET.get('tags')
+    tags = TagBusiness.objects.all()
     products = []
 
     try:
@@ -969,6 +974,9 @@ def search_offers_job(request):
         if category_id:
             offers_query = offers_query.filter(category_id=category_id)
 
+        if tags_id:
+            offers_query = offers_query.filter(tags_id=tags_id)
+
         products = offers_query
 
         logger.info(f"Offers retrieved successfully for user {request.user}. Query: '{query}', Category: '{category_id}'")
@@ -979,6 +987,7 @@ def search_offers_job(request):
     return render(request, template_name, {
         'products': products,
         'query': query,
+        'tags': tags,
         'categories': categories,
         'selected_category': category_id
     })
@@ -992,6 +1001,9 @@ def accepted_offers_job_user(request):
 
     try:
         user = request.user
+        transmitions = Transmition.objects.filter(
+            Q(leaders=user) | Q(participants=user)
+        ).distinct()
         products = OffersJobUser.objects.filter(is_accept=True, user=user)
         logger.info(f"Products retrieved successfully for user {request.user}.")
     except Exception as e:
@@ -999,7 +1011,7 @@ def accepted_offers_job_user(request):
         products = []
         return HttpResponse("An error occurred while retrieving categories.", status=500)
     
-    return render(request, template_name, {'products': products})
+    return render(request, template_name, {'products': products, 'transmitions': transmitions})
 
 @transaction.atomic
 def offer_jobs_id(request, business_id, hr_id):
@@ -1131,21 +1143,22 @@ def search_course_view(request):
 
     query = request.GET.get('q', '').strip()
     category_id = request.GET.get('category')
+    tags_id = request.GET.get('tags')
     categories = CategoryCourse.objects.all()
     courses = []
-    tags = []
+    tags = TagCourse.objects.all()
 
     try:
         course_query = Course.objects.all()
 
         if query:
             course_query = course_query.filter(Q(title__icontains=query))
-            tags = TagCourse.objects.filter(Q(name__icontains=query))
-        else:
-            tags = TagCourse.objects.none()  # lub wszystkie, jeśli chcesz: TagCourse.objects.all()
 
         if category_id:
             course_query = course_query.filter(category_id=category_id)
+
+        if tags_id:
+            course_query = course_query.filter(tags_id=tags_id)
 
         courses = course_query
 
@@ -1173,13 +1186,16 @@ def subject_to_course_view(request, course_id):
 
     try:
         course = get_object_or_404(Course, id=course_id)
+        opinion = Opinion.objects.filter(
+            course=course
+        )
         products = Subject.objects.filter(course=course)
         logger.info(f"Subjects retrieved successfully for Course {course.title} by user {request.user}.")
     except Exception as e:
         logger.exception(f"Error retrieving subjects for course {course_id} by user {request.user}: {e}")
         return HttpResponse("An error occurred while retrieving subjects.", status=500)
 
-    return render(request, template_name, {'course': course,'products': products})
+    return render(request, template_name, {'course': course,'products': products,'opinion': opinion})
 
 @login_required
 @transaction.atomic
@@ -1317,14 +1333,19 @@ def search_portfolio(request):
 
     query = request.GET.get('q', '').strip()
     portfolios = []
-    tags = []
+    tags = TagPortfolio.objects.all()
+    tags_id = request.GET.get('tags')
 
     try:
+        portfolios_all = Portfolio.objects.all()
+
         if query:
-            portfolios = Portfolio.objects.filter(Q(title__icontains=query))
-            tags = TagPortfolio.objects.filter(Q(name__icontains=query))
-        else:
-            portfolios = Portfolio.objects.all()
+            portfolios_all = portfolios_all.filter(Q(title__icontains=query))
+
+        if tags_id:
+            portfolios_all = portfolios_all.filter(tags_id=tags_id)
+
+        portfolios = portfolios_all
 
         logger.info(f"Search executed by {request.user}: query='{query}'")
     except Exception as e:
@@ -1340,30 +1361,44 @@ def search_portfolio(request):
 @transaction.atomic
 @login_required
 def search_cv(request):
-    template_name = 'search_cv.html'
-
-    if not check_template(template_name, request):
-        logger.warning(f"Template '{template_name}' not found for user {request.user}.")
-        return HttpResponseNotFound("Template not found.")
-
+    """
+    Wyszukiwanie CV po tytule (query 'q') i zwracanie JSON.
+    """
     query = request.GET.get('q', '').strip()
-    portfolios = []
 
     try:
         if query:
-            portfolios = CV.objects.filter(Q(title__icontains=query))
+            cvs = CV.objects.filter(title__icontains=query)
         else:
-            portfolios = CV.objects.all()
+            cvs = CV.objects.all()
 
-        logger.info(f"Search executed by {request.user}: query='{query}'")
+        cvs_data = []
+
+        cvs_data.append({
+                "id": id,
+                "title": cvs.title,
+                "first_name": cvs.first_name,
+                "last_name": cvs.last_name,
+                "email": cvs.email,
+                "number_phone": cvs.number_phone,
+                "street": cvs.street,
+                "number_house": cvs.number_house,
+                "code": cvs.code,
+                "city": cvs.city,
+                "user_id": cvs.user.id
+            })
+
+        # render do szablonu
+        return render(request, "search_cv.html", {
+            "query": query,
+            "cvs": cvs_data
+        })
+
     except Exception as e:
-        logger.error(f"Error during search for user {request.user}: {e}")
-        return HttpResponse("An error occurred during the search.", status=500)
-
-    return render(request, template_name, {
-        'portfolios': portfolios,
-        'query': query
-    })
+        return render(request, "search_cv.html", {
+            "query": query,
+            "error": f"An error occurred during CV search: {str(e)}"
+        })
 
 
 @transaction.atomic
@@ -1695,3 +1730,178 @@ def portfolio_links_view(request, portfolio_id):
         return HttpResponse("An error occurred while retrieving links.", status=500)
     
     return render(request, template_name, {'products': links})
+
+@transaction.atomic
+def comments_transmition_view(request, transmition_id):
+    template_name = 'transmition_view.html'
+    
+    if not check_template(template_name, request):
+        logger.warning(f"Template '{template_name}' not found for user {request.user}.")
+        return HttpResponseNotFound("Template not found.")
+    
+    try:
+        portfolio = get_object_or_404(Transmition, id=transmition_id)
+        links = Comment.objects.filter(portfolio=portfolio)
+        logger.info(f"Links retrieved successfully for portfolio {transmition_id} by user {request.user}.")
+    except Exception as e:
+        logger.error(f"Error retrieving links for portfolio {transmition_id} by user {request.user}: {e}")
+        return HttpResponse("An error occurred while retrieving links.", status=500)
+    
+    return render(request, template_name, {'comments': links, "now": timezone.now(),})
+
+class AddTransmitionView(LoginRequiredMixin, CreateView):
+    form_class = TransmitionForm
+    template_name = 'add_transmition.html'
+
+    def form_valid(self, form):
+        form.instance.leaders = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('index')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not check_template(self.template_name, request):
+            return HttpResponse("Brak pliku .html")
+        return super().dispatch(request, *args, **kwargs)
+
+
+class UpdateTransmitionView(LoginRequiredMixin, UpdateView):
+    model = Transmition
+    form_class = TransmitionForm
+    template_name = 'update_transmition.html'
+
+    def get_object(self, queryset=None):
+        course_id = self.kwargs.get('transmition_id')
+        return get_object_or_404(Transmition, id=course_id, author=self.request.user)
+
+    def get_success_url(self):
+        return reverse('index')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not check_template(self.template_name, request):
+            return HttpResponse("Brak pliku .html")
+        return super().dispatch(request, *args, **kwargs)
+
+
+class DeleteTransmitionView(LoginRequiredMixin, DeleteView):
+    model = Transmition
+    template_name = 'delete_transmition.html'
+
+    def get_object(self, queryset=None):
+        course_id = self.kwargs.get('transmition_id')
+        return get_object_or_404(Transmition, id=course_id, author=self.request.user)
+
+    def get_success_url(self):
+        return reverse('index')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not check_template(self.template_name, request):
+            return HttpResponse("Brak pliku .html")
+        return super().dispatch(request, *args, **kwargs)
+    
+class AddCommentView(LoginRequiredMixin, CreateView):
+    form_class = CommentForm
+    template_name = 'add_comments.html'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.transmition = Transmition.objects.get(pk=self.kwargs['transmition_id'])
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('transmition_view', kwargs={'transmition_id': self.object.transmition.id})
+
+    def dispatch(self, request, *args, **kwargs):
+        if not check_template(self.template_name, request):
+            return HttpResponse("Brak pliku .html")
+        return super().dispatch(request, *args, **kwargs)
+
+
+class UpdateCommentView(LoginRequiredMixin, UpdateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'update_comment.html'
+
+    def get_object(self, queryset=None):
+        course_id = self.kwargs.get('transmition_id')
+        comment_id = self.kwargs.get('comment_id')
+        return get_object_or_404(Comment, id=comment_id, transmition=course_id, author=self.request.user)
+
+    def get_success_url(self):
+        return reverse('transmition_view', kwargs={'transmition_id': self.object.transmition.id})
+
+    def dispatch(self, request, *args, **kwargs):
+        if not check_template(self.template_name, request):
+            return HttpResponse("Brak pliku .html")
+        return super().dispatch(request, *args, **kwargs)
+    
+class DeleteCommentView(LoginRequiredMixin, DeleteView):
+    model = Comment
+    template_name = 'delete_comment.html'
+
+    def get_object(self, queryset=None):
+        course_id = self.kwargs.get('transmition_id')
+        comment_id = self.kwargs.get('comment_id')
+        return get_object_or_404(Comment, id=comment_id, transmition=course_id, author=self.request.user)
+
+    def get_success_url(self):
+        return reverse('transmition_view', kwargs={'transmition_id': self.object.transmition.id})
+
+    def dispatch(self, request, *args, **kwargs):
+        if not check_template(self.template_name, request):
+            return HttpResponse("Brak pliku .html")
+        return super().dispatch(request, *args, **kwargs)
+    
+class AddOpinionView(LoginRequiredMixin, CreateView):
+    form_class = OpinionForm
+    template_name = 'add_opinion.html'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.course = Course.objects.get(pk=self.kwargs['course_id'])
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('subject_to_course_view', kwargs={'course_id': self.object.course.id})
+
+    def dispatch(self, request, *args, **kwargs):
+        if not check_template(self.template_name, request):
+            return HttpResponse("Brak pliku .html")
+        return super().dispatch(request, *args, **kwargs)
+
+
+class UpdateOpinionView(LoginRequiredMixin, UpdateView):
+    model = Opinion
+    form_class = OpinionForm
+    template_name = 'update_opinion.html'
+
+    def get_object(self, queryset=None):
+        course_id = self.kwargs.get('course_id')
+        comment_id = self.kwargs.get('opinion_id')
+        return get_object_or_404(Opinion, id=comment_id, course=course_id, author=self.request.user)
+
+    def get_success_url(self):
+        return reverse('subject_to_course_view', kwargs={'course_id': self.object.course.id})
+
+    def dispatch(self, request, *args, **kwargs):
+        if not check_template(self.template_name, request):
+            return HttpResponse("Brak pliku .html")
+        return super().dispatch(request, *args, **kwargs)
+    
+class DeleteOpinionView(LoginRequiredMixin, DeleteView):
+    model = Opinion
+    template_name = 'delete_opinion.html'
+
+    def get_object(self, queryset=None):
+        course_id = self.kwargs.get('course_id')
+        comment_id = self.kwargs.get('opinion_id')
+        return get_object_or_404(Opinion, id=comment_id, course=course_id, author=self.request.user)
+
+    def get_success_url(self):
+        return reverse('subject_to_course_view', kwargs={'course_id': self.object.course.id})
+
+    def dispatch(self, request, *args, **kwargs):
+        if not check_template(self.template_name, request):
+            return HttpResponse("Brak pliku .html")
+        return super().dispatch(request, *args, **kwargs)

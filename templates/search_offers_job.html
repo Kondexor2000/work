@@ -4,15 +4,28 @@
 <form method="get">
   <input type="text" name="q" placeholder="Search offers..." value="{{ query }}">
   <button type="submit">Search</button>
+  <ul>
+  <h2>Categories</h2>
+  <select>
+    {% for cat in categories %}
+      <option value="{{ cat.id }}">{{ cat.name }}</option>
+    {% endfor %}
+  </select>
+<ul>
 </form>
-<h2>Categories</h2>
-<ul>
-  {% for cat in categories %}
-    <select>
-			<option>{{ cat.name }}</option>
-	  </select>
-  {% endfor %}
-<ul>
+<form method="get">
+  <input type="text" name="q" placeholder="Search courses..." value="{{ query }}">
+  <h2>Tags</h2>
+  <ul>
+  <select>
+    {% for tag in tags %}
+		  <option>{{ tag.name }}</option>
+    {% endfor %}
+	</select>
+  </ul>
+  <button type="submit">Search</button>
+</form>
+<div class="search-container">
 <ul>
   {% for offer in products %}
     <li>{{ offer.title }}</li>
@@ -26,4 +39,5 @@
     <li>No offers found.</li>
   {% endfor %}
 </ul>
+</div>
 {% endblock %}

@@ -138,6 +138,10 @@ class CV(models.Model):
     last_name = models.CharField(max_length=255)
     email = models.EmailField()
     number_phone = models.CharField(max_length=20)
+    street = models.CharField(max_length=100, default="Kowalskiego")
+    number_house = models.CharField(max_length=10, default="1")
+    code = models.CharField(max_length=10, default="64-920")
+    city = models.CharField(max_length=50, default="Poznań")
 
     def __str__(self):
         return self.title
@@ -212,3 +216,24 @@ class Link(models.Model):
 
     def __str__(self):
         return self.url
+    
+class Transmition(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    leaders = models.ForeignKey(User, on_delete=models.CASCADE, related_name='led_transmitions')
+    participants = models.ManyToManyField(User, related_name='participated_transmitions', blank=True)
+    start = models.DateTimeField()
+    end = models.DateTimeField()
+
+    def __str__(self):
+        return self.title
+    
+class Comment(models.Model):
+    description = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    transmition = models.ForeignKey(Transmition, on_delete=models.CASCADE)
+
+class Opinion(models.Model):
+    description = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)

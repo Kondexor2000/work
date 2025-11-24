@@ -2,10 +2,31 @@
 {% block content %}
 <h1>Search Portfolios</h1>
 <form method="get">
-  <input type="text" name="q" value="{{ query }}" placeholder="Search...">
+  <input type="text" name="q" placeholder="Search courses..." value="{{ query }}">
+  <h3>Categories</h3>
+  <ul>
+  <select>
+    {% for cat in categories %}
+		  <option>{{ cat.name }}</option>
+    {% endfor %}
+	</select>
+  </ul>
+  <button type="submit">Search</button>
+</form>
+<form method="get">
+  <input type="text" name="q" placeholder="Search courses..." value="{{ query }}">
+  <h2>Tags</h2>
+  <ul>
+  <select>
+    {% for tag in tags %}
+		  <option>{{ tag.name }}</option>
+    {% endfor %}
+	</select>
+  </ul>
   <button type="submit">Search</button>
 </form>
 <h2>Portfolios</h2>
+<div class="search-container">
 <ul>
   {% for item in portfolios %}
     <li>
@@ -35,10 +56,5 @@
     </li>
   {% endfor %}
 </ul>
-<h2>Tags</h2>
-<ul>
-  {% for tag in tags %}
-    <li>{{ tag.name }}</li>
-  {% endfor %}
-</ul>
+</div>
 {% endblock %}

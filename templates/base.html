@@ -4,17 +4,77 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="keywords" content="work">
+    <meta name="keywords" content="job">
+    <meta name="keywords" content="education">
+    <meta name="keywords" content="course">
+    <meta name="keywords" content="skill">
+    <meta name="description" content="Szukasz nowej pracy? Żadna nie odpowiada Twoim umiejętnościom? Nic straconego. Ucz się nowego zawodu z Eduwork, a praca sama się znajdzie.">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Roboto">
-    <title>{% block title %}Eduwork{% endblock %}</title>
+    <title>{% block title %}Eduwork. Nowy zawód - Nowa praca{% endblock %}</title>
     <style>
+        .search-container ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .search-container li {
+            display: flex;          
+            align-items: center;    
+            gap: 10px;              
+            margin-bottom: 10px;
+        }
+
+        .search-container a button {
+            margin: 0;              
+        }
+
         body {
             font-family: 'Roboto', light;
             text-align: center;
         }
 
+        form, div {
+            max-width: 500px;
+            margin: 20px auto;
+            background: none;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 4px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            position: relative;
+            right: 9px;
+        }
+
         a {
             text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px; 
+        }
+
+        button {
+            background: none;
+            display: flex;
+            justify-content: center; 
+            gap: 10px;
+            border: none;
+            position: relative;
+            left: 225px;
+        }
+
+        button:hover {
+            color: #007bff;
+            position: relative;
+            left: 225px;
         }
     </style>
 </head>
