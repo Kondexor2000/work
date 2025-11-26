@@ -5,14 +5,16 @@
   <input type="text" name="q" placeholder="Search businesses..." value="{{ query }}">
   <button type="submit">Search</button>
 </form>
-<ul>
-  {% for item in products %}
-    <li>{{ item.name }}</li>
-    <a href="{% url 'hr_to_business_view' business_id=item.id %}">
-        <button type="button">Dane rekrutera</button>
-    </a>
-  {% empty %}
-    <li>No businesses or tags found.</li>
-  {% endfor %}
-</ul>
+<div class="search-container">
+  <ul>
+    {% for item in products %}
+      <li>{{ item.name }}</li>
+      <a href="{% url 'hr_to_business_view' business_id=item.id %}">
+          <button type="button">Dane rekrutera</button>
+      </a>
+    {% empty %}
+      <li>No businesses or tags found.</li>
+    {% endfor %}
+  </ul>
+</div>
 {% endblock %}

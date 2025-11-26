@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Usuń Kurs{% endblock %}
+{% block content %}
+<h2>Czy na pewno chcesz usunąć ten komentarz?</h2>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Tak, usuń</button>
+</form>
+{% endblock %}

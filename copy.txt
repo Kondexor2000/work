@@ -1,0 +1,18 @@
+    cv_user = CV.objects.filter(user=request.user)
+    hr_user = HR.objects.filter(user=request.user)
+    
+    """        
+        for cv in cvs:
+            if not cv_user.exists() and not hr_user.exists():
+                number_phone = pq_encrypt(cv.number_phone)
+                street = rsa_encrypt(cv.street)
+                number_house = pq_encrypt(cv.number_house)
+                code = pq_encrypt(cv.code)
+                city = rsa_encrypt(cv.city)
+            else:
+                number_phone = cv.number_phone
+                street = cv.street
+                number_house = cv.number_house
+                code = cv.code
+                city = cv.city
+    """

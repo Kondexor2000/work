@@ -35,4 +35,24 @@
     <li>No items found.</li>
   {% endfor %}
 </ul>
+<a href="{% url 'add_opinion' course_id=course.id %}">
+  <button type="button">Dodaj opinię</button>
+</a>
+<ul>
+  {% for offer in opinion %}
+    <li>{{ offer.author }}: {{ offer.description }}</li>
+
+    {% if offer.author == request.user %}
+      <a href="{% url 'update_opinion' course_id=offer.course.id opinion_id=offer.id %}">
+        <button type="button">Edytuj</button>
+      </a>
+
+      <a href="{% url 'delete_opinion' course_id=offer.course.id opinion_id=offer.id %}">
+        <button type="button">Usuń</button>
+      </a>
+    {% endif %}
+  {% empty %}
+    <li>No comments available.</li>
+  {% endfor %}
+</ul>
 {% endblock %}

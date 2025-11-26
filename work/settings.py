@@ -30,16 +30,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-# informacja, że za SSL odpowiada Nginx
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-
-# wymuszanie HTTPS (opcjonalnie)
-SECURE_SSL_REDIRECT = True
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-
-# Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -49,8 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'workapp',
     'templates',
-    'django_extensions',
-    'openai'
 ]
 
 MIDDLEWARE = [
@@ -101,6 +89,14 @@ if USE_LOCAL_DB:
             'PORT': '5432',
         }
     }
+    # informacja, że za SSL odpowiada Nginx
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+    # wymuszanie HTTPS (opcjonalnie)
+    SECURE_SSL_REDIRECT = True
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+
 else:
     DATABASE_URL = os.environ.get('DATABASE_URL')
     if not DATABASE_URL:

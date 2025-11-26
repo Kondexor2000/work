@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Your Transmitions</h1>
+
+<!-- Tu dodaj funkcjonalność audio/wideo -->
+{% if request.user == transmition.leaders or request.user in transmition.participants.all %}
+<div style="margin-bottom: 20px;">
+
+  <h3>Audio/Video Controls</h3>
+
+  <button id="startCamera">Włącz kamerę</button>
+  <button id="stopCamera">Wyłącz kamerę</button>
+
+  <button id="startMicrophone">Włącz mikrofon</button>
+  <button id="stopMicrophone">Wyłącz mikrofon</button>
+
+  <div style="margin-top: 15px;">
+    <video id="videoPreview" width="400" height="300" autoplay muted></video>
+  </div>
+
+</div>
+{% endif %}
+
+<script>
+let videoStream = null;
+let audioStream = null;
+
+// Włącz kamerę
+document.getElementById('startCamera').onclick = async () => {
+    try {
+        videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
+        document.getElementById('videoPreview').srcObject = videoStream;
+    } catch (err) {
+        alert("Nie można włączyć kamery: " + err);
+    }
+};
+
+// Wyłącz kamerę
+document.getElementById('stopCamera').onclick = () => {
+    if (videoStream) {
+        videoStream.getTracks().forEach(track => track.stop());
+        videoStream = null;
+        document.getElementById('videoPreview').srcObject = null;
+    }
+};
+
+// Włącz mikrofon
+document.getElementById('startMicrophone').onclick = async () => {
+    try {
+        audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        alert("Mikrofon aktywowany!");
+    } catch (err) {
+        alert("Nie można włączyć mikrofonu: " + err);
+    }
+};
+
+// Wyłącz mikrofon
+document.getElementById('stopMicrophone').onclick = () => {
+    if (audioStream) {
+        audioStream.getTracks().forEach(track => track.stop());
+        audioStream = null;
+        alert("Mikrofon wyłączony.");
+    }
+};
+</script>
+
+{% if request.user == transmition.leaders or request.user in transmition.participants.all %}
+<a href="{% url 'add_comment' transmition_id=id %}">
+  <button type="button">Dodaj komentarz</button>
+</a>
+
+<ul>
+  {% for offer in comments %}
+    <li>{{ offer.author }}: {{ offer.description }}</li>
+
+    {% if offer.author == request.user %}
+      <a href="{% url 'update_comment' transmition_id=offer.transmition.id comment_id=offer.id %}">
+        <button type="button">Edytuj</button>
+      </a>
+
+      <a href="{% url 'delete_comment' transmition_id=offer.transmition.id comment_id=offer.id %}">
+        <button type="button">Usuń</button>
+      </a>
+    {% endif %}
+  {% empty %}
+    <li>No comments available.</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% endblock %}

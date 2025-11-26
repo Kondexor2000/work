@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Your Job Offers</h1>
+<div class="search-container">
 <ul>
   {% for offer in products %}
     <li>{{ offer.title }} - {{ offer.business }} - {{ offer.category }}</li>
@@ -9,4 +10,5 @@
     <li>No offers available.</li>
   {% endfor %}
 </ul>
+</div>
 {% endblock %}

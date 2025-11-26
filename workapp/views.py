@@ -9,24 +9,20 @@ from django.views.generic import CreateView, UpdateView, DeleteView
 from django.shortcuts import redirect, render
 from django.template.loader import get_template
 from django.views import View
-import time
-import os
-import numpy as np
-import json
-import openai
-import fuzz
 from django.views.decorators.csrf import csrf_exempt
 from typing import List, Dict, Any, Optional
+from django.utils import timezone
 from django.contrib.auth import login
 from django.template import TemplateDoesNotExist
 import logging
+from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, Http404, HttpResponseNotFound
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
-from .utils import rsa_encrypt
-from .models import CV, HR, TagBusiness, TagPortfolio, TagCourse, Test, Portfolio, Projects, Link, Experience, CategoryCourse, CategoryEmploy, Certificate, Course, OffersJob, OffersJobUser, Business, Subject, TestScore, Answers, Questions, Hobby, Skills, Education, Questionnaire
-from .forms import CVForm, HRForm, SubjectForm, AddOfferJobUserForm, UpdateOfferJobUserForm, AnswerForm, CourseForm, TestForm, LinkForm, ProjectForm, BusinessForm, QuestionForm, OfferJobsForm, PortfolioForm, ExperienceForm, QuestionFormSet, ExperienceFormSet, LinkFormSet, ProjectsFormSet, SubjectFormSet, QuestionnaireForm, HobbyForm, SkillsForm, EducationForm, EducationFormSet, SkillsFormSet, HobbyFormSet
+from .models import CV, HR, Opinion, TagBusiness, TagPortfolio, TagCourse, Test, Portfolio, Projects, Link, Experience, CategoryCourse, CategoryEmploy, Certificate, Course, OffersJob, OffersJobUser, Business, Subject, TestScore, Answers, Questions, Hobby, Skills, Education, Questionnaire, Transmition, Comment
+from .forms import CVForm, OpinionForm, HRForm, SubjectForm, AddOfferJobUserForm, UpdateOfferJobUserForm, AnswerForm, CourseForm, TestForm, LinkForm, ProjectForm, BusinessForm, QuestionForm, OfferJobsForm, PortfolioForm, ExperienceForm, QuestionFormSet, ExperienceFormSet, LinkFormSet, ProjectsFormSet, SubjectFormSet, QuestionnaireForm, HobbyForm, SkillsForm, EducationForm, EducationFormSet, SkillsFormSet, HobbyFormSet, TransmitionForm, CommentForm
+#from .utils import rsa_encrypt, pq_encrypt
 # Create your views here.
 
 logger = logging.getLogger(__name__)
@@ -376,7 +372,7 @@ class AddSubjectView(LoginRequiredMixin, CreateView):
 
 class UpdateSubjectView(LoginRequiredMixin, UpdateView):
     model = Subject
-    form_class = SubjectFormSet
+    form_class = SubjectForm
     template_name = 'update_subject.html'
 
     def get_object(self, queryset=None):
@@ -474,7 +470,7 @@ class DeleteTestView(LoginRequiredMixin, DeleteView):
 # === QUESTIONS ===
 
 class AddQuestionView(LoginRequiredMixin, View):
-    template_name = 'add_questions.html'
+    template_name = 'add_question.html'
     
     def get(self, request, *args, **kwargs):
         formset = QuestionFormSet(queryset=Questions.objects.none())
@@ -965,6 +961,8 @@ def search_offers_job(request):
     query = request.GET.get('q', '').strip()
     category_id = request.GET.get('category')
     categories = CategoryEmploy.objects.all()
+    tags_id = request.GET.get('tags')
+    tags = TagBusiness.objects.all()
     products = []
 
     try:
@@ -975,6 +973,9 @@ def search_offers_job(request):
 
         if category_id:
             offers_query = offers_query.filter(category_id=category_id)
+
+        if tags_id:
+            offers_query = offers_query.filter(tags_id=tags_id)
 
         products = offers_query
 
@@ -989,6 +990,7 @@ def search_offers_job(request):
     return render(request, template_name, {
         'products': products,
         'query': query,
+        'tags': tags,
         'categories': categories,
         'selected_category': category_id
     })
@@ -1002,6 +1004,9 @@ def accepted_offers_job_user(request):
 
     try:
         user = request.user
+        transmitions = Transmition.objects.filter(
+            Q(leaders=user) | Q(participants=user)
+        ).distinct()
         products = OffersJobUser.objects.filter(is_accept=True, user=user)
         logger.info(f"Products retrieved successfully for user {request.user}.")
     except Exception as e:
@@ -1009,7 +1014,7 @@ def accepted_offers_job_user(request):
         products = []
         return HttpResponse("An error occurred while retrieving categories.", status=500)
     
-    return render(request, template_name, {'products': products})
+    return render(request, template_name, {'products': products, 'transmitions': transmitions})
 
 @transaction.atomic
 def offer_jobs_id(request, business_id, hr_id):
@@ -1136,21 +1141,22 @@ def search_course_view(request):
 
     query = request.GET.get('q', '').strip()
     category_id = request.GET.get('category')
+    tags_id = request.GET.get('tags')
     categories = CategoryCourse.objects.all()
     courses = []
-    tags = []
+    tags = TagCourse.objects.all()
 
     try:
         course_query = Course.objects.all()
 
         if query:
             course_query = course_query.filter(Q(title__icontains=query))
-            tags = TagCourse.objects.filter(Q(name__icontains=query))
-        else:
-            tags = TagCourse.objects.none()  # lub wszystkie, jeśli chcesz: TagCourse.objects.all()
 
         if category_id:
             course_query = course_query.filter(category_id=category_id)
+
+        if tags_id:
+            course_query = course_query.filter(tags_id=tags_id)
 
         courses = course_query
 
@@ -1185,13 +1191,16 @@ def subject_to_course_view(request, course_id):
 
     try:
         course = get_object_or_404(Course, id=course_id)
+        opinion = Opinion.objects.filter(
+            course=course
+        )
         products = Subject.objects.filter(course=course)
         logger.info(f"Subjects retrieved successfully for Course {course.title} by user {request.user}.")
     except Exception as e:
         logger.exception(f"Error retrieving subjects for course {course_id} by user {request.user}: {e}")
         return HttpResponse("An error occurred while retrieving subjects.", status=500)
 
-    return render(request, template_name, {'course': course,'products': products})
+    return render(request, template_name, {'course': course,'products': products,'opinion': opinion})
 
 @login_required
 @transaction.atomic
@@ -1313,14 +1322,19 @@ def search_portfolio(request):
 
     query = request.GET.get('q', '').strip()
     portfolios = []
-    tags = []
+    tags = TagPortfolio.objects.all()
+    tags_id = request.GET.get('tags')
 
     try:
+        portfolios_all = Portfolio.objects.all()
+
         if query:
-            portfolios = Portfolio.objects.filter(Q(title__icontains=query))
-            tags = TagPortfolio.objects.filter(Q(name__icontains=query))
-        else:
-            portfolios = Portfolio.objects.all()
+            portfolios_all = portfolios_all.filter(Q(title__icontains=query))
+
+        if tags_id:
+            portfolios_all = portfolios_all.filter(tags_id=tags_id)
+
+        portfolios = portfolios_all
 
         logger.info(f"Search executed by {request.user}: query='{query}'")
     except Exception as e:
@@ -1347,36 +1361,20 @@ def search_cv(request):
         else:
             cvs = CV.objects.all()
 
-        cv_user = CV.objects.filter(user=request.user)
-        hr_user = HR.objects.filter(user=request.user)
-
         cvs_data = []
-        for cv in cvs:
-            if not cv_user.exists() and not hr_user.exists():
-                number_phone = rsa_encrypt(cv.number_phone)
-                street = rsa_encrypt(cv.street)
-                number_house = rsa_encrypt(cv.number_house)
-                code = rsa_encrypt(cv.code)
-                city = rsa_encrypt(cv.city)
-            else:
-                number_phone = cv.number_phone
-                street = cv.street
-                number_house = cv.number_house
-                code = cv.code
-                city = cv.city
 
-            cvs_data.append({
-                "id": cv.id,
-                "title": cv.title,
-                "first_name": cv.first_name,
-                "last_name": cv.last_name,
-                "email": cv.email,
-                "number_phone": number_phone,
-                "street": street,
-                "number_house": number_house,
-                "code": code,
-                "city": city,
-                "user_id": cv.user.id
+        cvs_data.append({
+                "id": id,
+                "title": cvs.title,
+                "first_name": cvs.first_name,
+                "last_name": cvs.last_name,
+                "email": cvs.email,
+                "number_phone": cvs.number_phone,
+                "street": cvs.street,
+                "number_house": cvs.number_house,
+                "code": cvs.code,
+                "city": cvs.city,
+                "user_id": cvs.user.id
             })
 
         # render do szablonu
@@ -1722,415 +1720,177 @@ def portfolio_links_view(request, portfolio_id):
     
     return render(request, template_name, {'products': links})
 
-# Po utworzeniu konta uruchomienie algorytmu AI
-
-def adapt_questions_fuzzy(questions: List[Dict[str, Any]], trait_scores: Dict[str, float]) -> List[Dict[str, Any]]:
-    """Dostosowuje poziom trudności pytań do wykrytych predyspozycji.
-    Jeśli użytkownik silnie wykazuje pewną predyspozycję, zwiększamy trudność pytań z tej kategorii.
-    Używamy prostego progu lub skali rozmytej (jeśli dostępne).
-    """
-    if not SKFUZZY_AVAILABLE:
-    # Zastosowanie poniższego algorytmu w OpenAI
-    # Zamiana algorytmu na, wyświetlenie listy kursów po znalezionej kategorii, w którym najwiecej jest odpowiedzi tak, jeśli chodzi o test predyspozycji
-    # Jeżeli w dwóch kategoriach jest exekwo odpowiedzi na tak, to przejście do algorytmu, gdzie najwięcej jest ofert pracy
-    # Integracja systemów rozmytych (łącznie z Automatami i Językami Formalnymi) z inteligencją obliczeniową
-    # Dodanie do tego algorytmów tłumaczeniowych
-    # Rozważanie czy zastosować uczenie maszynowe czy systemy dialogowe
-        out = []
-        for q in questions:
-            base = q.get("difficulty", "średni")
-            pred = q.get("predisposition", None)
-            score = trait_scores.get(pred, 0.5) if pred else 0.5
-        if score > 0.7:
-            q["difficulty"] = "trudny"
-        elif score < 0.3:
-            q["difficulty"] = "łatwy"
-        else:
-            q["difficulty"] = "średni"
-            out.append(q)
-        return out
-
-
-    # użycie skfuzzy: zdefiniuj zestaw rozmyty difficulty ~ score
-    x = np.arange(0, 1.01, 0.01)
-    low = fuzz.trimf(x, [0.0, 0.0, 0.5])
-    med = fuzz.trimf(x, [0.0, 0.5, 1.0])
-    high = fuzz.trimf(x, [0.5, 1.0, 1.0])
-
-
-    out = []
-    for q in questions:
-        pred = q.get("predisposition")
-        score = trait_scores.get(pred, 0.5)
-        # fuzzify
-        low_m = fuzz.interp_membership(x, low, score)
-        med_m = fuzz.interp_membership(x, med, score)
-        high_m = fuzz.interp_membership(x, high, score)
-        # dekodowanie: najwyższe przynależność
-        if high_m >= med_m and high_m >= low_m:
-            q["difficulty"] = "trudny"
-        elif low_m >= med_m and low_m >= high_m:
-            q["difficulty"] = "łatwy"
-        else:
-            q["difficulty"] = "średni"
-        out.append(q)
-    return out
-
-#Plan aktualizacji aplikacji:
-# 1. Opracowanie front-endu
-# 2. Dodawanie kryptografii do aplikacji
-# 3. Dodawanie algorytmów AI
-
-openai.api_key = os.getenv("OPENAI_API_KEY")
-
-
-# ============================================================
-# Pomocnik: próba wydobycia JSON-a z odpowiedzi LLM
-# ============================================================
-def _extract_json_from_text(text: str) -> Optional[Any]:
-    text = text.strip()
+@transaction.atomic
+def comments_transmition_view(request, transmition_id):
+    template_name = 'transmition_view.html'
+    
+    if not check_template(template_name, request):
+        logger.warning(f"Template '{template_name}' not found for user {request.user}.")
+        return HttpResponseNotFound("Template not found.")
+    
     try:
-        return json.loads(text)
-    except Exception:
-        pass
-    start = text.find("{")
-    end = text.rfind("}")
-    if start != -1 and end != -1:
-        frag = text[start:end+1]
-        try:
-            return json.loads(frag)
-        except Exception:
-            frag2 = frag.replace("'", '"')
-            try:
-                return json.loads(frag2)
-            except Exception:
-                return None
-    start = text.find("[")
-    end = text.rfind("]")
-    if start != -1 and end != -1:
-        frag = text[start:end+1]
-        try:
-            return json.loads(frag)
-        except Exception:
-            frag2 = frag.replace("'", '"')
-            try:
-                return json.loads(frag2)
-            except Exception:
-                return None
-    return None
+        portfolio = get_object_or_404(Transmition, id=transmition_id)
+        links = Comment.objects.filter(portfolio=portfolio)
+        logger.info(f"Links retrieved successfully for portfolio {transmition_id} by user {request.user}.")
+    except Exception as e:
+        logger.error(f"Error retrieving links for portfolio {transmition_id} by user {request.user}: {e}")
+        return HttpResponse("An error occurred while retrieving links.", status=500)
+    
+    return render(request, template_name, {'comments': links, "now": timezone.now(),})
+
+class AddTransmitionView(LoginRequiredMixin, CreateView):
+    form_class = TransmitionForm
+    template_name = 'add_transmition.html'
+
+    def form_valid(self, form):
+        form.instance.leaders = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('index')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not check_template(self.template_name, request):
+            return HttpResponse("Brak pliku .html")
+        return super().dispatch(request, *args, **kwargs)
 
 
-# ============================================================
-# Generowanie pytań dla testu
-# ============================================================
-def generate_questions_for_categories(
-    test: Test,
-    per_category: int = 3,
-    model: str = "gpt-3.5-turbo"
-) -> Dict[str, List[Questions]]:
-    """
-    Generuje pytania do testu predyspozycji na podstawie kategorii.
-    Jeśli pytanie istnieje w bazie -> przypisuje istniejące,
-    jeśli nie -> tworzy nowe pytanie.
-    """
-    categories = list(CategoryCourse.objects.values_list("name", flat=True)) + \
-                 list(CategoryEmploy.objects.values_list("name", flat=True))
-    categories = list(dict.fromkeys(categories))  # unikalne
+class UpdateTransmitionView(LoginRequiredMixin, UpdateView):
+    model = Transmition
+    form_class = TransmitionForm
+    template_name = 'update_transmition.html'
 
-    results: Dict[str, List[Questions]] = {}
+    def get_object(self, queryset=None):
+        course_id = self.kwargs.get('transmition_id')
+        return get_object_or_404(Transmition, id=course_id, author=self.request.user)
 
-    for category in categories:
-        system_msg = (
-            "Jesteś ekspertem HR i edukacji. Twoim zadaniem jest tworzenie pytań "
-            "do testu predyspozycji zawodowych i edukacyjnych."
-        )
-        user_msg = (
-            f"Wygeneruj {per_category} różne pytania testowe sprawdzające "
-            f"predyspozycje użytkownika w kategorii: {category}. "
-            f"Zwróć wyłącznie w formacie JSON: "
-            f"[{{'question': '...', 'correct': 'TAK/ NIE'}}]"
-        )
+    def get_success_url(self):
+        return reverse('index')
 
-        try:
-            resp = openai.ChatCompletion.create(
-                model=model,
-                messages=[
-                    {"role": "system", "content": system_msg},
-                    {"role": "user", "content": user_msg},
-                ],
-                temperature=0.7,
-                max_tokens=500,
-            )
-            text = resp["choices"][0]["message"]["content"]
-            parsed = _extract_json_from_text(text)
-
-            if not parsed or not isinstance(parsed, list):
-                continue
-
-            results[category] = []
-
-            with transaction.atomic():
-                for item in parsed:
-                    q_text = item.get("question")
-                    correct = item.get("correct", "TAK")
-
-                    if not q_text:
-                        continue
-
-                    # sprawdzamy czy istnieje takie pytanie
-                    existing = Questions.objects.filter(question=q_text).first()
-                    if existing:
-                        q_obj = existing
-                    else:
-                        q_obj = Questions.objects.create(
-                            question=q_text,
-                            correct=correct,
-                            test=test
-                        )
-                    results[category].append(q_obj)
-
-        except Exception as e:
-            print(f"[OpenAI ERROR][{category}] {e}")
-            continue
-
-    return results
+    def dispatch(self, request, *args, **kwargs):
+        if not check_template(self.template_name, request):
+            return HttpResponse("Brak pliku .html")
+        return super().dispatch(request, *args, **kwargs)
 
 
-# ============================================================
-# Liczenie predyspozycji przy pomocy OpenAI
-# ============================================================
-def compute_trait_scores_openai(
-    answers: List[Dict[str, Any]],
-    model: str = "gpt-3.5-turbo",
-    max_retries: int = 2,
-) -> Dict[str, float]:
-    """
-    Zwraca {kategoria: score 0..1} na podstawie odpowiedzi użytkownika.
-    Kategorie pobierane są z CategoryCourse + CategoryEmploy.
-    """
-    categories = list(CategoryCourse.objects.values_list("name", flat=True)) + \
-                 list(CategoryEmploy.objects.values_list("name", flat=True))
-    categories = list(dict.fromkeys(categories))  # unikalne
+class DeleteTransmitionView(LoginRequiredMixin, DeleteView):
+    model = Transmition
+    template_name = 'delete_transmition.html'
 
-    system_msg = (
-        "Jesteś asystentem oceniającym predyspozycje użytkownika. "
-        "Dla każdej podanej kategorii przypisz wynik 0..1. "
-        "Zwróć wyłącznie JSON w formacie {\"Kategoria\": 0.85, ...}."
-    )
-    user_msg = (
-        f"Kategorie: {categories}\n\n"
-        f"Odpowiedzi użytkownika:\n{json.dumps(answers, ensure_ascii=False)}"
-    )
+    def get_object(self, queryset=None):
+        course_id = self.kwargs.get('transmition_id')
+        return get_object_or_404(Transmition, id=course_id, author=self.request.user)
 
-    for attempt in range(max_retries+1):
-        try:
-            resp = openai.ChatCompletion.create(
-                model=model,
-                messages=[
-                    {"role": "system", "content": system_msg},
-                    {"role": "user", "content": user_msg},
-                ],
-                temperature=0.0,
-                max_tokens=600,
-            )
-            text = resp["choices"][0]["message"]["content"]
-            parsed = _extract_json_from_text(text)
-            if not parsed:
-                raise ValueError("Nie udało się sparsować JSON z odpowiedzi OpenAI")
+    def get_success_url(self):
+        return reverse('index')
 
-            scores = {}
-            for k, v in parsed.items():
-                try:
-                    val = float(v)
-                    if val > 1:
-                        val = val / 100 if val <= 100 else 1.0
-                except Exception:
-                    val = 0.5
-                scores[k] = max(0.0, min(1.0, val))
+    def dispatch(self, request, *args, **kwargs):
+        if not check_template(self.template_name, request):
+            return HttpResponse("Brak pliku .html")
+        return super().dispatch(request, *args, **kwargs)
+    
+class AddCommentView(LoginRequiredMixin, CreateView):
+    form_class = CommentForm
+    template_name = 'add_comments.html'
 
-            for cat in categories:
-                if cat not in scores:
-                    scores[cat] = 0.0
-            return scores
-        except Exception:
-            if attempt == max_retries:
-                return {c: 0.5 for c in categories}
-            time.sleep(1.5 * (attempt+1))
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.transmition = Transmition.objects.get(pk=self.kwargs['transmition_id'])
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('transmition_view', kwargs={'transmition_id': self.object.transmition.id})
+
+    def dispatch(self, request, *args, **kwargs):
+        if not check_template(self.template_name, request):
+            return HttpResponse("Brak pliku .html")
+        return super().dispatch(request, *args, **kwargs)
 
 
-# ============================================================
-# Adaptacja pytań + wybór kategorii
-# ============================================================
-def adapt_questions_fuzzy(
-    user_id: int,
-    use_openai: bool = True,
-    openai_model: str = "gpt-3.5-turbo",
-) -> Dict[str, Any]:
-    """
-    - Pobiera odpowiedzi użytkownika z Answers,
-    - Liczy predyspozycje (trait_scores),
-    - Ustawia difficulty pytań,
-    - Zwraca najlepszą kategorię + kursy i oferty pracy.
-    """
-    # --- Pobranie odpowiedzi użytkownika ---
-    answers_qs: QuerySet = Answers.objects.filter(user_id=user_id).select_related("question")
-    user_answers = [{"question": a.question.question, "answer": a.answer} for a in answers_qs]
+class UpdateCommentView(LoginRequiredMixin, UpdateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'update_comment.html'
 
-    # --- Obliczenie predyspozycji ---
-    if use_openai:
-        trait_scores = compute_trait_scores_openai(user_answers, model=openai_model)
-    else:
-        all_cats = list(CategoryCourse.objects.values_list("name", flat=True)) + \
-                   list(CategoryEmploy.objects.values_list("name", flat=True))
-        trait_scores = {c: 0.5 for c in all_cats}
+    def get_object(self, queryset=None):
+        course_id = self.kwargs.get('transmition_id')
+        comment_id = self.kwargs.get('comment_id')
+        return get_object_or_404(Comment, id=comment_id, transmition=course_id, author=self.request.user)
 
-    # --- Adaptacja pytań ---
-    out_questions = []
-    all_questions = Questions.objects.all()
-    if not SKFUZZY_AVAILABLE:
-        for q in all_questions:
-            pred = getattr(q.test.subject.course.category, "name", None)
-            score = trait_scores.get(pred, 0.5)
-            if score > 0.7:
-                diff = "trudny"
-            elif score < 0.3:
-                diff = "łatwy"
-            else:
-                diff = "średni"
-            out_questions.append({"id": q.id, "question": q.question, "difficulty": diff})
-    else:
-        x = np.arange(0, 1.01, 0.01)
-        low = fuzz.trimf(x, [0.0, 0.0, 0.5])
-        med = fuzz.trimf(x, [0.0, 0.5, 1.0])
-        high = fuzz.trimf(x, [0.5, 1.0, 1.0])
-        for q in all_questions:
-            pred = getattr(q.test.subject.course.category, "name", None)
-            score = trait_scores.get(pred, 0.5)
-            l = fuzz.interp_membership(x, low, score)
-            m = fuzz.interp_membership(x, med, score)
-            h = fuzz.interp_membership(x, high, score)
-            if h >= m and h >= l:
-                diff = "trudny"
-            elif l >= m and l >= h:
-                diff = "łatwy"
-            else:
-                diff = "średni"
-            out_questions.append({"id": q.id, "question": q.question, "difficulty": diff})
+    def get_success_url(self):
+        return reverse('transmition_view', kwargs={'transmition_id': self.object.transmition.id})
 
-    # --- Najlepsza kategoria ---
-    sorted_traits = sorted(trait_scores.items(), key=lambda x: x[1], reverse=True)
-    top_score = sorted_traits[0][1]
-    top_categories = [cat for cat, s in sorted_traits if abs(s-top_score) < 1e-9]
+    def dispatch(self, request, *args, **kwargs):
+        if not check_template(self.template_name, request):
+            return HttpResponse("Brak pliku .html")
+        return super().dispatch(request, *args, **kwargs)
+    
+class DeleteCommentView(LoginRequiredMixin, DeleteView):
+    model = Comment
+    template_name = 'delete_comment.html'
 
-    if len(top_categories) == 1:
-        best_cat = top_categories[0]
-    else:
-        counts = {c: OffersJob.objects.filter(category__name=c).count() for c in top_categories}
-        best_cat = max(counts, key=counts.get)
+    def get_object(self, queryset=None):
+        course_id = self.kwargs.get('transmition_id')
+        comment_id = self.kwargs.get('comment_id')
+        return get_object_or_404(Comment, id=comment_id, transmition=course_id, author=self.request.user)
 
-    # --- Kursy i oferty pracy ---
-    courses_qs = Course.objects.filter(category__name=best_cat)
-    jobs_qs = OffersJob.objects.filter(category__name=best_cat)
+    def get_success_url(self):
+        return reverse('transmition_view', kwargs={'transmition_id': self.object.transmition.id})
 
-    courses = [{"id": c.id, "title": c.title} for c in courses_qs]
-    jobs = [{"id": j.id, "title": j.title, "business": j.business.name} for j in jobs_qs]
+    def dispatch(self, request, *args, **kwargs):
+        if not check_template(self.template_name, request):
+            return HttpResponse("Brak pliku .html")
+        return super().dispatch(request, *args, **kwargs)
+    
+class AddOpinionView(LoginRequiredMixin, CreateView):
+    form_class = OpinionForm
+    template_name = 'add_opinion.html'
 
-    return {
-        "questions": out_questions,
-        "category": best_cat,
-        "courses": courses,
-        "jobs": jobs,
-    }
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.course = Course.objects.get(pk=self.kwargs['course_id'])
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('subject_to_course_view', kwargs={'course_id': self.object.course.id})
+
+    def dispatch(self, request, *args, **kwargs):
+        if not check_template(self.template_name, request):
+            return HttpResponse("Brak pliku .html")
+        return super().dispatch(request, *args, **kwargs)
 
 
-# ============================================================
-# Całościowy pipeline: generowanie + analiza
-# ============================================================
-def prepare_and_adapt_test(
-    test: Test,
-    user_id: int,
-    per_category: int = 3,
-    use_openai: bool = True,
-    openai_model: str = "gpt-3.5-turbo",
-) -> Dict[str, Any]:
-    """
-    - Generuje pytania do testu (jeśli nie istnieją),
-    - Liczy predyspozycje,
-    - Ustawia difficulty,
-    - Zwraca kategorię + kursy i oferty pracy.
-    """
-    generate_questions_for_categories(test, per_category=per_category, model=openai_model)
-    return adapt_questions_fuzzy(user_id, use_openai=use_openai, openai_model=openai_model)
+class UpdateOpinionView(LoginRequiredMixin, UpdateView):
+    model = Opinion
+    form_class = OpinionForm
+    template_name = 'update_opinion.html'
 
-@csrf_exempt
-def generate_questions_view(request, test_id: int):
-    """
-    Widok: generowanie pytań dla testu.
-    GET/POST -> zwraca pytania.
-    """
-    if request.method == "POST":
-        body = json.loads(request.body.decode("utf-8"))
-        per_category = body.get("per_category", 3)
-        model = body.get("model", "gpt-3.5-turbo")
-    else:
-        per_category = int(request.GET.get("per_category", 3))
-        model = request.GET.get("model", "gpt-3.5-turbo")
+    def get_object(self, queryset=None):
+        course_id = self.kwargs.get('course_id')
+        comment_id = self.kwargs.get('opinion_id')
+        return get_object_or_404(Opinion, id=comment_id, course=course_id, author=self.request.user)
 
-    try:
-        test = Test.objects.get(pk=test_id)
-    except Test.DoesNotExist:
-        return HttpResponse({"error": "Test not found"}, status=404)
+    def get_success_url(self):
+        return reverse('subject_to_course_view', kwargs={'course_id': self.object.course.id})
 
-    results = generate_questions_for_categories(test, per_category=per_category, model=model)
-#   return JsonResponse({"status": "ok", "categories": list(results.keys())})redirect('detect_bee')
-    return redirect('detect_bee')
+    def dispatch(self, request, *args, **kwargs):
+        if not check_template(self.template_name, request):
+            return HttpResponse("Brak pliku .html")
+        return super().dispatch(request, *args, **kwargs)
+    
+class DeleteOpinionView(LoginRequiredMixin, DeleteView):
+    model = Opinion
+    template_name = 'delete_opinion.html'
 
-@csrf_exempt
-def adapt_questions_view(request, user_id: int):
-    """
-    Widok: adaptacja pytań i wybór kategorii.
-    """
-    if request.method == "POST":
-        body = json.loads(request.body.decode("utf-8"))
-        use_openai = body.get("use_openai", True)
-        model = body.get("model", "gpt-3.5-turbo")
-    else:
-        use_openai = request.GET.get("use_openai", "true").lower() == "true"
-        model = request.GET.get("model", "gpt-3.5-turbo")
+    def get_object(self, queryset=None):
+        course_id = self.kwargs.get('course_id')
+        comment_id = self.kwargs.get('opinion_id')
+        return get_object_or_404(Opinion, id=comment_id, course=course_id, author=self.request.user)
 
-    result = adapt_questions_fuzzy(user_id, use_openai=use_openai, openai_model=model)
-#   return JsonResponse(result, safe=False)
-    return redirect('detect_bee')
+    def get_success_url(self):
+        return reverse('subject_to_course_view', kwargs={'course_id': self.object.course.id})
 
-
-@csrf_exempt
-def prepare_and_adapt_view(request, test_id: int, user_id: int):
-    """
-    Widok: całościowy pipeline -> generowanie + analiza.
-    """
-    if request.method == "POST":
-        body = json.loads(request.body.decode("utf-8"))
-        per_category = body.get("per_category", 3)
-        use_openai = body.get("use_openai", True)
-        model = body.get("model", "gpt-3.5-turbo")
-    else:
-        per_category = int(request.GET.get("per_category", 3))
-        use_openai = request.GET.get("use_openai", "true").lower() == "true"
-        model = request.GET.get("model", "gpt-3.5-turbo")
-
-    try:
-        test = Test.objects.get(pk=test_id)
-    except Test.DoesNotExist:
-        return HttpResponse({"error": "Test not found"}, status=404)
-
-    result = prepare_and_adapt_test(
-        test,
-        user_id,
-        per_category=per_category,
-        use_openai=use_openai,
-        openai_model=model,
-    )
-#   return JsonResponse(result, safe=False)
-    return redirect('detect_bee')
-
-# Algorytm AI: 1. Dane testowe. 2. Dane treningowe. 3. Wynik.
+    def dispatch(self, request, *args, **kwargs):
+        if not check_template(self.template_name, request):
+            return HttpResponse("Brak pliku .html")
+        return super().dispatch(request, *args, **kwargs)

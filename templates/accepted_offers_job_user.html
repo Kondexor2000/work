@@ -1,29 +1,42 @@
 {% extends "base.html" %}
 {% block content %}
+<a href="{% url 'add_course' %}">Dodaj kursy</a>
+<a href="{% url 'add_cv' %}">Dodaj CV</a>
+<a href="{% url 'add_portfolio' %}">Dodaj portfolio</a>
+<a href="{% url 'add_business' %}">Dodaj firmę</a>
+<a href="{% url 'logout' %}">Wyloguj się</a>
+<a href="{% url 'login' %}">Zaloguj się</a>
+<a href="{% url 'signup' %}">Zarejestruj się</a>
+<a href="{% url 'cv_to_user_view' %}">Moje CV</a>
+<a href="{% url 'portfolio_to_user_view' %}">Moje potfolio</a>
+<a href="{% url 'search_business' %}">Szukaj firmy</a>
+<a href="{% url 'search_cv' %}">Szukaj CV</a>
+<a href="{% url 'search_portfolio' %}">Szukaj portfolio</a>
+<a href="{% url 'search_offers_job' %}">Szukaj ofert pracy</a>
+<a href="{% url 'search_course_view' %}">Szukaj kursów</a>
+<a href="{% url 'course_user' %}">Moje kursy</a>
+<a href="{% url 'offers_job_created_by_user' %}">Moje oferty pracy</a>
+<a href="{% url 'offers_job_user' %}">Zaproszenia od rekruterów</a>
+<a href="{% url 'answer_question_user' %}">Zapisane odpowiedzi na testach</a>
+<a href="{% url 'add_transmition' %}">Zaplanuj transmisję</a>
 <h1>Your Job Offers</h1>
 <ul>
   {% for offer in products %}
-    <li>{{ offer.job.title }} - Accepted: {{ offer.is_accept }}</li>
+    <li>{{ offer.offer.title }} - Accepted: {{ offer.is_accept }}</li>
   {% empty %}
     <li>No offers available.</li>
   {% endfor %}
-  <a href="{% url 'add_course' %}">Dodaj kursy</a>
-  <a href="{% url 'add_cv' %}">Dodaj CV</a>
-  <a href="{% url 'add_portfolio' %}">Dodaj portfolio</a>
-  <a href="{% url 'add_business' %}">Dodaj firmę</a>
-  <a href="{% url 'logout' %}">Wyloguj się</a>
-  <a href="{% url 'login' %}">Zaloguj się</a>
-  <a href="{% url 'signup' %}">Zarejestruj się</a>
-  <a href="{% url 'cv_to_user_view' %}">Moje CV</a>
-  <a href="{% url 'portfolio_to_user_view' %}">Moje potfolio</a>
-  <a href="{% url 'search_business' %}">Szukaj firmy</a>
-  <a href="{% url 'search_cv' %}">Szukaj CV</a>
-  <a href="{% url 'search_portfolio' %}">Szukaj portfolio</a>
-  <a href="{% url 'search_offers_job' %}">Szukaj ofert pracy</a>
-  <a href="{% url 'search_course_view' %}">Szukaj kursów</a>
-  <a href="{% url 'course_user' %}">Moje kursy</a>
-  <a href="{% url 'offers_job_created_by_user' %}">Moje oferty pracy</a>
-  <a href="{% url 'offers_job_user' %}">Zaproszenia od rekruterów</a>
-  <a href="{% url 'answer_question_user' %}">Zapisane odpowiedzi na testach</a>
+</ul>
+<h1>Your Transmitions</h1>
+<ul>
+  {% for offer in transmitions %}
+    <li>{{ offer.title }}: {{ offer.start }} - {{ offer.end }}</li>
+    <p>{{ offer.description }}</p>
+    {% if offer.start <= now <= offer.end %}
+      <a href="{% url 'comments_transmition' transmition_id=offer.transmition.id %}">Dołącz do transmisji</a>
+    {% endif %}
+  {% empty %}
+    <li>No offers available.</li>
+  {% endfor %}
 </ul>
 {% endblock %}

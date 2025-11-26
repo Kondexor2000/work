@@ -4,6 +4,12 @@
 <ul>
   {% for item in products %}
     <li>{{ item.title }}</li>
+    <li>{{ item.first_name }}</li>
+    <li>{{ item.last_name }}</li>
+    <li>{{ item.street }} {{ item.number_house }}</li>
+    <li>{{ item.code }} {{ item.city }}</li>
+    <li>{{ item.e_mail }}</li>
+    <li>{{ item.number_phone }}</li>
     <a href="{% url 'update_cv' cv_id=item.id %}">Edytuj CV</a>
   {% endfor %}
 </ul>

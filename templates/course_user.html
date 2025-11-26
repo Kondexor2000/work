@@ -1,1 +1,15 @@
-{% for product in products %}{{ product.title }}{% endfor %}
+{% extends "base.html" %}
+{% block content %}
+<h1>My courses</h1>
+<div class="search-container">
+<ul>
+  {% for exp in products %}
+    <li>{{ exp.title }}
+    <a href="{% url 'update_course' course_id=exp.id %}"><button>Edytuj kurs</button></a>
+    <a href="{% url 'delete_course' course_id=exp.id %}"><button>Usuń kurs</button></a>
+    <a href="{% url 'add_subject' course_id=exp.id %}"><button>Dodaj temat</button></a>
+    </li>
+  {% endfor %}
+</ul>
+</div>
+{% endblock %}

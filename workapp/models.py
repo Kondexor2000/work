@@ -216,3 +216,24 @@ class Link(models.Model):
 
     def __str__(self):
         return self.url
+    
+class Transmition(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    leaders = models.ForeignKey(User, on_delete=models.CASCADE, related_name='led_transmitions')
+    participants = models.ManyToManyField(User, related_name='participated_transmitions', blank=True)
+    start = models.DateTimeField()
+    end = models.DateTimeField()
+
+    def __str__(self):
+        return self.title
+    
+class Comment(models.Model):
+    description = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    transmition = models.ForeignKey(Transmition, on_delete=models.CASCADE)
+
+class Opinion(models.Model):
+    description = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)

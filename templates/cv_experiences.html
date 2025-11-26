@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>My CV Experiences</h1>
+<div class="search-container">
 <ul>
   {% for exp in products %}
     <li>{{ exp.position }} at {{ exp.company }}</li>
     <a href="{% url 'update_experience' cv_id=exp.cv.id experience_id=exp.id %}">Edytuj doświadczenie</a>
   {% endfor %}
 </ul>
+</div>
 {% endblock %}

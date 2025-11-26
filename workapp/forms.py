@@ -1,17 +1,54 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import modelformset_factory
-from .models import CV, HR, Business, TagBusiness, TagCourse, TagPortfolio, Test, CategoryCourse, CategoryEmploy, OffersJob,OffersJobUser, Course, Subject, Questions, Answers, Portfolio, Projects, Link, Experience, User, Hobby, Skills, Questionnaire, Education, QuestionnaireCategory
+from django.shortcuts import get_object_or_404
+from .models import CV, HR, Opinion, Business, TagBusiness, TagCourse, TagPortfolio, Test, CategoryCourse, CategoryEmploy, OffersJob,OffersJobUser, Course, Subject, Questions, Answers, Portfolio, Projects, Link, Experience, User, Hobby, Skills, Questionnaire, Education, QuestionnaireCategory, Transmition, Comment
 
 class CVForm(forms.ModelForm):
     class Meta:
         model = CV
-        fields = ['title', 'first_name', 'last_name', 'email', 'number_phone', 'street', 'number_house', 'code', 'city']  # Zmieniono: 'e-mail' → 'email'
+        fields = ['title', 'first_name', 'last_name', 'email', 'number_phone', 'street', 'number_house', 'code', 'city']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'number_phone': forms.TextInput(attrs={'class': 'form-control'}),
+            'street': forms.TextInput(attrs={'class': 'form-control'}),
+            'number_house': forms.TextInput(attrs={'class': 'form-control'}),
+            'code': forms.TextInput(attrs={'class': 'form-control'}),
+            'city': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+class TransmitionForm(forms.ModelForm):
+    participants = forms.ModelMultipleChoiceField(
+        queryset=User.objects.all(),
+        widget=forms.CheckboxSelectMultiple,  # albo SelectMultiple
+        label="Wybierz uczestników"
+    )
+
+    class Meta:
+        model = Transmition
+        fields = ['title', 'description', 'participants', 'start', 'end']
+        widgets = {
+            'start': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'end': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+        }
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['description']
+
+class OpinionForm(forms.ModelForm):
+    class Meta:
+        model = Opinion
+        fields = ['description']
 
 class HRForm(forms.ModelForm):
     class Meta:
         model = HR
-        fields = ['first_name', 'last_name', 'email', 'number_phone', 'business']  # 'e-mail' → 'email'
+        fields = ['first_name', 'last_name', 'email', 'number_phone', 'business']  
 
 class BusinessForm(forms.ModelForm):
     class Meta:
@@ -27,7 +64,7 @@ class OfferJobsForm(forms.ModelForm):
 
     tags_input = forms.CharField(
         required=False,
-        widget=forms.TextInput(attrs={
+        widget=forms.Textarea(attrs={
             'placeholder': 'Wpisz nowe tagi, oddzielone przecinkami'
         })
     )
@@ -231,7 +268,7 @@ class PortfolioForm(forms.ModelForm):
 
     tags_input = forms.CharField(
         required=False,
-        widget=forms.TextInput(attrs={
+        widget=forms.Textarea(attrs={
             'placeholder': 'Wpisz nowe tagi, oddzielone przecinkami'
         })
     )
@@ -312,5 +349,3 @@ class QuestionnaireForm(forms.ModelForm):
     class Meta:
         model = Questionnaire
         fields = ['category']
-
-        

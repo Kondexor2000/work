@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Edytuj Komentarz{% endblock %}
+{% block content %}
+<h2>Edytuj Komentarz</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Zapisz zmiany</button>
+</form>
+</a>
+{% endblock %}
