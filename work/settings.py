@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'workapp',
     'templates',
-    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -99,6 +98,8 @@ if USE_LOCAL_DB:
     SECURE_SSL_REDIRECT = True
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
+
+    INSTALLED_APPS.append("django_extensions")
 else:
     DATABASE_URL = os.environ.get('DATABASE_URL')
     if not DATABASE_URL:
