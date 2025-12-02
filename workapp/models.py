@@ -237,12 +237,3 @@ class Opinion(models.Model):
     description = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-
-class Ad(models.Model):
-    title = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='ads/')
-    url = models.URLField()
-    active = models.BooleanField(default=True)
-
-    def __str__(self):
-        return self.title
