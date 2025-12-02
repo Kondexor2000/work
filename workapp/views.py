@@ -21,7 +21,7 @@ from django.http import HttpResponse, Http404, HttpResponseNotFound
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
-from .models import CV, Ad, HR, Opinion, TagBusiness, TagPortfolio, TagCourse, Test, Portfolio, Projects, Link, Experience, CategoryCourse, CategoryEmploy, Certificate, Course, OffersJob, OffersJobUser, Business, Subject, TestScore, Answers, Questions, Hobby, Skills, Education, Questionnaire, Transmition, Comment
+from .models import CV, HR, Opinion, TagBusiness, TagPortfolio, TagCourse, Test, Portfolio, Projects, Link, Experience, CategoryCourse, CategoryEmploy, Certificate, Course, OffersJob, OffersJobUser, Business, Subject, TestScore, Answers, Questions, Hobby, Skills, Education, Questionnaire, Transmition, Comment
 from .forms import CVForm, OpinionForm, HRForm, SubjectForm, AddOfferJobUserForm, UpdateOfferJobUserForm, AnswerForm, CourseForm, TestForm, LinkForm, ProjectForm, BusinessForm, QuestionForm, OfferJobsForm, PortfolioForm, ExperienceForm, QuestionFormSet, ExperienceFormSet, LinkFormSet, ProjectsFormSet, SubjectFormSet, QuestionnaireForm, HobbyForm, SkillsForm, EducationForm, EducationFormSet, SkillsFormSet, HobbyFormSet, TransmitionForm, CommentForm
 #from .utils import rsa_encrypt, pq_encrypt
 # Create your views here.
@@ -934,7 +934,6 @@ def search_business(request):
         if query:
             businesses = Business.objects.filter(Q(name__icontains=query))
             tags = TagBusiness.objects.filter(Q(name__icontains=query))
-            ads = list(Ad.objects.filter(active=True))
         else:
             businesses = Business.objects.all()
 
@@ -949,7 +948,6 @@ def search_business(request):
     return render(request, template_name, {
         'products': products,
         'query': query,
-        'ads':ads
     })
 
 @transaction.atomic
@@ -966,7 +964,6 @@ def search_offers_job(request):
     categories = CategoryEmploy.objects.all()
     tags_id = request.GET.get('tags')
     tags = TagBusiness.objects.all()
-    ads = list(Ad.objects.filter(active=True))
     products = []
 
     try:
@@ -997,7 +994,6 @@ def search_offers_job(request):
         'tags': tags,
         'categories': categories,
         'selected_category': category_id,
-        'ads': ads
     })
 
 @transaction.atomic
@@ -1029,13 +1025,12 @@ def offer_jobs_id(request, business_id, hr_id):
         return HttpResponseNotFound("Template not found.")
 
     try:
-        ads = list(Ad.objects.filter(active=True))
         products = OffersJob.objects.filter(business=business_id, hr=hr_id)
     except Exception as e:
         products = []
         return HttpResponse("An error occurred while retrieving categories.", status=500)
     
-    return render(request, template_name, {'products': products, 'ads':ads})
+    return render(request, template_name, {'products': products})
 
 @transaction.atomic
 def offer_jobs_id_one(request, business_id, hr_id, offer_id):
@@ -1045,13 +1040,12 @@ def offer_jobs_id_one(request, business_id, hr_id, offer_id):
         return HttpResponseNotFound("Template not found.")
 
     try:
-        ads = list(Ad.objects.filter(active=True))
         products = get_object_or_404(OffersJob, business=business_id, hr=hr_id, id=offer_id)
     except Exception as e:
         logger.error(f"Error retrieving offer: {e}")
         return HttpResponse("An error occurred while retrieving the offer.", status=500)
 
-    return render(request, template_name, {'products': products,'ads':ads})
+    return render(request, template_name, {'products': products})
 
 #new view
 @transaction.atomic
@@ -1151,7 +1145,6 @@ def search_course_view(request):
     tags_id = request.GET.get('tags')
     categories = CategoryCourse.objects.all()
     courses = []
-    ads = list(Ad.objects.filter(active=True))
     tags = TagCourse.objects.all()
 
     try:
@@ -1184,8 +1177,7 @@ def search_course_view(request):
             'tags': tags,
             'query': query,
             'categories': categories,
-            'selected_category': category_id,
-            'ads': ads
+            'selected_category': category_id
         }
     )
 
@@ -1200,7 +1192,6 @@ def subject_to_course_view(request, course_id):
 
     try:
         course = get_object_or_404(Course, id=course_id)
-        ads = list(Ad.objects.filter(active=True))
         opinion = Opinion.objects.filter(
             course=course
         )
@@ -1210,7 +1201,7 @@ def subject_to_course_view(request, course_id):
         logger.exception(f"Error retrieving subjects for course {course_id} by user {request.user}: {e}")
         return HttpResponse("An error occurred while retrieving subjects.", status=500)
 
-    return render(request, template_name, {'course': course,'products': products,'opinion': opinion,'ads':ads})
+    return render(request, template_name, {'course': course,'products': products,'opinion': opinion})
 
 @login_required
 @transaction.atomic
@@ -1240,7 +1231,6 @@ def subject_to_test_view(request, subject_id, course_id):
         return HttpResponseNotFound("Template not found.")
 
     try:
-        ads = list(Ad.objects.filter(active=True))
         subject = get_object_or_404(Subject, id=subject_id, course__id=course_id)
         products = Test.objects.filter(subject=subject)
         logger.info(f"Tests for course {subject.title} retrieved successfully by user {request.user}.")
@@ -1248,7 +1238,7 @@ def subject_to_test_view(request, subject_id, course_id):
         logger.error(f"Error retrieving tests for course {subject_id}: {e}")
         return HttpResponse("An error occurred while retrieving tests.", status=500)
 
-    return render(request, template_name, {'products': products, 'ads': ads})
+    return render(request, template_name, {'products': products})
 
 @transaction.atomic
 def test_to_question_view(request, test_id):
@@ -1259,7 +1249,6 @@ def test_to_question_view(request, test_id):
         return HttpResponseNotFound("Template not found.")
 
     try:
-        ads = list(Ad.objects.filter(active=True))
         test = get_object_or_404(Test, id=test_id)
         products = Questions.objects.filter(test=test)
         logger.info(f"Questions for test '{test.title}' retrieved successfully by user {request.user}.")
@@ -1267,7 +1256,7 @@ def test_to_question_view(request, test_id):
         logger.error(f"Error retrieving questions for test ID {test_id}: {e}")
         return HttpResponse("An error occurred while retrieving questions.", status=500)
 
-    return render(request, template_name, {'products': products,'ads':ads})
+    return render(request, template_name, {'products': products})
 
 @transaction.atomic
 @login_required
@@ -1743,14 +1732,13 @@ def comments_transmition_view(request, transmition_id):
     
     try:
         portfolio = get_object_or_404(Transmition, id=transmition_id)
-        ads = list(Ad.objects.filter(active=True))
         links = Comment.objects.filter(portfolio=portfolio)
         logger.info(f"Links retrieved successfully for portfolio {transmition_id} by user {request.user}.")
     except Exception as e:
         logger.error(f"Error retrieving links for portfolio {transmition_id} by user {request.user}: {e}")
         return HttpResponse("An error occurred while retrieving links.", status=500)
     
-    return render(request, template_name, {'comments': links, "now": timezone.now(), 'ads': ads})
+    return render(request, template_name, {'comments': links, "now": timezone.now()})
 
 class AddTransmitionView(LoginRequiredMixin, CreateView):
     form_class = TransmitionForm
