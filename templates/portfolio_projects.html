@@ -1,9 +1,12 @@
 {% extends "base.html" %}
+
 {% block content %}
 <h1>Portfolio Projects</h1>
 <ul>
   {% for project in products %}
-    <li>{{ project.file }}</li>
+    <li>
+      <img src="{{ project.file.url }}" alt="{{ project.name }}">
+    </li>
   {% endfor %}
 </ul>
 {% endblock %}
