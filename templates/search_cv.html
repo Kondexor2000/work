@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Search Portfolios</h1>
+<h1>Search CV</h1>
 <form method="get">
   <input type="text" name="q" value="{{ query }}" placeholder="Search...">
   <button type="submit">Search</button>
@@ -12,6 +12,9 @@
     <li>
       {{ item.title }}
       {% if item.user == request.user %}
+        <a href="{% url 'cv_to_user_view' cv_id=item.id %}">
+          <button type="button">CV</button>
+        </a>
         <a href="{% url 'add_education' cv_id=item.id %}">
           <button type="button">Dodaj wykształcenie</button>
         </a>

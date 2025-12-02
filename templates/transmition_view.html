@@ -14,6 +14,18 @@
   <button id="startMicrophone">Włącz mikrofon</button>
   <button id="stopMicrophone">Wyłącz mikrofon</button>
 
+  <button id="startPiano">Włącz pianino</button>
+  <button id="stopPiano">Wyłącz pianino</button>
+
+  <button id="startGuitar">Włącz gitarę</button>
+  <button id="stopGuitar">Wyłącz gitarę</button>
+
+  <button id="startDrums">Włącz perkusję</button>
+  <button id="stopDrums">Wyłącz perkusję</button>
+
+  <button id="startRecording">Start nagrywania</button>
+  <button id="stopRecording">Stop nagrywania</button>
+
   <div style="margin-top: 15px;">
     <video id="videoPreview" width="400" height="300" autoplay muted></video>
   </div>
@@ -24,6 +36,147 @@
 <script>
 let videoStream = null;
 let audioStream = null;
+let audioCtx = null;
+let pianoOsc = null;
+let guitarOsc = null;
+let drumOsc = null;
+
+function initAudio() {
+    if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+}
+
+/* --- PIANINO --- */
+document.getElementById("startPiano").onclick = () => {
+    initAudio();
+    pianoOsc = audioCtx.createOscillator();
+    pianoOsc.type = "sine";       // miękki dźwięk jak pianino
+    pianoOsc.frequency.value = 440; // A4
+    pianoOsc.connect(audioCtx.destination);
+    pianoOsc.start();
+};
+
+document.getElementById("stopPiano").onclick = () => {
+    if (pianoOsc) {
+        pianoOsc.stop();
+        pianoOsc = null;
+    }
+};
+
+/* --- GITARA --- */
+document.getElementById("startGuitar").onclick = () => {
+    initAudio();
+    guitarOsc = audioCtx.createOscillator();
+    guitarOsc.type = "triangle";   // brzmienie podobne do gitary akustycznej
+    guitarOsc.frequency.value = 330;
+    guitarOsc.connect(audioCtx.destination);
+    guitarOsc.start();
+};
+
+document.getElementById("stopGuitar").onclick = () => {
+    if (guitarOsc) {
+        guitarOsc.stop();
+        guitarOsc = null;
+    }
+};
+
+/* --- PERKUSJA --- */
+document.getElementById("startDrums").onclick = () => {
+    initAudio();
+
+    // syntetyczne "uderzenie perkusyjne"
+    drumOsc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    drumOsc.type = "square";
+    drumOsc.frequency.setValueAtTime(150, audioCtx.currentTime);
+
+    gain.gain.setValueAtTime(1, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+
+    drumOsc.connect(gain).connect(audioCtx.destination);
+    drumOsc.start();
+    drumOsc.stop(audioCtx.currentTime + 0.3);
+};
+
+document.getElementById("stopDrums").onclick = () => {
+    if (drumOsc) {
+        drumOsc.stop();
+        drumOsc = null;
+    }
+};
+
+// =============================
+// NAGRYWANIE TRANSMISJI
+// =============================
+let mediaRecorder;
+let recordedChunks = [];
+
+// Połącz instrumenty do jednego wyjścia audio
+const instrumentOutput = new (window.AudioContext || window.webkitAudioContext)();
+const instrumentDestination = instrumentOutput.createMediaStreamDestination();
+
+// Modyfikacje oscylatorów aby też nagrywały
+function connectInstrument(osc) {
+    if (osc) {
+        osc.disconnect();
+        osc.connect(instrumentDestination);
+        osc.connect(instrumentOutput.destination); // odsłuch
+    }
+}
+
+/* ========== NAGRYWANIE ========== */
+document.getElementById("startRecording").onclick = async () => {
+    if (!videoStream || !audioStream) {
+        alert("Włącz kamerę i mikrofon przed nagrywaniem!");
+        return;
+    }
+
+    recordedChunks = [];
+
+    // Połącz kamerę + mikrofon
+    const combinedStream = new MediaStream([
+        ...videoStream.getTracks(),
+        ...audioStream.getTracks(),
+    ]);
+
+    // Dodaj audio z instrumentów
+    instrumentDestination.stream.getAudioTracks().forEach(track => {
+        combinedStream.addTrack(track);
+    });
+
+    // MediaRecorder
+    mediaRecorder = new MediaRecorder(combinedStream, {
+        mimeType: "video/webm; codecs=vp9,opus"
+    });
+
+    mediaRecorder.ondataavailable = e => {
+        if (e.data.size > 0) recordedChunks.push(e.data);
+    };
+
+    mediaRecorder.onstop = () => {
+        const blob = new Blob(recordedChunks, { type: "video/webm" });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "nagranie_transmisji.webm";
+        a.click();
+
+        URL.revokeObjectURL(url);
+    };
+
+    mediaRecorder.start();
+    alert("Nagrywanie rozpoczęte!");
+};
+
+document.getElementById("stopRecording").onclick = () => {
+    if (mediaRecorder && mediaRecorder.state !== "inactive") {
+        mediaRecorder.stop();
+        alert("Nagrywanie zatrzymane. Plik zostanie pobrany.");
+    }
+};
 
 // Włącz kamerę
 document.getElementById('startCamera').onclick = async () => {
