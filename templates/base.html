@@ -112,10 +112,8 @@
         <nav style="text-align: center; padding: 10px; background: #f8f9fa; border-bottom: 1px solid #ddd;">
             {% if request.user.is_authenticated %}
                 <a href="{% url 'index' %}" style="display: inline; text-decoration: none; margin: 0 10px;">🏠 Home</a>
-                <a href="{% url 'add_business' %}" style="display: inline; text-decoration: none; margin: 0 10px;">➕ Dodaj firmę</a>
-                <a href="{% url 'hr_to_business_view' %}" style="display: inline; text-decoration: none; margin: 0 10px;">📊 Moje firmy</a>
-                <a href="{% url 'offers_job_user' %}" style="display: inline; text-decoration: none; margin: 0 10px;">📋 Moje aplikacje</a>
                 <a href="{% url 'logout' %}" style="display: inline; text-decoration: none; margin: 0 10px;">🚪 Wyloguj</a>
+                <a href="{% url 'get_started' %}" style="display: inline; text-decoration: none; margin: 0 10px;">❓ Jak zacząć?</a>
             {% else %}
                 <a href="{% url 'login' %}" style="display: inline; text-decoration: none; margin: 0 10px;">🔓 Zaloguj</a>
                 <a href="{% url 'signup' %}" style="display: inline; text-decoration: none; margin: 0 10px;">📋 Rejestracja</a>
