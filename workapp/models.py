@@ -54,8 +54,11 @@ class OffersJob(models.Model):
     
 class OffersJobUser(models.Model):
     offer = models.ForeignKey(OffersJob, on_delete=models.CASCADE)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     is_accept = models.BooleanField(default=False)
+    
+    class Meta:
+        unique_together = ('offer', 'user')  # Prevent duplicate applications to same offer
 
 # === Kursy i Edukacja ===
 

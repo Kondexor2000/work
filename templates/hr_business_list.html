@@ -1,18 +1,34 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Businesses Managed: {{ business.name }}</h1>
+<h1>Moje Biznesy</h1>
 <div class="search-container">
 <ul>
-  {% for hr in hr_list %}
+  {% for business in businesses %}
     <li>
-      HR User: {{ hr.user.username }} - Email: {{ hr.user.email }}
-      <a href="{% url 'read_offer_jobs' business_id=business.id hr_id=hr.id %}">
-          <button type="button">Proponowane oferty pracy</button>
+      <h3>{{ business.name }}</h3>
+      <a href="{% url 'search_offers_job' %}?business_id={{ business.id }}">
+          <button type="button">Moje oferty pracy</button>
       </a>
-    </li>
+      <a href="{% url 'update_business' business_id=business.id %}">
+          <button type="button">Edytuj</button>
+      </a>
+          <div class="hr-list">
+            <strong>HR:</strong>
+            {% for hr in business.hr_set.all %}
+              <div>
+                {{ hr.first_name }} {{ hr.last_name }}
+                <a href="{% url 'update_hr' business_id=business.id hr_id=hr.id %}">
+                  <button type="button">Edytuj HR</button>
+                </a>
+              </div>
+            {% empty %}
+              <div>Brak HR. <a href="{% url 'add_hr' business_id=business.id %}"><button type="button">Dodaj HR</button></a></div>
+            {% endfor %}
+          </div>
+        </li>
   {% empty %}
-    <li>Brak HR powiązanych z tym biznesem.</li>
+    <li>Brak biznesów. <a href="{% url 'add_business' %}">Stwórz nowy biznes</a></li>
   {% endfor %}
 </ul>
 </div>

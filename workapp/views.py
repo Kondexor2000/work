@@ -6,17 +6,12 @@ from django.db.models import Q, Count, Case, When
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, UpdateView, DeleteView
-from django.shortcuts import redirect, render
 from django.template.loader import get_template
 from django.views import View
-from django.views.decorators.csrf import csrf_exempt
-from typing import List, Dict, Any, Optional
 from django.utils import timezone
 from django.contrib.auth import login
 from django.template import TemplateDoesNotExist
 import logging
-import os
-from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, Http404, HttpResponseNotFound
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -34,7 +29,7 @@ def check_template(template_name, request):
         logger.info(f"Template '{template_name}' found.")
         return True
     except TemplateDoesNotExist:
-        logger.error(f"Template '{template_name}' does not exist.")
+        logger.error(f"Template '{template_name}' does not exist for {request.path}")
         return False
 
 class SignUpView(CreateView):
@@ -149,7 +144,11 @@ class UpdateHRView(LoginRequiredMixin, UpdateView):
     def get_object(self, queryset=None):
         hr_id = self.kwargs.get('hr_id')
         business_id = self.kwargs.get('business_id')
-        return get_object_or_404(HR, id=hr_id, business=business_id, user=self.request.user)
+        hr = get_object_or_404(HR, id=hr_id, user=self.request.user)
+        # Check if user's HR is associated with this business (M2M relationship)
+        if not hr.business.filter(id=business_id).exists():
+            raise Http404("Business not found for this HR")
+        return hr
 
     def get_success_url(self):
         business = self.object.business.first()  # jeśli to ManyToMany
@@ -187,7 +186,11 @@ class UpdateBusinessView(LoginRequiredMixin, UpdateView):
 
     def get_object(self, queryset=None):
         business_id = self.kwargs.get('business_id')
-        return get_object_or_404(Business, id=business_id)
+        business = get_object_or_404(Business, id=business_id)
+        # Security: Check if user has HR access to this business
+        if not business.hr_set.filter(user=self.request.user).exists():
+            raise Http404("You don't have permission to edit this business")
+        return business
 
     def get_success_url(self):
         return reverse('hr_to_business_view', kwargs={'business_id': self.object.id})
@@ -236,12 +239,12 @@ class DeleteOffersJobsView(LoginRequiredMixin, DeleteView):
         offer_jobs_id = self.kwargs.get('offer_jobs_id')
         return get_object_or_404(OffersJob, id=offer_jobs_id)
 
-    def form_valid(self, form):
+    def delete(self, request, *args, **kwargs):
         offer = self.get_object()
         if offer.hr.user != self.request.user:
             messages.error(self.request, "Nie masz uprawnień do usunięcia tej oferty.")
             return redirect('offers_job_created_by_user')
-        return super().form_valid(form)
+        return super().delete(request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse('offers_job_created_by_user')
@@ -1008,7 +1011,15 @@ def accepted_offers_job_user(request):
         transmitions = Transmition.objects.filter(
             Q(leaders=user) | Q(participants=user)
         ).distinct()
-        products = OffersJobUser.objects.filter(is_accept=True, user=user)
+        # annotate transmitions with is_live flag
+        now = timezone.now()
+        for t in transmitions:
+            try:
+                t.is_live = (t.start <= now and now <= t.end)
+            except Exception:
+                t.is_live = False
+
+        products = OffersJobUser.objects.filter(is_accept=True, user=user).select_related('offer__business', 'offer__hr')
         logger.info(f"Products retrieved successfully for user {request.user}.")
     except Exception as e:
         logger.error(f"Error retrieving categories for user {request.user}: {e}")
@@ -1111,7 +1122,7 @@ def offers_job_created_by_user(request):
     return render(request, template_name, {'products': products})
 
 @transaction.atomic
-def hr_to_business_view(request):
+def hr_to_business_view(request, business_id=None):
     template_name = 'hr_business_list.html'
 
     if not check_template(template_name, request):
@@ -1120,7 +1131,11 @@ def hr_to_business_view(request):
 
     try:
         hr = HR.objects.get(user=request.user)
-        products = hr.business.all()
+        # If business_id provided, ensure it's one of HR's businesses
+        if business_id:
+            businesses = hr.business.filter(id=business_id)
+        else:
+            businesses = hr.business.all()
         logger.info(f"Businesses retrieved successfully for HR {hr}.")
     except HR.DoesNotExist:
         logger.warning(f"HR profile not found for user {request.user}.")
@@ -1129,7 +1144,7 @@ def hr_to_business_view(request):
         logger.exception(f"Unexpected error while retrieving businesses for user {request.user}: {e}")
         return HttpResponse("An error occurred while retrieving businesses.", status=500)
 
-    return render(request, template_name, {'products': products})
+    return render(request, template_name, {'businesses': businesses, 'user': request.user})
 
 @transaction.atomic
 @login_required

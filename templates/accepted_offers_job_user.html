@@ -4,9 +4,6 @@
 <a href="{% url 'add_cv' %}">Dodaj CV</a>
 <a href="{% url 'add_portfolio' %}">Dodaj portfolio</a>
 <a href="{% url 'add_business' %}">Dodaj firmę</a>
-<a href="{% url 'logout' %}">Wyloguj się</a>
-<a href="{% url 'login' %}">Zaloguj się</a>
-<a href="{% url 'signup' %}">Zarejestruj się</a>
 <a href="{% url 'cv_to_user_view' %}">Moje CV</a>
 <a href="{% url 'portfolio_to_user_view' %}">Moje potfolio</a>
 <a href="{% url 'search_business' %}">Szukaj firmy</a>
@@ -29,14 +26,14 @@
 </ul>
 <h1>Your Transmitions</h1>
 <ul>
-  {% for offer in transmitions %}
-    <li>{{ offer.title }}: {{ offer.start }} - {{ offer.end }}</li>
-    <p>{{ offer.description }}</p>
-    {% if offer.start <= now <= offer.end %}
-      <a href="{% url 'comments_transmition' transmition_id=offer.transmition.id %}">Dołącz do transmisji</a>
+  {% for t in transmitions %}
+    <li>{{ t.title }}: {{ t.start }} - {{ t.end }}</li>
+    <p>{{ t.description }}</p>
+    {% if t.is_live %}
+      <a href="{% url 'comments_transmition' transmition_id=t.id %}">Dołącz do transmisji</a>
     {% endif %}
   {% empty %}
-    <li>No offers available.</li>
+    <li>No transmitions available.</li>
   {% endfor %}
 </ul>
 {% endblock %}

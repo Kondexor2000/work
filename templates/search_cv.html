@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Search CV</h1>
+<h1>Szukaj CV</h1>
 <form method="get">
   <input type="text" name="q" value="{{ query }}" placeholder="Search...">
-  <button type="submit">Search</button>
+  <button type="submit">Szukaj</button>
 </form>
-<h2>Portfolios</h2>
+<h2>Wyniki wyszukiwania CV</h2>
 <div class="search-container">
 <ul>
   {% for item in cvs %}

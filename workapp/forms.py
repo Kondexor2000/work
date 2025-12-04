@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import modelformset_factory
 from django.shortcuts import get_object_or_404
-from .models import CV, HR, Opinion, Business, TagBusiness, TagCourse, TagPortfolio, Test, CategoryCourse, CategoryEmploy, OffersJob,OffersJobUser, Course, Subject, Questions, Answers, Portfolio, Projects, Link, Experience, User, Hobby, Skills, Questionnaire, Education, QuestionnaireCategory, Transmition, Comment
+from .models import CV, HR, Opinion, Business, TagBusiness, TagCourse, TagPortfolio, Test, CategoryCourse, CategoryEmploy, OffersJob, OffersJobUser, Course, Subject, Questions, Answers, Portfolio, Projects, Link, Experience, User, Hobby, Skills, Questionnaire, Education, QuestionnaireCategory, Transmition, Comment
 
 class CVForm(forms.ModelForm):
     class Meta:

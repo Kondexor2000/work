@@ -18,13 +18,15 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.shortcuts import render
 from workapp.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('signup/', SignUpView.as_view(), name='signup'),
-    path('', CustomLoginView.as_view(), name='login'),
+    path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', CustomLogoutView.as_view(), name='logout'),
+    path('', lambda request: render(request, 'get_started.html'), name='get_started'),
     path('edit-profile/', EditProfileView.as_view(), name='edit_profile'),
     path('delete-account/', DeleteAccountView.as_view(), name='delete_account'),
     path('course/<int:course_id>/subject/create/', AddSubjectView.as_view(), name='add_subject'),
@@ -78,7 +80,7 @@ urlpatterns = [
     path('offers_job/user/', offers_job_user, name='offers_job_user'),
     path('offers_job/user/created/', offers_job_created_by_user, name='offers_job_created_by_user'),
     path('offers_job/user/<int:offer_id>/', offer_user_to_hr, name='offer_user_to_hr'),
-    path('business/<int:business_id>/hr/', hr_to_business_view, name='hr_to_business_view'),
+    path('business/<int:business_id>/hr/view/', hr_to_business_view, name='hr_to_business_view'),
     path('search/courses/', search_course_view, name='search_course_view'),
     path('course/<int:course_id>/subject/', subject_to_course_view, name='subject_to_course_view'),
     path('course/certificates/', course_to_certificate_view, name='course_to_certificate_view'),

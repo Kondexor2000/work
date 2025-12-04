@@ -1,15 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Your Job Offers</h1>
+<h1>Twoje oferty pracy</h1>
 <div class="search-container">
 <ul>
   {% for offer in products %}
-    <li>{{ offer.title }} - {{ offer.business }} - {{ offer.category }}</li>
-    <a href="{% url 'read_offer_jobs_one' offer_id=offer.id business_id=offer.business.id hr_id=offer.hr.id %}">
+    <li>
+      <strong>{{ offer.title }}</strong> - {{ offer.business }} - {{ offer.category }}
+      <a href="{% url 'read_offer_jobs_one' offer_id=offer.id business_id=offer.business.id hr_id=offer.hr.id %}">
         <button type="button">Szczegóły</button>
-    </a>
+      </a>
+      {% if request.user.is_authenticated %}
+        <a href="{% url 'update_business' business_id=offer.business.id %}">
+          <button type="button">Edytuj firmę</button>
+        </a>
+        <a href="{% url 'update_hr' business_id=offer.business.id hr_id=offer.hr.id %}">
+          <button type="button">Edytuj HR</button>
+        </a>
+      {% endif %}
+    </li>
   {% empty %}
-    <li>No offers available.</li>
+    <li>Brak dostępnych ofert.</li>
   {% endfor %}
 </ul>
 </div>

@@ -1,7 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Your Job Offers</h1>
-<ul>
-  <li>{{ products.title }} - {{ products.business }} - {{ products.category }}</li>
-</ul>
+<h1>{{ products.title }}</h1>
+<div class="offer-details">
+  <p><strong>Firma:</strong> {{ products.business.name }}</p>
+  <p><strong>Kategoria:</strong> {{ products.category.name }}</p>
+  <p><strong>Rekruter:</strong> {{ products.hr.first_name }} {{ products.hr.last_name }}</p>
+  
+  {% if request.user.is_authenticated %}
+    <div class="actions">
+      <a href="{% url 'update_business' business_id=products.business.id %}">
+        <button type="button">Edytuj firmę</button>
+      </a>
+      <a href="{% url 'update_hr' business_id=products.business.id hr_id=products.hr.id %}">
+        <button type="button">Edytuj HR</button>
+      </a>
+      <a href="{% url 'hr_to_business_view' %}">
+        <button type="button">Powrót do moich firm</button>
+      </a>
+    </div>
+  {% endif %}
+</div>
 {% endblock %}
