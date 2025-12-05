@@ -7,7 +7,7 @@
   {% for business in businesses %}
     <li>
       <h3>{{ business.name }}</h3>
-      <a href="{% url 'search_offers_job' %}?business_id={{ business.id }}">
+      <a href="{% url 'search_offers_job' %} business_id={{ business.id }}">
           <button type="button">Moje oferty pracy</button>
       </a>
       <a href="{% url 'update_business' business_id=business.id %}">

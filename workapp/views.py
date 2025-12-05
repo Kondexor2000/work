@@ -922,6 +922,7 @@ class UpdateEducationView(LoginRequiredMixin, UpdateView):
     
 @transaction.atomic
 @login_required
+@login_required
 def search_business(request):
     template_name = 'search_business.html'
 
@@ -934,13 +935,21 @@ def search_business(request):
     tags = []
 
     try:
+        # Get HR profile for current user
+        hr = HR.objects.get(user=request.user)
+        
         if query:
-            businesses = Business.objects.filter(Q(name__icontains=query))
+            # Filter businesses assigned to current user's HR profile
+            businesses = hr.business.filter(Q(name__icontains=query))
             tags = TagBusiness.objects.filter(Q(name__icontains=query))
         else:
-            businesses = Business.objects.all()
+            # Get all businesses assigned to current user's HR profile
+            businesses = hr.business.all()
 
         logger.info(f"Business and tags retrieved successfully for user {request.user}. Query: '{query}'")
+    except HR.DoesNotExist:
+        logger.warning(f"HR profile not found for user {request.user}.")
+        return HttpResponse("No HR profile found for this user.", status=404)
     except Exception as e:
         logger.error(f"Error retrieving businesses or tags for user {request.user}: {e}")
         return HttpResponse("An error occurred while retrieving data.", status=500)
@@ -1122,6 +1131,7 @@ def offers_job_created_by_user(request):
     return render(request, template_name, {'products': products})
 
 @transaction.atomic
+@login_required
 def hr_to_business_view(request, business_id=None):
     template_name = 'hr_business_list.html'
 
