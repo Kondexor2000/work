@@ -21,6 +21,9 @@
                 <a href="{% url 'update_hr' business_id=business.id hr_id=hr.id %}">
                   <button type="button">Edytuj HR</button>
                 </a>
+                <a href="{% url 'add_offer_jobs' business_id=business.id hr_id=hr.id %}">
+                  <button type="button">Dodaj oferty pracy</button>
+                </a>
               </div>
             {% empty %}
               <div>Brak HR. <a href="{% url 'add_hr' business_id=business.id %}"><button type="button">Dodaj HR</button></a></div>
