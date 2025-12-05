@@ -30,7 +30,7 @@
     <li>{{ t.title }}: {{ t.start }} - {{ t.end }}</li>
     <p>{{ t.description }}</p>
 
-    {% if t.leaders = request.user %}
+    {% if t.leaders == request.user %}
       <a href="{% url 'update_transmition' transmition_id=t.id %}">Edytuj transmisję</a>
       <a href="{% url 'delete_transmition' transmition_id=t.id %}">Usuń transmisję</a>
     {% endif %}
