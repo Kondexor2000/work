@@ -20,24 +20,32 @@ Zapisane tematy? <a href="{% url 'subject_to_course_view' course_id=course_id %}
     </a>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    let totalForms = document.getElementById('id_form-TOTAL_FORMS');
-    let formContainer = document.getElementById('formset');
-    let addButton = document.getElementById('add-more');
+document.addEventListener('DOMContentLoaded', function () {
+    const addButton = document.getElementById('add-more');
+    const formContainer = document.getElementById('formset');
+    const totalForms = document.getElementById('id_form-TOTAL_FORMS');
 
-    addButton.addEventListener('click', function() {
-        let formCount = parseInt(totalForms.value);
-        let newForm = formContainer.children[0].cloneNode(true);
-        newForm.querySelectorAll('input').forEach(function(input) {
-            input.value = '';
+    addButton.addEventListener('click', function () {
+        const formCount = parseInt(totalForms.value);
+        const emptyForm = formContainer.children[0].cloneNode(true);
+
+        emptyForm.querySelectorAll('input, textarea, select').forEach(el => {
+            if (el.type === 'checkbox' || el.type === 'radio') {
+                el.checked = false;
+            } else {
+                el.value = '';
+            }
         });
-        newForm.querySelectorAll('[name]').forEach(function(element) {
-            element.name = element.name.replace(/-\d+-/, '-' + formCount + '-');
+
+        emptyForm.querySelectorAll('[name]').forEach(el => {
+            el.name = el.name.replace(/-\d+-/, `-${formCount}-`);
         });
-        newForm.querySelectorAll('[id]').forEach(function(element) {
-            element.id = element.id.replace(/-\d+-/, '-' + formCount + '-');
+
+        emptyForm.querySelectorAll('[id]').forEach(el => {
+            el.id = el.id.replace(/-\d+-/, `-${formCount}-`);
         });
-        formContainer.appendChild(newForm);
+
+        formContainer.appendChild(emptyForm);
         totalForms.value = formCount + 1;
     });
 });
