@@ -378,20 +378,28 @@ class AddSubjectView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         formset = SubjectFormSet(queryset=Subject.objects.none())
-        return render(request, self.template_name, {'formset': formset})
+        return render(request, self.template_name, {
+            'formset': formset,
+            'course_id': self.kwargs['course_id'],
+        })
 
     def post(self, request, *args, **kwargs):
         formset = SubjectFormSet(request.POST)
         if formset.is_valid():
             for form in formset:
-                instance = form.save(commit=False)
-                instance.course_id = self.kwargs['course_id']
-                # uniknięcie duplikatu
-                if not Subject.objects.filter(course_id=instance.course_id, name=instance.name).exists():
-                    instance.save()
-            # przekierowanie po sukcesie
-            return redirect('subject_to_course_view', self.kwargs['course_id'])
-        return render(request, self.template_name, {'formset': formset})
+                if form.cleaned_data and not form.cleaned_data.get('DELETE', False):
+                    instance = form.save(commit=False)
+                    instance.course_id = self.kwargs['course_id']
+                    Subject.objects.get_or_create(
+                        course_id=instance.course_id,
+                        title=instance.title,
+                        defaults={'description': instance.description, 'file': instance.file}
+                    )
+            return redirect('subject_to_course_view', course_id=self.kwargs['course_id'])
+        return render(request, self.template_name, {
+            'formset': formset,
+            'course_id': self.kwargs['course_id'],
+        })
 
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
