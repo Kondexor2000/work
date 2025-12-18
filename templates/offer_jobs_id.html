@@ -9,7 +9,7 @@
       <a href="{% url 'read_offer_jobs_one' offer_id=offer.id business_id=offer.business.id hr_id=offer.hr.id %}">
         <button type="button">Szczegóły</button>
       </a>
-      {% if request.user.is_authenticated %}
+      {% if offer.hr.user == request.user %}
         <a href="{% url 'update_business' business_id=offer.business.id %}">
           <button type="button">Edytuj firmę</button>
         </a>
