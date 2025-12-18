@@ -7,7 +7,7 @@
     <li>{{ offer.title }} - {{ offer.business }} - {{ offer.category }}</li>
     <a href="{% url 'add_offer_jobs_user' offers_job_id=offer.id %}">Zaproś kandydatów</a>
     <a href="{% url 'update_offer_jobs_user' offers_job_id=offer.id %}">Edytuj kandydatów</a>
-    <a href="{% url 'delete_offer_jobs' offer_job_id=offer.id %}">
+    <a href="{% url 'delete_offer_jobs' offer_jobs_id=offer.id %}">
       <button type="button">Usuń ofertę</button>
     </a>
   {% empty %}
