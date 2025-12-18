@@ -1300,22 +1300,38 @@ def subject_to_test_view(request, subject_id, course_id):
     return render(request, template_name, {'products': products})
 
 @transaction.atomic
-def test_to_question_view(request, test_id):
+def test_to_question_view(request, course_id, subject_id, test_id):
     template_name = 'questions_list.html'
 
     if not check_template(template_name, request):
-        logger.warning(f"Template '{template_name}' not found for user {request.user}.")
+        logger.warning(
+            f"Template '{template_name}' not found for user {request.user}."
+        )
         return HttpResponseNotFound("Template not found.")
 
     try:
-        test = get_object_or_404(Test, id=test_id)
+        test = get_object_or_404(
+            Test,
+            id=test_id,
+            subject__id=subject_id,
+            subject__course__id=course_id
+        )
         products = Questions.objects.filter(test=test)
-        logger.info(f"Questions for test '{test.title}' retrieved successfully by user {request.user}.")
+        logger.info(
+            f"Questions for test '{test.title}' retrieved successfully by user {request.user}."
+        )
     except Exception as e:
-        logger.error(f"Error retrieving questions for test ID {test_id}: {e}")
-        return HttpResponse("An error occurred while retrieving questions.", status=500)
+        logger.error(
+            f"Error retrieving questions for test ID {test_id}: {e}"
+        )
+        return HttpResponse(
+            "An error occurred while retrieving questions.",
+            status=500
+        )
 
-    return render(request, template_name, {'products': products})
+    return render(request, template_name, {
+        'products': products,
+    })
 
 @transaction.atomic
 @login_required
