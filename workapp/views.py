@@ -116,15 +116,16 @@ class AddHRView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         business_id = self.kwargs.get('business_id')
         business = get_object_or_404(Business, id=business_id)
-        form.instance.user = self.request.user
 
-        # save first to get the HR instance with a primary key
-        response = super().form_valid(form)
+        # Try to get existing HR, or create a new one if it doesn't exist
+        hr, created = HR.objects.get_or_create(user=self.request.user)
+        
+        # Set the business relationship
+        hr.business.add(business)
 
-        # now set the many-to-many relation
-        form.instance.business.set([business])
-
-        return response
+        # Store the object for get_success_url
+        self.object = hr
+        return super().form_valid(form)
 
     def get_success_url(self):
         business_id = self.kwargs.get('business_id')
