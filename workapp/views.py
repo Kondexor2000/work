@@ -384,21 +384,23 @@ class AddSubjectView(LoginRequiredMixin, View):
         })
 
     def post(self, request, *args, **kwargs):
-        formset = SubjectFormSet(request.POST)
+        formset = SubjectFormSet(request.POST, request.FILES)
+
         if formset.is_valid():
             for form in formset:
-                # sprawdzamy, czy formularz wypełniony i nie zaznaczony do usunięcia
-                if form.cleaned_data and not form.cleaned_data.get('DELETE', False):
-                    title = form.cleaned_data.get('title')
-                    if title:  # tylko jeśli tytuł istnieje
-                        instance = form.save(commit=False)
-                        instance.course_id = self.kwargs['course_id']
-                        instance.save()
+                if not form.has_changed():
+                    continue
+
+                instance = form.save(commit=False)
+                instance.course_id = self.kwargs['course_id']
+                instance.save()
+
             return redirect('subject_to_course_view', course_id=self.kwargs['course_id'])
+
         return render(request, self.template_name, {
-        'formset': formset,
-        'course_id': self.kwargs['course_id'],
-    })
+            'formset': formset,
+            'course_id': self.kwargs['course_id'],
+        })
 
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
