@@ -48,7 +48,7 @@ class OpinionForm(forms.ModelForm):
 class HRForm(forms.ModelForm):
     class Meta:
         model = HR
-        fields = ['first_name', 'last_name', 'email', 'number_phone', 'business']  
+        fields = ['first_name', 'last_name', 'email', 'number_phone']  
 
 class BusinessForm(forms.ModelForm):
     class Meta:

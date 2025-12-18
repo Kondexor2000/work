@@ -109,28 +109,43 @@ class CustomLogoutView(LoginRequiredMixin, LogoutView):
 #Rekruter
 # === HR ===
 
-class AddHRView(LoginRequiredMixin, CreateView):
-    form_class = HRForm
+class AddHRView(LoginRequiredMixin, View):
     template_name = 'add_hr.html'
+    form_class = HRForm
 
-    def form_valid(self, form):
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
         business_id = self.kwargs.get('business_id')
         business = get_object_or_404(Business, id=business_id)
 
-        # Try to get existing HR, or create a new one if it doesn't exist
-        hr, created = HR.objects.get_or_create(user=self.request.user)
-        
-        # Set the business relationship
+        # Check if HR already exists for this user
+        hr, created = HR.objects.get_or_create(
+            user=request.user,
+            defaults={
+                'first_name': form.data.get('first_name'),
+                'last_name': form.data.get('last_name'),
+                'email': form.data.get('email'),
+                'number_phone': form.data.get('number_phone'),
+            }
+        )
+
+        # Update fields if HR existed but info has changed
+        if not created:
+            hr.first_name = form.data.get('first_name')
+            hr.last_name = form.data.get('last_name')
+            hr.email = form.data.get('email')
+            hr.number_phone = form.data.get('number_phone')
+            hr.save()
+
+        # Link business
         hr.business.add(business)
 
-        # Store the object for get_success_url
-        self.object = hr
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        business_id = self.kwargs.get('business_id')
-        hr_id = self.object.id
-        return reverse('add_offer_jobs', kwargs={'business_id': business_id, 'hr_id': hr_id})
+        # Redirect to success
+        return redirect('add_offer_jobs', business_id=business.id, hr_id=hr.id)
 
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
