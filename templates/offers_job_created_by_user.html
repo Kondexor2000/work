@@ -2,6 +2,7 @@
 {% block content %}
 <h1>Your Job Offers</h1>
 <div class="search-container">
+Zgubiłeś swoją ofertę pracy? <a href="{% url 'search_offers_job' %}">Szukaj ofert pracy</a>
 <ul>
   {% for offer in products %}
     <li>{{ offer.title }} - {{ offer.business }} - {{ offer.category }}</li>
