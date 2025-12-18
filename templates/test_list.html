@@ -9,7 +9,7 @@
       <a href="{% url 'update_test' course_id=item.subject.course.id subject_id=item.subject.id test_id=item.id %}">
           <button type="button">Edytuj test</button>
       </a>
-      <a href="{% url 'delete_test' course_id=item.subject.course.id subject_id=iem.subject.id test_id=item.id %}">
+      <a href="{% url 'delete_test' course_id=item.subject.course.id subject_id=item.subject.id test_id=item.id %}">
           <button type="button">Usuń test</button>
       </a>
     {% else %}
