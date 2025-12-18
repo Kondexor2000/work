@@ -373,16 +373,26 @@ class DeleteCourseView(LoginRequiredMixin, DeleteView):
 
 # === SUBJECT ===
 
-class AddSubjectView(LoginRequiredMixin, CreateView):
-    form_class = SubjectFormSet
+class AddSubjectView(LoginRequiredMixin, View):
     template_name = 'add_subject.html'
 
-    def form_valid(self, form):
-        form.instance.course_id = self.kwargs['course_id']  # <-- ustawienie relacji z Course
-        return super().form_valid(form)
+    def get(self, request, *args, **kwargs):
+        formset = SubjectFormSet(queryset=Subject.objects.none())
+        return render(request, self.template_name, {'formset': formset})
 
-    def get_success_url(self):
-        return reverse('add_test', args=[self.kwargs['course_id'], self.object.id])
+    def post(self, request, *args, **kwargs):
+        formset = SubjectFormSet(request.POST)
+        if formset.is_valid():
+            for form in formset:
+                instance = form.save(commit=False)
+                instance.course_id = self.kwargs['course_id']
+                # uniknięcie duplikatu
+                if not Subject.objects.filter(course_id=instance.course_id, name=instance.name).exists():
+                    instance.save()
+            # przekierowanie po sukcesie
+            first_instance = formset.forms[0].instance
+            return redirect('add_test', self.kwargs['course_id'], first_instance.id)
+        return render(request, self.template_name, {'formset': formset})
 
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
