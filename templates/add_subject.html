@@ -15,6 +15,10 @@
     <button type="submit">Zapisz przedmiot</button>
 </form>
 
+<a href="{% url 'subject_to_course_view' course_id=course.id %}">
+        <button type="button">Otwórz kurs</button>
+    </a>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     let totalForms = document.getElementById('id_form-TOTAL_FORMS');
