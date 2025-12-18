@@ -390,8 +390,7 @@ class AddSubjectView(LoginRequiredMixin, View):
                 if not Subject.objects.filter(course_id=instance.course_id, name=instance.name).exists():
                     instance.save()
             # przekierowanie po sukcesie
-            first_instance = formset.forms[0].instance
-            return redirect('add_test', self.kwargs['course_id'], first_instance.id)
+            return redirect('subject_to_course_view', self.kwargs['course_id'])
         return render(request, self.template_name, {'formset': formset})
 
     def dispatch(self, request, *args, **kwargs):
