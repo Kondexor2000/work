@@ -16,7 +16,7 @@
         </div>
         <a href="{% url 'add_skill' cv_id=cv_id %}">Dodaj umiejętności</a>
         <a href="{% url 'index' %}">Strona główna</a>
-    {% elif not products %}
+    {% else %}
         <div class="alert alert-info mt-4">
             Nie dodałeś jeszcze żadnych umiejętności.
         </div>
