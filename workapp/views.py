@@ -1289,7 +1289,6 @@ def subject_to_test_view(request, subject_id, course_id):
 
     return render(request, template_name, {'products': products})
 
-@transaction.atomic
 def test_to_question_view(request, course_id, subject_id, test_id):
     template_name = 'questions_list.html'
 
@@ -1299,29 +1298,25 @@ def test_to_question_view(request, course_id, subject_id, test_id):
         )
         return HttpResponseNotFound("Template not found.")
 
-    try:
-        test = get_object_or_404(
-            Test,
-            id=test_id,
-            subject__id=subject_id,
-            subject__course_id=course_id
-        )
-        products = Questions.objects.filter(test=test)
-        logger.info(
-            f"Questions for test '{test.title}' retrieved successfully by user {request.user}."
-        )
-    except Exception as e:
-        logger.error(
-            f"Error retrieving questions for test ID {test_id}: {e}"
-        )
-        return HttpResponse(
-            "An error occurred while retrieving questions.",
-            status=500
-        )
+    # Pobranie testu, 404 jeśli nie istnieje lub relacje się nie zgadzają
+    test = get_object_or_404(
+        Test,
+        id=test_id,
+        subject__id=subject_id,
+        subject__course__id=course_id
+    )
+
+    # Pobranie pytań dla testu
+    products = Questions.objects.filter(test=test)
+
+    logger.info(
+        f"Questions for test '{test.title}' retrieved successfully by user {request.user}."
+    )
 
     return render(request, template_name, {
         'products': products,
     })
+
 
 @transaction.atomic
 @login_required

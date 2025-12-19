@@ -1,27 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Items</h1>
+<h1>Questions</h1>
 <ul>
   {% for item in products %}
     <li>{{ item }}</li>
     {% if item.test.subject.course.author == request.user %}
       <a href="{% url 'update_question'
         course_id=item.test.subject.course.id
-subject_id=item.test.subject.id
-test_id=item.test.id
-question_id=item.id %}">
-          <button type="button">Edytuj pytania</button>
-      </a>
-      <a href="{% url 'delete_question' course_id=item.test.subject.course.id
-subject_id=item.test.subject.id
-test_id=item.test.id
-question_id=item.id %}">
-          <button type="button">Usuń pytania</button>
+        subject_id=item.test.subject.id
+        test_id=item.test.id
+        question_id=item.id %}"><button>Edytuj pytanie</button></a>
+      <a href="{% url 'delete_question'
+        course_id=item.test.subject.course.id
+        subject_id=item.test.subject.id
+        test_id=item.test.id
+        question_id=item.id %}"><button>Usuń pytanie</button></a>
     {% else %}
       <a href="{% url 'answer_question_user' question_id=item.id %}">Zapisane odpowiedzi</a>
     {% endif %}
   {% empty %}
-    <li>No items found.</li>
+    <li>No questions found.</li>
   {% endfor %}
 </ul>
 {% endblock %}

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Items</h1>
+<h1>Tests</h1>
 <ul>
   {% for item in products %}
     <li>{{ item.title }}</li>
@@ -8,20 +8,23 @@
       <a href="{% url 'test_to_question_view'
         course_id=item.subject.course.id
         subject_id=item.subject.id
-        test_id=item.id %}">
-        Pytania
-    </a>
-      <a href="{% url 'update_test' course_id=item.subject.course.id subject_id=item.subject.id test_id=item.id %}">
-          <button type="button">Edytuj test</button>
-      </a>
-      <a href="{% url 'delete_test' course_id=item.subject.course.id subject_id=item.subject.id test_id=item.id %}">
-          <button type="button">Usuń test</button>
-      </a>
+        test_id=item.id %}">Pytania</a>
+      <a href="{% url 'update_test'
+        course_id=item.subject.course.id
+        subject_id=item.subject.id
+        test_id=item.id %}"><button>Edytuj test</button></a>
+      <a href="{% url 'delete_test'
+        course_id=item.subject.course.id
+        subject_id=item.subject.id
+        test_id=item.id %}"><button>Usuń test</button></a>
     {% else %}
-      <a href="{% url 'test_to_question_view' course_id=item.subject.course.id subject_id=item.subject.id test_id=item.id %}">Wypełnij test</a>
+      <a href="{% url 'test_to_question_view'
+        course_id=item.subject.course.id
+        subject_id=item.subject.id
+        test_id=item.id %}">Wypełnij test</a>
     {% endif %}
   {% empty %}
-    <li>No items found.</li>
+    <li>No tests found.</li>
   {% endfor %}
 </ul>
 {% endblock %}
