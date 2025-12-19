@@ -18,7 +18,7 @@
         <div class="alert alert-info mt-4">
             Brak doświadczenia
         </div>
-        <a href="{% url 'search_portfolio' %}">Szukaj dalej</a>
+        <a href="{% url 'cv_to_id_view' cv_id=products.cv.id %}">Wróć do CV</a>
     {% endif %}
 
 </div>
