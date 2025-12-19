@@ -93,9 +93,9 @@ if USE_LOCAL_DB:
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
     # wymuszanie HTTPS (opcjonalnie)
-    SECURE_SSL_REDIRECT = True
-    CSRF_COOKIE_SECURE = True
-    SESSION_COOKIE_SECURE = True
+#    SECURE_SSL_REDIRECT = True
+#    CSRF_COOKIE_SECURE = True
+#    SESSION_COOKIE_SECURE = True
 
 else:
     DATABASE_URL = os.environ.get('DATABASE_URL')

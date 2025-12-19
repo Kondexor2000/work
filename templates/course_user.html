@@ -8,6 +8,7 @@
     <a href="{% url 'update_course' course_id=exp.id %}"><button>Edytuj kurs</button></a>
     <a href="{% url 'delete_course' course_id=exp.id %}"><button>Usuń kurs</button></a>
     <a href="{% url 'add_subject' course_id=exp.id %}"><button>Dodaj temat</button></a>
+    <a href="{% url 'subject_to_course_view' course_id=exp.id %}"><button>Zapisane tematy</button></a>
     </li>
   {% endfor %}
 </ul>
