@@ -715,10 +715,6 @@ class UpdateProjectView(LoginRequiredMixin, DeleteView):
     def get_success_url(self):
         return reverse('my_portfolio_projects_view')
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
             return HttpResponse("Brak pliku .html")
@@ -756,10 +752,6 @@ class UpdateLinkView(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse('my_portfolio_links_view')
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
 
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
