@@ -1302,8 +1302,8 @@ def test_to_question_view(request, course_id, subject_id, test_id):
     test = get_object_or_404(
         Test,
         id=test_id,
-        subject_id=subject_id,
-        subject__course_id=course_id
+        subject__id=subject_id,
+        subject__course__id=course_id
     )
 
     products = Questions.objects.filter(test=test)
