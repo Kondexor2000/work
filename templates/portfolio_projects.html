@@ -6,6 +6,9 @@
   {% for project in products %}
     <li>
       <img src="{{ project.file.url }}" alt="{{ project.name }}">
+      <a href="{% url 'update_project' portfolio_id=project.portfolio.id project_id=project.id %}">
+          <button type="button">Usuń projekt</button>
+        </a>
     </li>
   {% endfor %}
 </ul>

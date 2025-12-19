@@ -4,6 +4,9 @@
 <ul>
   {% for link in products %}
     <li><a href="{{ link.url }}">{{ link.url }}</a></li>
+    <a href="{% url 'update_link' portfolio_id=link.portfolio.id link_id=link.id %}">
+          <button type="button">Usuń link</button>
+        </a>
   {% endfor %}
 </ul>
 {% endblock %}

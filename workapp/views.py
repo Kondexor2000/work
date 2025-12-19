@@ -703,9 +703,8 @@ class AddProjectView(LoginRequiredMixin, CreateView):
         return render(request, self.template_name, {'formset': formset})
 
 
-class UpdateProjectView(LoginRequiredMixin, UpdateView):
+class UpdateProjectView(LoginRequiredMixin, DeleteView):
     model = Projects
-    form_class = ProjectForm
     template_name = 'update_project.html'
 
     def get_object(self, queryset=None):
@@ -746,9 +745,8 @@ class AddLinkView(LoginRequiredMixin, CreateView):
         return render(request, self.template_name, {'formset': formset})
 
 
-class UpdateLinkView(LoginRequiredMixin, UpdateView):
+class UpdateLinkView(LoginRequiredMixin, DeleteView):
     model = Link
-    form_class = LinkForm
     template_name = 'update_link.html'
 
     def get_object(self, queryset=None):
