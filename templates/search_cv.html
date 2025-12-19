@@ -12,7 +12,7 @@
     <li>
       {{ item.title }}
       {% if item.user == request.user %}
-        <a href="{% url 'cv_to_user_view' cv_id=item.id %}">
+        <a href="{% url 'cv_to_user_view' %}">
           <button type="button">CV</button>
         </a>
         <a href="{% url 'add_education' cv_id=item.id %}">
