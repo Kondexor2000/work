@@ -1271,21 +1271,15 @@ def course_to_certificate_view(request):
 
     return render(request, template_name, {'products': products})
 
-@transaction.atomic
 def subject_to_test_view(request, subject_id, course_id):
     template_name = 'test_list.html'
     
     if not check_template(template_name, request):
-        logger.warning(f"Template '{template_name}' not found for user {request.user}.")
         return HttpResponseNotFound("Template not found.")
 
-    try:
-        subject = get_object_or_404(Subject, id=subject_id, course__id=course_id)
-        products = Test.objects.filter(subject=subject)
-        logger.info(f"Tests for course {subject.title} retrieved successfully by user {request.user}.")
-    except Exception as e:
-        logger.error(f"Error retrieving tests for course {subject_id}: {e}")
-        return HttpResponse("An error occurred while retrieving tests.", status=500)
+    subject = get_object_or_404(Subject, id=subject_id, course__id=course_id)
+    # Pobieramy powiązania od razu, żeby w szablonie były pewne
+    products = Test.objects.filter(subject=subject).select_related('subject', 'subject__course')
 
     return render(request, template_name, {'products': products})
 
@@ -1293,29 +1287,18 @@ def test_to_question_view(request, course_id, subject_id, test_id):
     template_name = 'questions_list.html'
 
     if not check_template(template_name, request):
-        logger.warning(
-            f"Template '{template_name}' not found for user {request.user}."
-        )
         return HttpResponseNotFound("Template not found.")
 
-    # Pobranie testu, 404 jeśli nie istnieje lub relacje się nie zgadzają
     test = get_object_or_404(
         Test,
         id=test_id,
-        subject__id=subject_id,
-        subject__course__id=course_id
+        subject_id=subject_id,
+        subject__course_id=course_id
     )
 
-    # Pobranie pytań dla testu
-    products = Questions.objects.filter(test=test)
+    products = Questions.objects.filter(test=test).select_related('test', 'test__subject', 'test__subject__course')
 
-    logger.info(
-        f"Questions for test '{test.title}' retrieved successfully by user {request.user}."
-    )
-
-    return render(request, template_name, {
-        'products': products,
-    })
+    return render(request, template_name, {'products': products})
 
 
 @transaction.atomic
