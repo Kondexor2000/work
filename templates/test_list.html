@@ -3,7 +3,7 @@
 <h1>Items</h1>
 <ul>
   {% for item in products %}
-    <li>{{ item }}</li>
+    <li>{{ item.title }}</li>
     {% if item.subject.course.author == request.user %}
       <a href="{% url 'test_to_question_view'
         course_id=item.subject.course.id
