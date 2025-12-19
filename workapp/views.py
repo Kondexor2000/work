@@ -1426,46 +1426,17 @@ def search_portfolio(request):
 @transaction.atomic
 @login_required
 def search_cv(request):
-    """
-    Wyszukiwanie CV po tytule (query 'q') i zwracanie JSON.
-    """
     query = request.GET.get('q', '').strip()
-#   USE_LOCAL_DB = os.environ.get('USE_LOCAL_DB', '').lower() == 'true'
 
-    try:
-        if query:
-            cvs = CV.objects.filter(title__icontains=query)
-        else:
-            cvs = CV.objects.all()
+    if query:
+        cvs = CV.objects.filter(title__icontains=query)
+    else:
+        cvs = CV.objects.all()
 
-        cvs_data = []
-
-        cvs_data.append({
-                "id": id,
-                "title": cvs.title,
-                "first_name": cvs.first_name,
-                "last_name": cvs.last_name,
-                "email": cvs.email,
-                "number_phone": cvs.number_phone,
-                "street": cvs.street,
-                "number_house": cvs.number_house,
-                "code": cvs.code,
-                "city": cvs.city,
-                "user_id": cvs.user.id
-            })
-
-        # render do szablonu
-        return render(request, "search_cv.html", {
-            "query": query,
-            "cvs": cvs_data
-        })
-
-    except Exception as e:
-        return render(request, "search_cv.html", {
-            "query": query,
-            "error": f"An error occurred during CV search: {str(e)}"
-        })
-
+    return render(request, "search_cv.html", {
+        "query": query,
+        "cvs": cvs
+    })
 
 @transaction.atomic
 def portfolio_to_user_view(request):
