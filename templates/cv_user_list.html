@@ -27,6 +27,7 @@
                 <a href="{% url 'my_cv_skills_view' %}">Moje umiejetności</a>
                 <a href="{% url 'my_cv_hobby_view' %}">Moje hobby</a>
                 <a href="{% url 'my_cv_education_view' %}">Moje wykształcenie</a>
+                Chcesz coś zmienić? <a href="{% url 'search_cv' %}">Szukaj CV</a>
             {% endfor %}
         </div>
     {% else %}
