@@ -11,6 +11,9 @@
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.url }}</a>
                     <small class="text-muted">Dodano: {{ link.created_at|date:"Y-m-d" }}</small>
+                    <a href="{% url 'update_link' portfolio_id=link.portfolio.id link_id=link.id %}">
+          <button type="button">Usuń link</button>
+        </a>
                 </li>
             {% endfor %}
         </ul>

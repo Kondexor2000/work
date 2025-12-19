@@ -16,6 +16,9 @@
                     {% endif %}
                     <small class="d-block mt-2 text-muted">Dodano: {{ project.created_at|date:"Y-m-d" }}</small>
                     <img src="{{ project.file.url }}" alt="{{ project.name }}">
+                    <a href="{% url 'update_project' portfolio_id=project.portfolio.id project_id=project.id %}">
+          <button type="button">Usuń projekt</button>
+        </a>
                 </div>
             {% endfor %}
         </div>
