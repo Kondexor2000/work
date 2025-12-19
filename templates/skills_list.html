@@ -18,7 +18,7 @@
             {% endfor %}
         </div>
         <a href="{% url 'cv_to_id_view' cv_id=products.cv.id %}">Wróć do CV</a>
-    {% else %}
+    {% elif not products %}
         <div class="alert alert-info mt-4">
             Nie masz jeszcze żadnego CV.
         </div>

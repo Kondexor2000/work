@@ -16,7 +16,7 @@
         </div>
         <a href="{% url 'add_education' cv_id=cv_id %}">Dodaj wykształcenie</a>
         <a href="{% url 'index' %}">Strona główna</a>
-    {% else %}
+    {% elif not products %}
         <div class="alert alert-info mt-4">
             Nie dodałeś jeszcze żadnego wykształcenia.
         </div>
