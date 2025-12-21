@@ -3,7 +3,7 @@
 <h1>Questions</h1>
 <ul>
   {% for item in products %}
-    <li>{{ item }}</li>
+    <li>{{ item.question }} - {{ item.answer }}</li>
     {% if item.test.subject.course.author == request.user %}
       <a href="{% url 'update_question' course_id=item.test.subject.course.id subject_id=item.test.subject.id test_id=item.test.id question_id=item.id %}"><button>Edytuj pytanie</button></a>
       <a href="{% url 'delete_question' course_id=item.test.subject.course.id subject_id=item.test.subject.id test_id=item.test.id question_id=item.id %}"><button>Usuń pytanie</button></a>
