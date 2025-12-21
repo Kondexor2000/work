@@ -479,7 +479,11 @@ class UpdateTestView(LoginRequiredMixin, UpdateView):
         return get_object_or_404(Test, id=test_id, subject=subject_id)
 
     def get_success_url(self):
-        return reverse('test_to_question_view')
+        return reverse('test_to_question_view', kwargs={
+        'course_id': self.object.subject.course.id,
+        'subject_id': self.object.subject.id,
+        'test_id': self.object.id,
+    })
 
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
@@ -497,7 +501,10 @@ class DeleteTestView(LoginRequiredMixin, DeleteView):
         return get_object_or_404(Test, id=test_id, subject=subject_id)
 
     def get_success_url(self):
-        return reverse('add_test')
+        return reverse('add_test', kwargs={
+        'course_id': self.object.subject.course.id,
+        'subject_id': self.object.subject.id,
+    })
 
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
@@ -536,7 +543,11 @@ class UpdateQuestionView(LoginRequiredMixin, UpdateView):
         return get_object_or_404(Questions, id=question_id, test=test_id)
 
     def get_success_url(self):
-        return reverse('test_to_question_view')
+        return reverse('test_to_question_view', kwargs={
+        'course_id': self.object.test.subject.course.id,
+        'subject_id': self.object.test.subject.id,
+        'test_id': self.object.test.id,
+    })
 
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
@@ -554,7 +565,11 @@ class DeleteQuestionView(LoginRequiredMixin, DeleteView):
         return get_object_or_404(Questions, id=question_id, test=test_id)
 
     def get_success_url(self):
-        return reverse('add_question')
+        return reverse('add_question', kwargs={
+        'course_id': self.object.test.subject.course.id,
+        'subject_id': self.object.test.subject.id,
+        'test_id': self.object.test.id,
+    })
 
     def dispatch(self, request, *args, **kwargs):
         if not check_template(self.template_name, request):
