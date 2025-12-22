@@ -4,13 +4,10 @@
 <h1>Jak zacząć z Eduwork</h1>
 <div style="max-width: 800px; margin: 20px auto; padding: 20px;">
     <p>Witaj w <strong>Eduwork</strong> — platformie do zarządzania CV, ofertami pracy, kursami i portfolio.</p>
-    
-    {% if request.user.is_authenticated %}
-
+    Chcesz wykorzystać wszelkie możliwości? <li><a href="{% url 'signup' %}"><strong>Zarejestruj się</strong></a> lub <a href="{% url 'login' %}"><strong>zaloguj</strong></a>.</li>
         <h2>Dla poszukiwaczy pracy</h2>
         <ol>
-            <li><a href="{% url 'signup' %}"><strong>Zarejestruj się</strong></a> lub <a href="{% url 'login' %}"><strong>zaloguj</strong></a>.</li>
-            <li>Przejdź do <a href="{% url 'add_cv' %}">"Moje CV"</a> i utwórz swój profil zawodowy.</li>
+            <li>Stwórz CV i profil zawodowy.</li>
             <li>Dodaj swoje doświadczenie, edukację, umiejętności i zainteresowania.</li>
             <li>Stwórz portfolio — udostępnij swoje projekty i linki do prac.</li>
             <li>Szukaj ofert pracy i aplikuj na stanowiska.</li>
@@ -18,16 +15,14 @@
 
         <h2>Dla rekruterów / pracodawców</h2>
         <ol>
-            <li><a href="{% url 'signup' %}"><strong>Zarejestruj się</strong></a> lub <a href="{% url 'login' %}"><strong>zaloguj</strong></a>.</li>
-            <li>Przejdź do <a href="{% url 'add_business' %}">"Dodaj firmę"</a> i utwórz profil swojej firmy.</li>
+            <li>Zarządzaj własnymi firmami</li>
             <li>Utwórz oferty pracy i promuj je poprzez reklamy.</li>
             <li>Zarządzaj aplikacjami kandydatów.</li>
         </ol>
 
         <h2>Dla autorów kursów</h2>
         <ol>
-            <li><a href="{% url 'signup' %}"><strong>Zarejestruj się</strong></a>.</li>
-            <li>Utwórz kurs: <strong>Kursy</strong> → <strong>Dodaj kurs</strong>.</li>
+            <li>Zarządzaj własnymi kursami</li>
             <li>Dodaj przedmioty i materiały edukacyjne.</li>
             <li>Stwórz testy do walidacji wiedzy uczestników.</li>
             <li>Wystawiaj certyfikaty ukończenia.</li>
@@ -42,7 +37,6 @@
             <li><strong>Transmisje</strong> — połącz się z uczestnikami na żywo.</li>
         </ul>
         
-    {% endif %}
     <div style="margin-top: 30px; text-align: center;">
         {% if request.user.is_authenticated %}
             <p><a href="{% url 'index' %}" style="text-decoration: none;"><button type="button">Wróć na stronę główną</button></a></p>
