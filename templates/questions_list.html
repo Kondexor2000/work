@@ -7,8 +7,6 @@
     {% if item.test.subject.course.author == request.user %}
       <a href="{% url 'update_question' course_id=item.test.subject.course.id subject_id=item.test.subject.id test_id=item.test.id question_id=item.id %}"><button>Edytuj pytanie</button></a>
       <a href="{% url 'delete_question' course_id=item.test.subject.course.id subject_id=item.test.subject.id test_id=item.test.id question_id=item.id %}"><button>Usuń pytanie</button></a>
-    {% else %}
-      <a href="{% url 'answer_question_user' question_id=item.id %}">Zapisane odpowiedzi</a>
     {% endif %}
   {% empty %}
     <li>No questions found.</li>
