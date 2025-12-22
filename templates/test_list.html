@@ -9,7 +9,7 @@
       <a href="{% url 'update_test' course_id=item.subject.course.id subject_id=item.subject.id test_id=item.id %}"><button>Edytuj test</button></a>
       <a href="{% url 'delete_test' course_id=item.subject.course.id subject_id=item.subject.id test_id=item.id %}"><button>Usuń test</button></a>
     {% else %}
-      <a href="{% url 'test_to_question_view' course_id=item.subject.course.id subject_id=item.subject.id test_id=item.id %}">Wypełnij test</a>
+      <a href="{% url 'answer_question' course_id=item.subject.course.id subject_id=item.subject.id test_id=item.id question_id=1 %}">Wypełnij test</a>
     {% endif %}
   {% empty %}
     <li>No tests found.</li>
