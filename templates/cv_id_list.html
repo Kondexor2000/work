@@ -20,6 +20,7 @@
                             <h5 class="card-title">{{ products.code }} {{ products.city }}</h5>
                         {% else %}
                             <a href="{% url 'offers_job_created_by_user' %}">Zaproponuj ofertę pracy</a>
+                        {% endif %}
                         <p class="card-text">{{ products.summary|truncatechars:150 }}</p>
                     </div>
                 </div>
