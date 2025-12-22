@@ -1002,7 +1002,6 @@ def search_business(request):
     })
 
 @transaction.atomic
-@login_required
 def search_offers_job(request):
     template_name = 'search_offers_job.html'
 
@@ -1170,7 +1169,6 @@ def offers_job_created_by_user(request):
     return render(request, template_name, {'products': products})
 
 @transaction.atomic
-@login_required
 def hr_to_business_view(request, business_id=None):
     template_name = 'hr_business_list.html'
 
@@ -1196,7 +1194,6 @@ def hr_to_business_view(request, business_id=None):
     return render(request, template_name, {'businesses': businesses, 'user': request.user})
 
 @transaction.atomic
-@login_required
 def search_course_view(request):
     template_name = 'search_course.html'
 
@@ -1245,7 +1242,6 @@ def search_course_view(request):
         }
     )
 
-@login_required
 @transaction.atomic
 def subject_to_course_view(request, course_id):
     template_name = 'subject_list.html'
@@ -1371,7 +1367,6 @@ def test_score_to_user_view(request):
     return render(request, template_name, {'products': products})
 
 @transaction.atomic
-@login_required
 def search_portfolio(request):
     template_name = 'search_portfolio.html'
 
@@ -1407,7 +1402,6 @@ def search_portfolio(request):
     })
 
 @transaction.atomic
-@login_required
 def search_cv(request):
     query = request.GET.get('q', '').strip()
 
