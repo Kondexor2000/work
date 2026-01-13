@@ -1,11 +1,5 @@
 {% extends "base.html" %}
 {% block content %}
-<a href="{% url 'course_to_certificate_view' %}">
-    <button type="button">Certyfikaty</button>
-</a>
-<a href="{% url 'test_score_to_user_view' %}">
-    <button type="button">Wyniki testów</button>
-</a>
 <h1>Search Courses</h1>
 <form method="get">
   <input type="text" name="q" placeholder="Search courses..." value="{{ query }}">

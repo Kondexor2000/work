@@ -19,21 +19,16 @@ class TagBusiness(models.Model):
 class Business(models.Model):
     name = models.CharField(max_length=255)
     tags = models.ManyToManyField(TagBusiness, blank=True)
+    user = models.ForeignKey(
+    User,
+    on_delete=models.CASCADE,
+    null=True,
+    blank=True
+)
 
 
     def __str__(self):
         return self.name
-
-class HR(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    email = models.EmailField()
-    number_phone = models.CharField(max_length=20)
-    business = models.ManyToManyField(Business, blank=True)
-
-    def __str__(self):
-        return f"{self.first_name} {self.last_name}"
     
 class CategoryEmploy(models.Model):
     name = models.CharField(max_length=100)
@@ -44,7 +39,6 @@ class CategoryEmploy(models.Model):
 class OffersJob(models.Model):
     title = models.CharField(max_length=255)
     business = models.ForeignKey(Business, on_delete=models.CASCADE)
-    hr = models.ForeignKey(HR, on_delete=models.CASCADE)
     tags = models.ManyToManyField(TagBusiness, blank=True)
     category = models.ForeignKey(CategoryEmploy, on_delete=models.CASCADE)
     file = models.FileField(upload_to='uploads/')
@@ -92,46 +86,6 @@ class Subject(models.Model):
     def __str__(self):
         return self.title
 
-class Certificate(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.name
-
-# === Testy i Wyniki ===
-
-class Test(models.Model):
-    title = models.CharField(max_length=255)
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, null=True, blank=True)
-    is_finish = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.title
-    
-class Questions(models.Model):
-    question = models.CharField(max_length=255)
-    correct = models.TextField()
-    test = models.ForeignKey(Test, on_delete=models.CASCADE, null=True, blank=True)
-
-    def __str__(self):
-        return self.question
-    
-class Answers(models.Model):
-    answer = models.TextField()
-    question = models.ForeignKey(Questions, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-class TestScore(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    test = models.ForeignKey(Test, on_delete=models.CASCADE)
-    score = models.DecimalField(max_digits=5, decimal_places=2)
-    minimum = models.DecimalField(max_digits=5, decimal_places=2)
-
-    def __str__(self):
-        return f"{self.user} - {self.test} - {self.score}"
-
 # === Użytkownik: CV i doświadczenie ===
 
 class CV(models.Model):
@@ -141,10 +95,6 @@ class CV(models.Model):
     last_name = models.CharField(max_length=255)
     email = models.EmailField()
     number_phone = models.CharField(max_length=20)
-    street = models.CharField(max_length=100, default="Kowalskiego")
-    number_house = models.CharField(max_length=10, default="1")
-    code = models.CharField(max_length=10, default="64-920")
-    city = models.CharField(max_length=50, default="Poznań")
 
     def __str__(self):
         return self.title
@@ -153,6 +103,8 @@ class Experience(models.Model):
     cv = models.ForeignKey(CV, on_delete=models.CASCADE)
     company = models.CharField(max_length=255)
     position = models.CharField(max_length=255)
+    start = models.DateTimeField(null=True, blank=True)
+    end = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.position} at {self.company}"
@@ -179,16 +131,6 @@ class Hobby(models.Model):
     def __str__(self):
         return f"{self.hobby}"
     
-class QuestionnaireCategory(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return f"{self.name}"
-    
-class Questionnaire(models.Model):
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    category = models.ForeignKey(QuestionnaireCategory, on_delete=models.CASCADE, null=True, blank=True)
-
 # === Portfolio i projekty ===
 
 class TagPortfolio(models.Model):
@@ -201,14 +143,6 @@ class Portfolio(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     tags = models.ManyToManyField(TagPortfolio, blank=True)
     title = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.title
-
-class Projects(models.Model):
-    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
-    title = models.CharField(max_length=255)
-    file = models.FileField(upload_to='uploads/')
 
     def __str__(self):
         return self.title

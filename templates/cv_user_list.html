@@ -15,8 +15,6 @@
                             <h5 class="card-title">{{ cv.first_name }} {{cv.last_name}}</h5>
                             <h5 class="card-title">{{ cv.number_phone }}</h5>
                             <h5 class="card-title">{{ cv.email }}</h5>
-                            <h5 class="card-title">{{ products.street }} {{ products.number_house }}</h5>
-                            <h5 class="card-title">{{ products.code }} {{ products.city }}</h5>
                             <p class="card-text">{{ cv.summary|truncatechars:150 }}</p>
                             <a href="{% url 'update_cv' cv_id=cv.id %}" class="btn btn-outline-secondary btn-sm">Edytuj</a>
                         </div>

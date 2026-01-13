@@ -35,9 +35,6 @@
         <a href="{% url 'add_link' portfolio_id=item.id %}">
           <button type="button">Dodaj linki</button>
         </a>
-        <a href="{% url 'add_project' portfolio_id=item.id %}">
-          <button type="button">Dodaj projekty</button>
-        </a>
       {% endif %}
 
       {% if item.user.cv %}
@@ -47,9 +44,6 @@
       {% else %}
         <span>Brak CV</span>
       {% endif %}
-      <a href="{% url 'portfolio_projects_view' portfolio_id=item.id %}">
-        <button type="button">Projects</button>
-      </a>
       <a href="{% url 'portfolio_links_view' portfolio_id=item.id %}">
         <button type="button">Links</button>
       </a>

@@ -23,11 +23,6 @@ class TagCourseAdmin(admin.ModelAdmin):
 
 admin.site.register(TagCourse, TagCourseAdmin)
 
-class QuestionnaireAdmin(admin.ModelAdmin):
-    list_display = ['name']
-
-admin.site.register(QuestionnaireCategory, QuestionnaireAdmin)
-
 class TagPortfolioAdmin(admin.ModelAdmin):
     list_display = ['name']
 

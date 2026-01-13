@@ -15,12 +15,8 @@
                         <h5 class="card-title">{{ products.number_phone }}</h5>
                         <h5 class="card-title">{{ products.email }}</h5>
                         <!-- Musi być zaakceptowane -->
-                        {% if products.user.user.hr.user == request.user and products.user.is_accept == True %}
-                            <h5 class="card-title">{{ products.street }} {{ products.number_house }}</h5>
-                            <h5 class="card-title">{{ products.code }} {{ products.city }}</h5>
-                        {% else %}
-                            <a href="{% url 'offers_job_created_by_user' %}">Zaproponuj ofertę pracy</a>
-                        {% endif %}
+
+                        <a href="{% url 'offers_job_created_by_user' %}">Zaproponuj ofertę pracy</a>
                         <p class="card-text">{{ products.summary|truncatechars:150 }}</p>
                     </div>
                 </div>

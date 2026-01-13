@@ -9,9 +9,9 @@
   <ul>
     {% for item in products %}
       <li>{{ item.name }}</li>
-      <a href="{% url 'hr_to_business_view' business_id=item.id %}">
-          <button type="button">Dane rekrutera</button>
-      </a>
+      <a href="{% url 'add_offer_jobs' business_id=item.id %}">
+        <button type="button">Dodaj ofertę pracy</button>
+    </a>
     {% empty %}
       <li>No businesses or tags found.</li>
     {% endfor %}

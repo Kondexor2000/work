@@ -29,7 +29,7 @@
 <ul>
   {% for offer in products %}
     <li>{{ offer.title }} - {{ offer.business }} - {{ offer.category }}</li>
-    <a href="{% url 'read_offer_jobs_one' offer_id=offer.id business_id=offer.business.id hr_id=offer.hr.id %}">
+    <a href="{% url 'read_offer_jobs_one' offer_id=offer.id business_id=offer.business.id %}">
         <button type="button">Szczegóły</button>
     </a>
     {% if request.user.is_authenticated %}

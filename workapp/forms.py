@@ -2,22 +2,18 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import modelformset_factory
 from django.shortcuts import get_object_or_404
-from .models import CV, HR, Opinion, Business, TagBusiness, TagCourse, TagPortfolio, Test, CategoryCourse, CategoryEmploy, OffersJob, OffersJobUser, Course, Subject, Questions, Answers, Portfolio, Projects, Link, Experience, User, Hobby, Skills, Questionnaire, Education, QuestionnaireCategory, Transmition, Comment
+from .models import CV, Opinion, Business, TagBusiness, TagCourse, TagPortfolio, CategoryCourse, CategoryEmploy, OffersJob, OffersJobUser, Course, Subject, Portfolio, Link, Experience, User, Hobby, Skills, Education, Transmition, Comment
 
 class CVForm(forms.ModelForm):
     class Meta:
         model = CV
-        fields = ['title', 'first_name', 'last_name', 'email', 'number_phone', 'street', 'number_house', 'code', 'city']
+        fields = ['title', 'first_name', 'last_name', 'email', 'number_phone']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'first_name': forms.TextInput(attrs={'class': 'form-control'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
-            'number_phone': forms.TextInput(attrs={'class': 'form-control'}),
-            'street': forms.TextInput(attrs={'class': 'form-control'}),
-            'number_house': forms.TextInput(attrs={'class': 'form-control'}),
-            'code': forms.TextInput(attrs={'class': 'form-control'}),
-            'city': forms.TextInput(attrs={'class': 'form-control'}),
+            'number_phone': forms.TextInput(attrs={'class': 'form-control'})
         }
 
 class TransmitionForm(forms.ModelForm):
@@ -43,12 +39,7 @@ class CommentForm(forms.ModelForm):
 class OpinionForm(forms.ModelForm):
     class Meta:
         model = Opinion
-        fields = ['description']
-
-class HRForm(forms.ModelForm):
-    class Meta:
-        model = HR
-        fields = ['first_name', 'last_name', 'email', 'number_phone']  
+        fields = ['description'] 
 
 class BusinessForm(forms.ModelForm):
     class Meta:
@@ -183,33 +174,9 @@ class SubjectForm(forms.ModelForm):
         model = Subject
         fields = ['title', 'description', 'file']
 
-class TestForm(forms.ModelForm):
-    class Meta:
-        model = Test
-        fields = ['title', 'is_finish']
-
-class QuestionForm(forms.ModelForm):
-    class Meta:
-        model = Questions
-        fields = ['question', 'correct']
-
-QuestionFormSet = modelformset_factory(
-    Questions,
-    fields=['question', 'correct'],
-    extra=1,   # startowo 1 pusty formularz
-    can_delete=True  # pozwala usuwać formularze
-)
-
 SubjectFormSet = modelformset_factory(
     Subject,
     fields=['title', 'description', 'file'],
-    extra=1,   # startowo 1 pusty formularz
-    can_delete=True  # pozwala usuwać formularze
-)
-
-ProjectsFormSet = modelformset_factory(
-    Projects,
-    fields=['title', 'file'],
     extra=1,   # startowo 1 pusty formularz
     can_delete=True  # pozwala usuwać formularze
 )
@@ -223,7 +190,7 @@ LinkFormSet = modelformset_factory(
 
 ExperienceFormSet = modelformset_factory(
     Experience,
-    fields=['company', 'position'],
+    fields=['company', 'position', 'start', 'end'],
     extra=1,   # startowo 1 pusty formularz
     can_delete=True  # pozwala usuwać formularze
 )
@@ -248,16 +215,6 @@ EducationFormSet = modelformset_factory(
     extra=1,   # startowo 1 pusty formularz
     can_delete=True  # pozwala usuwać formularze
 )
-
-class AnswerForm(forms.ModelForm):
-    answer = forms.ModelChoiceField(
-            queryset=Answers.objects.all(),
-            widget=forms.CheckboxInput
-        )
-    
-    class Meta:
-        model = Answers
-        fields = ['answer']
 
 class PortfolioForm(forms.ModelForm):
     tags_select = forms.ModelMultipleChoiceField(
@@ -310,11 +267,6 @@ class PortfolioForm(forms.ModelForm):
 
         return offer
 
-class ProjectForm(forms.ModelForm):
-    class Meta:
-        model = Projects
-        fields = ['title', 'file']
-
 class LinkForm(forms.ModelForm):
     class Meta:
         model = Link
@@ -323,7 +275,7 @@ class LinkForm(forms.ModelForm):
 class ExperienceForm(forms.ModelForm):
     class Meta:
         model = Experience
-        fields = ['company', 'position']
+        fields = ['company', 'position', 'start', 'end']
 
 class HobbyForm(forms.ModelForm):
     class Meta:
@@ -339,13 +291,3 @@ class SkillsForm(forms.ModelForm):
     class Meta:
         model = Skills
         fields = ['skill']
-
-class QuestionnaireForm(forms.ModelForm):
-    category = forms.ModelChoiceField(
-            queryset=QuestionnaireCategory.objects.all(),
-            widget=forms.Select
-        )
-    
-    class Meta:
-        model = Questionnaire
-        fields = ['category']

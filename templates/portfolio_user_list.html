@@ -13,7 +13,6 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ portfolio.title }}</h5>
                             <p class="card-text">{{ portfolio.description|truncatechars:150 }}</p>
-                            <a href="{% url 'my_portfolio_projects_view' %}" class="btn btn-outline-secondary btn-sm">Moje projekty</a>
                             <a href="{% url 'my_portfolio_links_view' %}" class="btn btn-outline-secondary btn-sm">Moje linki</a>
                         </div>
                     </div>

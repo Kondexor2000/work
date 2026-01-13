@@ -4,7 +4,6 @@
 <div class="offer-details">
   <p><strong>Firma:</strong> {{ products.business.name }}</p>
   <p><strong>Kategoria:</strong> {{ products.category.name }}</p>
-  <p><strong>Rekruter:</strong> {{ products.hr.first_name }} {{ products.hr.last_name }}</p>
   
   {% if products.hr.user == request.user %}
       <a href="{% url 'update_business' business_id=products.business.id %}">

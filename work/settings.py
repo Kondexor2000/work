@@ -90,7 +90,7 @@ if USE_LOCAL_DB:
         }
     }
     # informacja, że za SSL odpowiada Nginx
-    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+#    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
     # wymuszanie HTTPS (opcjonalnie)
 #    SECURE_SSL_REDIRECT = True
