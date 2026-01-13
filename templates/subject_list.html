@@ -14,10 +14,11 @@
         <a href="{% url 'delete_subject' course_id=item.course.id subject_id=item.id %}">
           <button type="button">Usuń temat</button>
         </a>
-        <a href="{% url 'subject_id' course_id=item.course.id subject_id=item.id %}">
-          <button type="button">Szczegóły</button>
-        </a>
       {% endif %}
+
+      <a href="{% url 'subject_id' course_id=item.course.id subject_id=item.id %}">
+          <button type="button">Szczegóły</button>
+      </a>
     </li>
   {% empty %}
     <li>No items found.</li>
