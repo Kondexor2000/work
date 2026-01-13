@@ -41,6 +41,7 @@ urlpatterns = [
     path('portfolio/<int:portfolio_id>/link/create/', AddLinkView.as_view(), name='add_link'),
     path('offer_jobs/<int:offers_job_id>/offer_jobs_user/', AddOfferJobsUserView.as_view(), name='add_offer_jobs_user'),
     path('offer_jobs/<int:offers_job_id>/offer_jobs_user/update/', UpdateOfferJobsUserView.as_view(), name='update_offer_jobs_user'),
+    path('course/<int:course_id>/subject/<int:subject_id>/', subject_to_course_id_view, name='subject_id'),
     path('course/<int:course_id>/subject/<int:subject_id>/update/', UpdateSubjectView.as_view(), name='update_subject'),
     path('course/<int:course_id>/subject/<int:subject_id>/delete/', DeleteSubjectView.as_view(), name='delete_subject'),
     path('cv/<int:cv_id>/experience/<int:experience_id>/update/', UpdateExperienceView.as_view(), name='update_experience'),

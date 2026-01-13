@@ -6,11 +6,6 @@
   {% for item in products %}
     <li>
       <strong>{{ item.title }}</strong>
-      <p>{{ item.description }}</p>
-
-      {% if item.file %}
-        <img src="{{ item.file.url }}" alt="{{ item.title }}" style="max-width: 300px;" />
-      {% endif %}
 
       {% if item.course.author == request.user %}
         <a href="{% url 'update_subject' course_id=item.course.id subject_id=item.id %}">
@@ -18,6 +13,9 @@
         </a>
         <a href="{% url 'delete_subject' course_id=item.course.id subject_id=item.id %}">
           <button type="button">Usuń temat</button>
+        </a>
+        <a href="{% url 'subject_id' course_id=item.course.id subject_id=item.id %}">
+          <button type="button">Szczegóły</button>
         </a>
       {% endif %}
     </li>

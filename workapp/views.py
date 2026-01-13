@@ -875,17 +875,35 @@ def subject_to_course_view(request, course_id):
         return HttpResponseNotFound("Template not found.")
 
     try:
+        products = Subject.objects.filter(course=course_id)
         course = get_object_or_404(Course, id=course_id)
         opinion = Opinion.objects.filter(
             course=course
         )
-        products = Subject.objects.filter(course=course)
         logger.info(f"Subjects retrieved successfully for Course {course.title} by user {request.user}.")
     except Exception as e:
         logger.exception(f"Error retrieving subjects for course {course_id} by user {request.user}: {e}")
         return HttpResponse("An error occurred while retrieving subjects.", status=500)
 
-    return render(request, template_name, {'course': course,'products': products,'opinion': opinion})
+    return render(request, template_name, {'products': products,'course': course, 'opinion': opinion})
+
+
+@transaction.atomic
+def subject_to_course_id_view(request, course_id, subject_id):
+    template_name = 'subject_list_id.html'
+
+    if not check_template(template_name, request):
+        logger.warning(f"Template '{template_name}' not found for user {request.user}.")
+        return HttpResponseNotFound("Template not found.")
+
+    try:
+        products = get_object_or_404(Subject, id=subject_id, course=course_id)
+        logger.info(f"Subjects retrieved successfully for Course {products.title} by user {request.user}.")
+    except Exception as e:
+        logger.exception(f"Error retrieving subjects for course {course_id} by user {request.user}: {e}")
+        return HttpResponse("An error occurred while retrieving subjects.", status=500)
+
+    return render(request, template_name, {'products': products})
 
 @transaction.atomic
 def search_portfolio(request):
