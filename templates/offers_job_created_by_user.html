@@ -2,13 +2,11 @@
 {% block content %}
 <h1>Your Job Offers</h1>
 <div class="search-container">
+Zgubiłeś swoją ofertę pracy? <a href="{% url 'search_offers_job' %}">Szukaj ofert pracy</a>
 <ul>
   {% for offer in products %}
-    <li>{{ offer.title }} - {{ offer.business }} - {{ offer.category }} - {{ offer.tags }}</li>
+    <li>{{ offer.title }} - {{ offer.business }} - {{ offer.category }}</li>
     <a href="{% url 'add_offer_jobs_user' offers_job_id=offer.id %}">Zaproś kandydatów</a>
-        <a href="{% url 'read_offer_jobs_one' offer_id=offer.id business_id=offer.business.id %}">
-        <button type="button">Szczegóły</button>
-    </a>
     <a href="{% url 'delete_offer_jobs' offer_jobs_id=offer.id %}">
       <button type="button">Usuń ofertę</button>
     </a>

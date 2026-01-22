@@ -662,6 +662,51 @@ def search_business(request):
     })
 
 @transaction.atomic
+def search_offers_job(request):
+    template_name = 'search_offers_job.html'
+
+    if not check_template(template_name, request):
+        logger.warning(f"Template '{template_name}' not found for user {request.user}.")
+        return HttpResponseNotFound("Template not found.")
+
+    query = request.GET.get('q', '').strip()
+    category_id = request.GET.get('category')
+    categories = CategoryEmploy.objects.all()
+    tags_id = request.GET.get('tags')
+    tags = TagBusiness.objects.all()
+    products = []
+
+    try:
+        offers_query = OffersJob.objects.all()
+
+        if query:
+            offers_query = offers_query.filter(Q(title__icontains=query))
+
+        if category_id:
+            offers_query = offers_query.filter(category_id=category_id)
+
+        if tags_id:
+            offers_query = offers_query.filter(tags_id=tags_id)
+
+        products = offers_query
+
+        logger.info(
+            f"Offers retrieved successfully for user {request.user}. "
+            f"Query: '{query}', Category: '{category_id}'"
+        )
+    except Exception as e:
+        logger.error(f"Error retrieving offers for user {request.user}: {e}")
+        return HttpResponse("An error occurred while retrieving offers.", status=500)
+
+    return render(request, template_name, {
+        'products': products,
+        'query': query,
+        'tags': tags,
+        'categories': categories,
+        'selected_category': category_id,
+    })
+
+@transaction.atomic
 def accepted_offers_job_user(request):
     template_name = 'accepted_offers_job_user.html'
     if not check_template(template_name, request):
