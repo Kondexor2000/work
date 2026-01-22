@@ -30,7 +30,7 @@
 <ul>
   {% for item in portfolios %}
     <li>
-      {{ item.title }}
+      {{ item.title }} - {{ item.user.username }}
       {% if item.user == request.user %}
         <a href="{% url 'add_link' portfolio_id=item.id %}">
           <button type="button">Dodaj linki</button>

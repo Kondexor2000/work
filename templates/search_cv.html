@@ -10,7 +10,7 @@
 <ul>
   {% for item in cvs %}
     <li>
-      {{ item.title }}
+      {{ item.title }} - {{ item.user.username }}
       {% if item.user == request.user %}
         <a href="{% url 'cv_to_user_view' %}">
           <button type="button">CV</button>
