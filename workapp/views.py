@@ -207,7 +207,6 @@ class AddOfferJobsUserView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         offers_job_id = self.kwargs.get('offers_job_id')
         offer = get_object_or_404(OffersJob, id=offers_job_id)
-        form.instance.user = self.request.user
         form.instance.offer = offer
         return super().form_valid(form)
 
