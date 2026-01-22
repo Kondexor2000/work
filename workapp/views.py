@@ -765,26 +765,6 @@ def offer_jobs_id_one(request, business_id, offer_id):
 
     return render(request, template_name, {'products': products})
 
-#new view
-@transaction.atomic
-def offer_user_to_hr(request, offer_id):
-    template_name = 'offer_user_to_hr.html'
-
-    if not check_template(template_name, request):
-        logger.warning(f"Template '{template_name}' not found for user {request.user}.")
-        return HttpResponseNotFound("Template not found.")
-
-    # Get the Offer instance
-    offer = get_object_or_404(OffersJob, id=offer_id)
-                
-    # Create the OffersJobUser entry
-    products = OffersJobUser.objects.create(offer=offer, user=request.user)
-
-    # Success message
-    message = "Udało się aplikować na ofertę pracy"
-
-    return render(request, template_name, {'products': products, 'message': message})
-
 @transaction.atomic
 def offers_job_user(request):
     template_name = 'offers_job_user.html'

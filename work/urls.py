@@ -66,7 +66,6 @@ urlpatterns = [
     path('course/user/', course_user, name='course_user'),
     path('offers_job/user/', offers_job_user, name='offers_job_user'),
     path('offers_job/user/created/', offers_job_created_by_user, name='offers_job_created_by_user'),
-    path('offers_job/user/<int:offer_id>/', offer_user_to_hr, name='offer_user_to_hr'),
     path('search/courses/', search_course_view, name='search_course_view'),
     path('course/<int:course_id>/subject/', subject_to_course_view, name='subject_to_course_view'),
     path('search/portfolio/', search_portfolio, name='search_portfolio'),
