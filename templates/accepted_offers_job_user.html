@@ -9,7 +9,7 @@
 <h1>Your Job Offers</h1>
 <ul>
   {% for offer in products %}
-    <li>{{ offer.offer.title }} - Accepted: {{ offer.is_accept }}</li>
+    <li>{{ offer.offer.title }} - {{ offer.offer.business.name }} - Accepted: {{ offer.is_accept }}</li>
   {% empty %}
     <li>No offers available.</li>
   {% endfor %}

@@ -29,7 +29,7 @@
 <div class="search-container">
 <ul>
   {% for course in courses %}
-    <li>{{ course.title }}</li>
+    <li>{{ course.title }} - {{ course.author.username }}</li>
     <a href="{% url 'subject_to_course_view' course_id=course.id %}">
         <button type="button">Otwórz kurs</button>
     </a>
