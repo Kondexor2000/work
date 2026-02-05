@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Search Job Offers</h1>
+<h1>Szukaj ofert pracy</h1>
+<p>UWAGA! Aplikowanie do ofert pracy jest niemożliwe. Należy oczekiwać na zaproszenie od rektutera.</p>
 <form method="get">
   <input type="text" name="q" placeholder="Search offers..." value="{{ query }}">
-  <button type="submit">Search</button>
+  <button type="submit">Szukaj</button>
   <ul>
-  <h2>Categories</h2>
+  <h2>Kategoria</h2>
   <select>
     {% for cat in categories %}
       <option value="{{ cat.id }}">{{ cat.name }}</option>
@@ -15,7 +16,7 @@
 </form>
 <form method="get">
   <input type="text" name="q" placeholder="Search courses..." value="{{ query }}">
-  <h2>Tags</h2>
+  <h2>Słowa kluczowe</h2>
   <ul>
   <select>
     {% for tag in tags %}
@@ -23,7 +24,7 @@
     {% endfor %}
 	</select>
   </ul>
-  <button type="submit">Search</button>
+  <button type="submit">Szukaj</button>
 </form>
 <div class="search-container">
 <ul>

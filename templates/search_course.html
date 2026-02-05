@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Search Courses</h1>
+<h1>Szukaj kursów</h1>
 <form method="get">
   <input type="text" name="q" placeholder="Search courses..." value="{{ query }}">
-  <h3>Categories</h3>
+  <h3>Kategoria</h3>
   <ul>
   <select>
     {% for cat in categories %}
@@ -11,11 +11,11 @@
     {% endfor %}
 	</select>
   </ul>
-  <button type="submit">Search</button>
+  <button type="submit">Szukaj</button>
 </form>
 <form method="get">
   <input type="text" name="q" placeholder="Search courses..." value="{{ query }}">
-  <h2>Tags</h2>
+  <h2>Słowa kluczowe</h2>
   <ul>
   <select>
     {% for tag in tags %}
@@ -23,9 +23,9 @@
     {% endfor %}
 	</select>
   </ul>
-  <button type="submit">Search</button>
+  <button type="submit">Szukaj</button>
 </form>
-<h2>Courses</h2>
+<h2>Kursy</h2>
 <div class="search-container">
 <ul>
   {% for course in courses %}

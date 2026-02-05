@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delete Account</title>
+    <title>Usunięcie konta</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -51,12 +51,12 @@
     </style>
 </head>
 <body>
-    <h2>Are you sure you want to delete your account?</h2>
+    <h2>Czy na pewno chcesz usunąć swoje konto?</h2>
     <form method="post" onsubmit="return confirmDeletion()">
         {% csrf_token %}
-        <button type="submit">Yes, delete my account</button>
+        <button type="submit">Tak, usuń</button>
+        <a href="{% url 'edit_profile' %}">Nie, przemyślałem</a>
     </form>
-    <a href="{% url 'edit_profile' %}">Cancel</a>
 
     <script>
         function confirmDeletion() {

@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
-{% block title %}Dodaj Przedmiot{% endblock %}
+{% block title %}Aktualizuj Przedmiot{% endblock %}
 {% block content %}
-<h2>Dodaj Przedmiot</h2>
+<h2>Aktualizuj Przedmiot</h2>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Zapisz</button>
+    <button type="submit">Aktualizuj</button>
 </form>
 {% endblock %}

@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Profile</title>
+    <title>Edytuj profil</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -55,10 +55,10 @@
 <body>
     <form method="post" onsubmit="return validateProfileForm()">
         <img src="{% static 'eduwork.png' %}" width="500px" height="240px">
-        <h2>Edit Profile</h2>
+        <h2>Edytuj profil</h2>
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Save Changes</button>
+        <button type="submit">Zapisz zmiany</button>
     </form>
 
     <script>

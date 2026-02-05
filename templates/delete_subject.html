@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
-{% block title %}Dodaj Przedmiot{% endblock %}
+{% block title %}Usuń Przedmiot{% endblock %}
 {% block content %}
-<h2>Dodaj Przedmiot</h2>
+<h2>Czy na pewno chcesz usunąć ten przedmiot?</h2>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Zapisz</button>
+    <button type="submit">Usuń</button>
     <a href="{% url 'index' %}">Anuluj</a>
 </form>
 {% endblock %}

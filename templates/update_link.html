@@ -2,11 +2,10 @@
 {% load static %}
 
 {% block content %}
-    <h2>Usuń link</h2>
+    <h2>Edytuj link</h2>
     <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Usuń</button>
-    <a href="{% url 'index' %}">Anuluj</a>
+    <button type="submit">Aktualizuj</button>
 </form>
 {% endblock %}

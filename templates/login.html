@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Zaloguj się</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -65,13 +65,13 @@
 <body>
     <form method="post" onsubmit="return validateLoginForm()">
         <img src="{% static 'eduwork.png' %}" width="500px" height="240px">
-        <h2>Login</h2>
+        <h2>Zaloguj się</h2>
         {% csrf_token %}
         {{ form.as_p }}
         <label>
-            <input type="checkbox" name="remember_me"> Remember me
+            <input type="checkbox" name="remember_me"> Zapamiętaj mnie
         </label>
-        <button type="submit">Login</button>
+        <button type="submit">Zaloguj się</button>
         <p>Nie masz konta?</p> <a href="{% url 'signup' %}">Zarejestruj się</a>
     </form>
 
