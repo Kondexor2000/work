@@ -1,19 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 <a href="{% url 'add_course' %}">Dodaj kursy</a>
-<a href="{% url 'add_cv' %}">Dodaj CV</a>
 <a href="{% url 'add_portfolio' %}">Dodaj portfolio</a>
-<a href="{% url 'add_business' %}">Dodaj firmę</a>
-<a href="{% url 'offers_job_user' %}">Zaproszenia od rekruterów</a>
 <a href="{% url 'add_transmition' %}">Zaplanuj transmisję</a>
-<h1>Your Job Offers</h1>
-<ul>
-  {% for offer in products %}
-    <li>{{ offer.offer.title }} - {{ offer.offer.business.name }} - Accepted: {{ offer.is_accept }}</li>
-  {% empty %}
-    <li>No offers available.</li>
-  {% endfor %}
-</ul>
 <h1>Your Transmitions</h1>
 <ul>
   {% for t in transmitions %}

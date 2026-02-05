@@ -8,11 +8,6 @@ class LoginLogAdmin(admin.ModelAdmin):
     list_display = ('user', 'ip_address', 'timestamp')
     search_fields = ('user__username', 'ip_address')
 
-class CategoryEmployAdmin(admin.ModelAdmin):
-    list_display = ['name']
-
-admin.site.register(CategoryEmploy, CategoryEmployAdmin)
-
 class CategoryCourseAdmin(admin.ModelAdmin):
     list_display = ['name']
 
@@ -27,8 +22,3 @@ class TagPortfolioAdmin(admin.ModelAdmin):
     list_display = ['name']
 
 admin.site.register(TagPortfolio, TagPortfolioAdmin)
-
-class TagBusinessAdmin(admin.ModelAdmin):
-    list_display = ['name']
-
-admin.site.register(TagBusiness, TagBusinessAdmin)

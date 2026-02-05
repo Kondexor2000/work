@@ -1,20 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import modelformset_factory
-from django.shortcuts import get_object_or_404
-from .models import CV, Opinion, Business, TagBusiness, TagCourse, TagPortfolio, CategoryCourse, CategoryEmploy, OffersJob, OffersJobUser, Course, Subject, Portfolio, Link, Experience, User, Hobby, Skills, Education, Transmition, Comment
-
-class CVForm(forms.ModelForm):
-    class Meta:
-        model = CV
-        fields = ['title', 'first_name', 'last_name', 'email', 'number_phone']
-        widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control'}),
-            'number_phone': forms.TextInput(attrs={'class': 'form-control'})
-        }
+from .models import Opinion, TagCourse, TagPortfolio, CategoryCourse, Course, Subject, Portfolio, Link, User, Transmition, Comment
 
 class TransmitionForm(forms.ModelForm):
     participants = forms.ModelMultipleChoiceField(
@@ -40,79 +27,6 @@ class OpinionForm(forms.ModelForm):
     class Meta:
         model = Opinion
         fields = ['description'] 
-
-class BusinessForm(forms.ModelForm):
-    class Meta:
-        model = Business
-        fields = ['name']
-
-class OfferJobsForm(forms.ModelForm):
-    tags_select = forms.ModelMultipleChoiceField(
-        queryset=TagBusiness.objects.all(),
-        required=False,
-        widget=forms.CheckboxSelectMultiple
-    )
-
-    tags_input = forms.CharField(
-        required=False,
-        widget=forms.Textarea(attrs={
-            'placeholder': 'Wpisz nowe tagi, oddzielone przecinkami'
-        })
-    )
-
-    category = forms.ModelChoiceField(
-        queryset=CategoryEmploy.objects.all(),
-        widget=forms.Select
-    )
-
-    class Meta:
-        model = OffersJob
-        fields = ['title', 'category', 'file']  # tags nie jest bezpośrednio w Meta
-
-    def clean_tags_input(self):
-        input_tags = self.cleaned_data.get('tags_input', '')
-        tag_names = [t.strip() for t in input_tags.split(',') if t.strip()]
-        errors = []
-
-        for name in tag_names:
-            if TagBusiness.objects.filter(name__iexact=name).exists():
-                errors.append(f"Tag '{name}' już istnieje. Wybierz go z listy zamiast wpisywać.")
-
-        if errors:
-            raise ValidationError(errors)
-
-        return tag_names  # lista stringów, używana później w save()
-
-    def save(self, commit=True):
-        offer = super().save(commit=False)
-        if commit:
-            offer.save()
-
-        offer.tags.clear()
-
-        # dodanie tagów z listy
-        for tag in self.cleaned_data.get('tags_select', []):
-            offer.tags.add(tag)
-
-        # dodanie nowych tagów (przeszły już walidację)
-        new_tag_names = self.cleaned_data.get('tags_input', [])
-        for name in new_tag_names:
-            tag = TagBusiness.objects.create(name=name)
-            offer.tags.add(tag)
-
-        return offer
-
-class UpdateOfferJobUserForm(forms.ModelForm):
-    class Meta:
-        model = OffersJobUser
-        fields = ['is_accept']
-
-class AddOfferJobUserForm(forms.ModelForm):
-    user = forms.ModelChoiceField(queryset=User.objects.all(), label="Wyślij zaproszenie do")
-
-    class Meta:
-        model = OffersJobUser
-        fields = ['user']
 
 class CourseForm(forms.ModelForm):
     category = forms.ModelChoiceField(
@@ -188,34 +102,6 @@ LinkFormSet = modelformset_factory(
     can_delete=True  # pozwala usuwać formularze
 )
 
-ExperienceFormSet = modelformset_factory(
-    Experience,
-    fields=['company', 'position', 'start', 'end'],
-    extra=1,   # startowo 1 pusty formularz
-    can_delete=True  # pozwala usuwać formularze
-)
-
-SkillsFormSet = modelformset_factory(
-    Skills,
-    fields=['skill'],
-    extra=1,   # startowo 1 pusty formularz
-    can_delete=True  # pozwala usuwać formularze
-)
-
-HobbyFormSet = modelformset_factory(
-    Hobby,
-    fields=['hobby'],
-    extra=1,   # startowo 1 pusty formularz
-    can_delete=True  # pozwala usuwać formularze
-)
-
-EducationFormSet = modelformset_factory(
-    Education,
-    fields=['fields_of_state', 'place'],
-    extra=1,   # startowo 1 pusty formularz
-    can_delete=True  # pozwala usuwać formularze
-)
-
 class PortfolioForm(forms.ModelForm):
     tags_select = forms.ModelMultipleChoiceField(
         queryset=TagPortfolio.objects.all(),
@@ -271,23 +157,3 @@ class LinkForm(forms.ModelForm):
     class Meta:
         model = Link
         fields = ['url']
-
-class ExperienceForm(forms.ModelForm):
-    class Meta:
-        model = Experience
-        fields = ['company', 'position', 'start', 'end']
-
-class HobbyForm(forms.ModelForm):
-    class Meta:
-        model = Hobby
-        fields = ['hobby']
-
-class EducationForm(forms.ModelForm):
-    class Meta:
-        model = Education
-        fields = ['fields_of_state', 'place']
-
-class SkillsForm(forms.ModelForm):
-    class Meta:
-        model = Skills
-        fields = ['skill']
