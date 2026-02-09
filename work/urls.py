@@ -43,6 +43,7 @@ urlpatterns = [
     path('course/<int:course_id>/delete/', DeleteCourseView.as_view(), name='delete_course'),
     path('portfolio/', AddPortfolioView.as_view(), name='add_portfolio'),
     path('portfolio/<int:portfolio_id>/update/', UpdatePortfolioView.as_view(), name='update_portfolio'),
+    path('portfolio/<int:portfolio_id>/delete/', DeletePortfolioView.as_view(), name='delete_portfolio'),
     path('portfolio/<int:portfolio_id>/link/<int:link_id>/update/', UpdateLinkView.as_view(), name='update_link'),
     path('index/', accepted_offers_job_user, name='index'),
     path('course/user/', course_user, name='course_user'),

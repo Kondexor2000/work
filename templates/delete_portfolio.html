@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Usuń Portfolio{% endblock %}
+{% block content %}
+<h2>Usuń Portfolio</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Usuń</button>
+</form>
+{% endblock %}

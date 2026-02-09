@@ -18,6 +18,7 @@
                     </div>
                 </div>
                 <a href="{% url 'update_portfolio' portfolio_id=portfolio.id %}">Edytuj portfolio</a>
+                <a href="{% url 'delete_portfolio' portfolio_id=portfolio.id %}">Usuń portfolio</a>
             {% endfor %}
         </div>
     {% else %}

@@ -269,6 +269,22 @@ class UpdatePortfolioView(LoginRequiredMixin, UpdateView):
             return HttpResponse("Brak pliku .html")
         return super().dispatch(request, *args, **kwargs)
 
+class DeletePortfolioView(LoginRequiredMixin, DeleteView):
+    model = Portfolio
+    template_name = 'delete_portfolio.html'
+
+    def get_object(self, queryset=None):
+        portfolio_id = self.kwargs.get('portfolio_id')
+        return get_object_or_404(Portfolio, id=portfolio_id, user=self.request.user)
+
+    def get_success_url(self):
+        return reverse('portfolio_to_user_view')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not check_template(self.template_name, request):
+            return HttpResponse("Brak pliku .html")
+        return super().dispatch(request, *args, **kwargs)
+
 # === Link ===
 
 class AddLinkView(LoginRequiredMixin, CreateView):
