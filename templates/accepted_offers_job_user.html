@@ -2,23 +2,4 @@
 {% block content %}
 <a href="{% url 'add_course' %}">Dodaj kursy</a>
 <a href="{% url 'add_portfolio' %}">Dodaj portfolio</a>
-<a href="{% url 'add_transmition' %}">Zaplanuj transmisję</a>
-<h1>Your Transmitions</h1>
-<ul>
-  {% for t in transmitions %}
-    <li>{{ t.title }}: {{ t.start }} - {{ t.end }}</li>
-    <p>{{ t.description }}</p>
-
-    {% if t.leaders == request.user %}
-      <a href="{% url 'update_transmition' transmition_id=t.id %}">Edytuj transmisję</a>
-      <a href="{% url 'delete_transmition' transmition_id=t.id %}">Usuń transmisję</a>
-    {% endif %}
-
-    {% if t.is_live %}
-      <a href="{% url 'comments_transmition' transmition_id=t.id %}">Dołącz do transmisji</a>
-    {% endif %}
-  {% empty %}
-    <li>No transmitions available.</li>
-  {% endfor %}
-</ul>
 {% endblock %}
