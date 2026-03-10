@@ -421,7 +421,7 @@ def accepted_offers_job_user(request):
     
     return render(request, template_name, {'transmitions': transmitions})
 
-
+"""
 @login_required
 def generate_pdf_report(request, test_id):
 
@@ -470,7 +470,7 @@ def generate_pdf_report(request, test_id):
         content_type="application/pdf",
         headers={"Content-Disposition": f"attachment; filename=report_{score.test.id}.pdf"},
     )
-
+"""
 @transaction.atomic
 def search_portfolio(request):
     template_name = 'search_portfolio.html'

@@ -47,7 +47,6 @@ urlpatterns = [
     path('recruter/', AddOfferJobsUserView.as_view(), name='add_apply_job'),
     path('portfolio/<int:portfolio_id>/link/<int:link_id>/delete/', DeleteLinkView.as_view(), name='update_link'),
     path('index/', accepted_offers_job_user, name='index'),
-    path('test/<int:test_id>/download', generate_pdf_report, name='download'),
     path('index/job', recruter_to_user_view, name='recruter_to_user_view'),
     path('search/portfolio/', search_portfolio, name='search_portfolio'),
     path('portfolio/user/', portfolio_to_user_view, name='portfolio_to_user_view'),
