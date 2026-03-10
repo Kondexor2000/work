@@ -12,12 +12,12 @@ from django.template import TemplateDoesNotExist
 import logging
 import datetime
 from django.utils import timezone
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.lib import colors
-from reportlab.lib.units import inch
-from reportlab.lib.pagesizes import A4
-from io import BytesIO
+#from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+#from reportlab.lib.styles import getSampleStyleSheet
+#from reportlab.lib import colors
+#from reportlab.lib.units import inch
+#from reportlab.lib.pagesizes import A4
+#from io import BytesIO
 from django.http import HttpResponse, Http404, HttpResponseNotFound
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
