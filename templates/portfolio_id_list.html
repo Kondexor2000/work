@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Portfolio</h2>
+
+    {% if products %}
+        <div class="row mt-4">
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ products.title }} - {{ products.e_mail }} - {{ products.number_phone }}</h5>
+                            <p class="card-text">{{ products.description|truncatechars:150 }}</p>                        </div>
+                    </div>
+                </div>
+        </div>
+    {% else %}
+        <div class="alert alert-info mt-4">
+            Nie masz jeszcze żadnych portfolio.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

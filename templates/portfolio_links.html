@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Linki do projektów</h1>
-<h2>{{ link.portfolio.title }}</h2>
+<h2>{{ products.portfolio.title }}</h2>
 <ul>
-  {% for link in products %}
-    <li><a href="{{ link.url }}">{{ link.url }}</a></li>
-  {% endfor %}
+    {% for link in products %}
+      <li><a href="{{ link.url }}">{{ link.url }}</a></li>
+    {% endfor %}
 </ul>
 {% endblock %}

@@ -27,6 +27,9 @@
       <a href="{% url 'portfolio_links_view' portfolio_id=item.id %}">
         <button type="button">Linki</button>
       </a>
+      <a href="{% url 'portfolio_id_view' portfolio_id=item.id %}">
+        <button type="button">Portfolio</button>
+      </a>
     </li>
   {% endfor %}
 </ul>

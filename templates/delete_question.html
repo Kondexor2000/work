@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Usuń Przedmiot{% endblock %}
 {% block content %}
-<h2>Czy na pewno chcesz usunąć ten przedmiot?</h2>
+<h2>Czy na pewno chcesz usunąć to pytanie?</h2>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}

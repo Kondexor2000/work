@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Zadania rekrutacyjne</h2>
+
+    {% if products %}
+        <div class="row mt-4">
+            {% for portfolio in products %}
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ portfolio.test.title }}</h5>
+                            <a href="{% url 'add_answer' test_id=portfolio.id question_id=1 %}" class="btn btn-outline-secondary btn-sm">Rozpocznij test</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info mt-4">
+            Nie masz jeszcze żadnych portfolio.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

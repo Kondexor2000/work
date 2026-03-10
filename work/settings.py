@@ -37,8 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+#    'django.contrib.sites',
     'workapp',
     'templates',
+#    'allauth',
+#    'allauth.account',
+#    'allauth.socialaccount',
+#    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -104,7 +109,29 @@ else:
     DATABASES = {
         'default': dj_database_url.config(default=DATABASE_URL or 'sqlite:///db.sqlite3')
     }
-    
+"""
+ACCOUNT_AUTHENTICATION_METHOD = 'email'  # logowanie po email
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'  # wymuszona weryfikacja email
+LOGIN_REDIRECT_URL = '/'  # gdzie przekierować po logowaniu
+LOGOUT_REDIRECT_URL = '/'  # po wylogowaniu
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': os.environ.get('GOOGLE_CLIENT_ID'),
+            'secret': os.environ.get('GOOGLE_SECRET_KEY'),
+            'key': ''
+        }
+    }
+}
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',  # lokalne konta
+    'allauth.account.auth_backends.AuthenticationBackend',  # social login
+)
+""" 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 

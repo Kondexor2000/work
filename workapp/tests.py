@@ -21,21 +21,6 @@ class ModelTestCase(TestCase):
             username='testuser', password='12345', email='test@example.com'
         )
 
-        # Course, Tag, Subject, Test, Questions, Answers, Score
-        self.cat_course = CategoryCourse.objects.create(name='Programming')
-        self.tag_course = TagCourse.objects.create(name='Python')
-        self.course = Course.objects.create(
-            title='Intro to Python',
-            author=self.user,
-            category=self.cat_course
-        )
-        self.course.tags.add(self.tag_course)
-        self.subject = Subject.objects.create(
-            title='Python Basics',
-            description='Intro lesson',
-            file=SimpleUploadedFile('subject.pdf', b'Test content'),
-            course=self.course
-        )
         # Portfolio and Tag
         self.tag_portfolio = TagPortfolio.objects.create(name='Django')
         self.portfolio = Portfolio.objects.create(
@@ -49,10 +34,6 @@ class ModelTestCase(TestCase):
         self.assertEqual(User.objects.count(), 1)
         self.assertEqual(self.user.email, 'test@example.com')
 
-    def test_course_and_subject(self):
-        self.assertEqual(self.subject.course.title, 'Intro to Python')
-        self.assertEqual(str(self.subject), 'Python Basics')
-
     def test_portfolio_tag(self):
         self.assertIn(self.tag_portfolio, self.portfolio.tags.all())
 
@@ -61,52 +42,6 @@ class ModelTestCase(TestCase):
     'DIRS': [os.path.join(settings.BASE_DIR, 'templates')],
     'APP_DIRS': True,
 }])
-class AddCourseIntegrationTest(TestCase):
-    def setUp(self):
-        self.client = Client()
-        self.user = User.objects.create_user(username='testuser', password='pass')
-        self.client.force_login(self.user)  # ✅ stabilne logowanie
-
-        # Kategoria potrzebna dla pola category
-        self.category = CategoryCourse.objects.create(name="Kategoria Testowa")
-
-    def test_full_course_creation_flow(self):
-        add_course_url = reverse('add_course')
-        course_data = {
-            'title': 'Testowy kurs',
-            'category': self.category.id,  # wymagane pole
-            'tags_select': [],
-            'tags_input': ''
-        }
-
-        response = self.client.post(add_course_url, course_data, follow=True)
-        self.assertEqual(response.status_code, 200)
-
-        # Sprawdzamy, czy kurs został utworzony
-        course = Course.objects.first()
-        self.assertIsNotNone(course)
-        self.assertEqual(course.title, 'Testowy kurs')
-        self.assertEqual(course.category, self.category)
-
-class AddTestIntegrationTest(TestCase):
-    def setUp(self):
-        self.client = Client()
-        self.user = User.objects.create_user(username='testuser', password='pass')
-        self.client.force_login(self.user)  # ✅ bardziej niezawodne niż login()
-
-        # Tworzymy kategorię kursu i kurs
-        self.category = CategoryCourse.objects.create(name="Kategoria Testowa")
-        self.course = Course.objects.create(
-            title="Kurs Testowy",
-            category=self.category,
-            author=self.user
-        )
-
-        # Tworzymy przedmiot (subject)
-        self.subject = Subject.objects.create(
-            title="Przedmiot Testowy",
-            course=self.course
-        )
 
 class PortfolioViewsTest(TestCase):
 
