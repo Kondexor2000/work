@@ -20,7 +20,6 @@
                 <a href="{% url 'update_portfolio' portfolio_id=portfolio.id %}">Edytuj portfolio</a>
                 <a href="{% url 'delete_portfolio' portfolio_id=portfolio.id %}">Usuń portfolio</a>
             {% endfor %}
-            <a href="{% url 'add_portfolio' %}">Dodaj portfolio</a>
         </div>
     {% else %}
         <div class="alert alert-info mt-4">
