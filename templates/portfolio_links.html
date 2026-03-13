@@ -4,7 +4,10 @@
 <h2>{{ products.portfolio.title }}</h2>
 <ul>
     {% for link in products %}
-      <li><a href="{{ link.url }}">{{ link.url }}</a></li>
+      <li><a href="{{ link.url }}">{{ link.url }}</a>
+        <h1>{{ link.title }}</h1>
+        <p>{{ link.description }}</p>
+      </li>
     {% endfor %}
 </ul>
 {% endblock %}

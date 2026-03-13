@@ -23,7 +23,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from .models import Recruter, TagPortfolio, TestScore, Portfolio, Link, Test, Question, Transmition, Comment
-from .forms import AnswerForm, QuestionForm, QuestionFormSet,TestForm, PortfolioForm, LinkFormSet, RecruterForm, TransmitionForm, CommentForm
+from .forms import AnswerForm, QuestionForm, LinkForm, QuestionFormSet,TestForm, PortfolioForm, LinkFormSet, RecruterForm, TransmitionForm, CommentForm
 #from .utils import rsa_encrypt, pq_encrypt
 # Create your views here.
 
@@ -382,6 +382,27 @@ class AddLinkView(LoginRequiredMixin, CreateView):
             return redirect(reverse('my_portfolio_links_view'))
         return render(request, self.template_name, {'formset': formset})
 
+class UpdateLinkView(LoginRequiredMixin, UpdateView):
+    model = Link
+    form_class = LinkForm
+    template_name = 'update_link2.html'
+
+    def get_object(self, queryset=None):
+        portfolio_id = self.kwargs.get('portfolio_id')
+        link_id = self.kwargs.get('link_id')
+        return get_object_or_404(Link, id=link_id, portfolio=portfolio_id, portfolio__user=self.request.user)
+
+    def get_success_url(self):
+        return reverse('my_portfolio_links_view')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def dispatch(self, request, *args, **kwargs):
+        if not check_template(self.template_name, request):
+            return HttpResponse("Brak pliku .html")
+        return super().dispatch(request, *args, **kwargs)
 
 class DeleteLinkView(LoginRequiredMixin, DeleteView):
     model = Link

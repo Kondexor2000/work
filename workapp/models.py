@@ -69,6 +69,8 @@ class Portfolio(models.Model):
 class Link(models.Model):
     portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, null=True, blank=True)
     url = models.URLField()
+    title = models.CharField(max_length=255, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.url

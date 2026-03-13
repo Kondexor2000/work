@@ -26,7 +26,7 @@ class CommentForm(forms.ModelForm):
 
 LinkFormSet = modelformset_factory(
     Link,
-    fields=['url'],
+    fields=['url', 'title', 'description'],
     extra=1,   # startowo 1 pusty formularz
     can_delete=True  # pozwala usuwać formularze
 )
@@ -85,7 +85,7 @@ class PortfolioForm(forms.ModelForm):
 class LinkForm(forms.ModelForm):
     class Meta:
         model = Link
-        fields = ['url']
+        fields = ['url', 'title', 'description']
 class RecruterForm(forms.ModelForm):
 
     class Meta:

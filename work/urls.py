@@ -45,6 +45,7 @@ urlpatterns = [
     path('test/<int:test_id>/question/<int:question_id>/delete/', DeleteQuestionView.as_view(), name='delete_question'),
     path('test/<int:test_id>/question/<int:question_id>/answer/', AddAnswerView.as_view(), name='add_answer'),
     path('recruter/', AddOfferJobsUserView.as_view(), name='add_apply_job'),
+    path('portfolio/<int:portfolio_id>/link/<int:link_id>/update/', UpdateLinkView.as_view(), name='update_link2'),
     path('portfolio/<int:portfolio_id>/link/<int:link_id>/delete/', DeleteLinkView.as_view(), name='update_link'),
     path('index/', accepted_offers_job_user, name='index'),
     path('index/job', recruter_to_user_view, name='recruter_to_user_view'),
