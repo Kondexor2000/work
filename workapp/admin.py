@@ -12,3 +12,8 @@ class TagPortfolioAdmin(admin.ModelAdmin):
     list_display = ['name']
 
 admin.site.register(TagPortfolio, TagPortfolioAdmin)
+
+class LinkAdmin(admin.ModelAdmin):
+    list_display = ['description']
+
+admin.site.register(Link, LinkAdmin)

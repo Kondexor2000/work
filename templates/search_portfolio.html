@@ -1,35 +1,24 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Szukaj portfolio</h1>
+<h1>Szukaj pomysłów</h1>
 <form method="get">
-  <input type="text" name="q" placeholder="Search courses..." value="{{ query }}">
   <h2>Słowa kluczowe</h2>
-  <ul>
-  <select>
+
+  <select name="tags">
+    <option value="">-- wybierz tag --</option>
     {% for tag in tags %}
-		  <option>{{ tag.name }}</option>
+      <option value="{{ tag.id }}">{{ tag.name }}</option>
     {% endfor %}
-	</select>
-  </ul>
+  </select>
+
   <button type="submit">Szukaj</button>
 </form>
-<h2>Portfolios</h2>
+<h2>Projekty</h2>
 <div class="search-container">
 <ul>
   {% for item in portfolios %}
     <li>
-      {{ item.title }} - {{ item.user.username }}
-      {% if item.user == request.user %}
-        <a href="{% url 'add_link' portfolio_id=item.id %}">
-          <button type="button">Dodaj linki</button>
-        </a>
-      {% endif %}
-      <a href="{% url 'portfolio_links_view' portfolio_id=item.id %}">
-        <button type="button">Linki</button>
-      </a>
-      <a href="{% url 'portfolio_id_view' portfolio_id=item.id %}">
-        <button type="button">Portfolio</button>
-      </a>
+      {{ item.description }}
     </li>
   {% endfor %}
 </ul>

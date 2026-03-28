@@ -3,25 +3,17 @@
 {% block content %}
 <h1>Jak zacząć z Eduwork</h1>
 <div style="max-width: 800px; margin: 20px auto; padding: 20px;">
-    <p>Witaj w <strong>Eduwork</strong> — platformie do zarządzania kursami i portfolio.</p>
-    Chcesz wykorzystać wszelkie możliwości? <li><a href="{% url 'signup' %}"><strong>Zarejestruj się</strong></a> lub <a href="{% url 'login' %}"><strong>zaloguj</strong></a>.</li>
-        <h2>Dla poszukiwaczy pracy</h2>
+    <p>Witaj w <strong>Eduwork</strong> — system wsparcia wyszukiwania pomysłów na treści.</p>
+ 
+    <h2>Dla twórców treści</h2>
         <ol>
-            <li>Stwórz portfolio — udostępnij swoje linki do projektów.</li>
+            <li>Pochwal się pomysłami na kreatywne bio, komentarze, posty, wiadomości itp.</li>
         </ol>
 
-        <h2>Dla rekruterów / pracodawców</h2>
+    <h2>Dla poszukiwaczy inspiracji</h2>
         <ol>
-            <li>Poszukuj nowe talenty.</li>
+            <li>Nie masz pomysłu na nowe treści? Zainspiruj się tutaj</li>
         </ol>
-        
-    <div style="margin-top: 30px; text-align: center;">
-        {% if request.user.is_authenticated %}
-            <p><a href="{% url 'index' %}" style="text-decoration: none;"><button type="button">Wróć na stronę główną</button></a></p>
-        {% else %}
-            <p>Gotów/a? <a href="{% url 'signup' %}" style="text-decoration: none;"><button type="button">Zarejestruj się teraz</button></a></p>
-            <p>Masz już konto? <a href="{% url 'login' %}" style="text-decoration: none;"><button type="button">Zaloguj się</button></a></p>
-        {% endif %}
-    </div>
+
 </div>
 {% endblock %}

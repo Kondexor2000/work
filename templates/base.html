@@ -4,15 +4,15 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="keywords" content="work">
-    <meta name="keywords" content="job">
-    <meta name="keywords" content="education">
-    <meta name="keywords" content="course">
-    <meta name="keywords" content="skill">
-    <meta name="description" content="Szukasz nowej pracy? Żadna nie odpowiada Twoim umiejętnościom? Nic straconego. Ucz się nowego zawodu z Eduwork, a praca sama się znajdzie.">
+    <meta name="keywords" content="media">
+    <meta name="keywords" content="social">
+    <meta name="keywords" content="content">
+    <meta name="keywords" content="communication">
+    <meta name="keywords" content="community">
+    <meta name="description" content="Nie masz pomysłów na nową treść? Tu się zainspirujesz!">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Roboto">
-    <title>{% block title %}Eduwork. Nowy zawód - Nowa praca{% endblock %}</title>
+    <title>{% block title %}Eduwork. Tu się pochwalisz pomysłami.{% endblock %}</title>
     <style>
         .search-container ul {
             list-style: none;
@@ -110,21 +110,9 @@
     <header>
         <img src="{% static 'eduwork.png' %}" width="500px" height="240px">
         <nav style="text-align: center; padding: 10px; background: #f8f9fa; border-bottom: 1px solid #ddd;">
-            {% if request.user.is_authenticated %}
-                {% if request.user.groups.all.0.name == "Private" %}
-                <a href="{% url 'index' %}" style="display: inline; text-decoration: none; margin: 0 10px;">🏠 Home</a>
-                {% endif %}
-                <a href="{% url 'logout' %}" style="display: inline; text-decoration: none; margin: 0 10px;">🚪 Wyloguj</a>
-                <a href="{% url 'edit_profile' %}" style="display: inline; text-decoration: none; margin: 0 10px;">🚪 Ustawienia konta</a>
-                <a href="{% url 'get_started' %}" style="display: inline; text-decoration: none; margin: 0 10px;">❓ Jak zacząć?</a>
-<a href="{% url 'search_portfolio' %}">Szukaj portfolio</a>
-<a href="{% url 'portfolio_to_user_view' %}">Moje potfolio</a>
-            {% else %}
-<a href="{% url 'search_portfolio' %}">Szukaj portfolio</a>
-                <a href="{% url 'login' %}" style="display: inline; text-decoration: none; margin: 0 10px;">🔓 Zaloguj</a>
-                <a href="{% url 'signup' %}" style="display: inline; text-decoration: none; margin: 0 10px;">📋 Rejestracja</a>
-                <a href="{% url 'get_started' %}" style="display: inline; text-decoration: none; margin: 0 10px;">❓ Jak zacząć?</a>
-            {% endif %}
+            <a href="{% url 'search_portfolio' %}">Szukaj pomysłów</a>
+            <a href="{% url 'add_link' %}">Dodaj pomysł</a>
+            <a href="{% url 'get_started' %}" style="display: inline; text-decoration: none; margin: 0 10px;">❓ Jak zacząć?</a>
         </nav>
         {% if messages %}
             <div style="max-width: 600px; margin: 10px auto;">
@@ -144,7 +132,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 My Company</p>
+        <p>&copy; 2025 Eduwork</p>
     </footer>
 </body>
 </html>
