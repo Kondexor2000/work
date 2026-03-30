@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Szukaj pomysłów</h1>
+<h1>Search ideas</h1>
 <form method="get">
-  <h2>Słowa kluczowe</h2>
+  <h2>Keyworks</h2>
 
   <select name="tags">
-    <option value="">-- wybierz tag --</option>
+    <option value="">-- choose tag --</option>
     {% for tag in tags %}
       <option value="{{ tag.id }}">{{ tag.name }}</option>
     {% endfor %}
   </select>
 
-  <button type="submit">Szukaj</button>
+  <button type="submit">Search</button>
 </form>
-<h2>Pomysły</h2>
+<h2>Ideas</h2>
 <div class="search-container">
 <ul>
   {% for item in portfolios %}

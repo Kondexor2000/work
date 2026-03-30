@@ -12,7 +12,7 @@
     <meta name="description" content="Nie masz pomysłów na nową treść? Tu się zainspirujesz!">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Roboto">
-    <title>{% block title %}Eduwork. Tu się pochwalisz pomysłami.{% endblock %}</title>
+    <title>{% block title %}Eduwork. Here you can show off your ideas.{% endblock %}</title>
     <style>
         .search-container ul {
             list-style: none;
@@ -110,9 +110,9 @@
     <header>
         <img src="{% static 'eduwork.png' %}" width="500px" height="240px">
         <nav style="text-align: center; padding: 10px; background: #f8f9fa; border-bottom: 1px solid #ddd;">
-            <a href="{% url 'search_portfolio' %}">Szukaj pomysłów</a>
-            <a href="{% url 'add_link' %}">Dodaj pomysł</a>
-            <a href="{% url 'get_started' %}" style="display: inline; text-decoration: none; margin: 0 10px;">❓ Jak zacząć?</a>
+            <a href="{% url 'search_portfolio' %}">Search ideas</a>
+            <a href="{% url 'add_link' %}">Add idea</a>
+            <a href="{% url 'get_started' %}" style="display: inline; text-decoration: none; margin: 0 10px;">❓ How to start?</a>
         </nav>
         {% if messages %}
             <div style="max-width: 600px; margin: 10px auto;">

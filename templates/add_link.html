@@ -2,10 +2,10 @@
 {% load static %}
 
 {% block content %}
-    <h2>Dodaj pomysł</h2>
+    <h2>Add idea</h2>
     <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Podziel się</button>
+    <button type="submit">Share</button>
 </form>
 {% endblock %}
