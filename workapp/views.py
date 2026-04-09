@@ -76,7 +76,7 @@ def search_portfolio(request):
     if tags_id and tags_id.isdigit():
         portfolios = portfolios.filter(tags__id=int(tags_id)).order_by('description')
 
-    portfolio = [p for p in portfolios if is_valid_text(p.description)]
+    portfolio = list(portfolios)
     paginator = Paginator(portfolio, 20)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
