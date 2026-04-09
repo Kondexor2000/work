@@ -10,7 +10,9 @@ from django.views import View
 from django.contrib.auth import login
 from django.template import TemplateDoesNotExist
 from django.core.paginator import Paginator
+from langdetect import detect
 import logging
+import re
 import datetime
 from django.utils import timezone
 from django.http import HttpResponse, Http404, HttpResponseNotFound
@@ -42,6 +44,26 @@ def accepted_offers_job_user(request):
     return render(request, template_name, {'transmitions': transmitions})
 """
 
+def is_valid_text(text):
+    try:
+        text = text.strip()
+        if not text or not text[0].isalpha():
+            return False
+
+        lang = detect(text)
+
+        # tylko PL
+        if lang not in ["pl"]:
+            return False
+
+        # dodatkowy filtr łacińskich końcówek
+        latin_like = len(re.findall(r'\b\w+(us|um|ae|is)\b', text.lower()))
+
+        return latin_like < 3
+
+    except:
+        return False
+
 @transaction.atomic
 def search_portfolio(request):
     template_name = 'search_portfolio.html'
@@ -54,7 +76,8 @@ def search_portfolio(request):
     if tags_id and tags_id.isdigit():
         portfolios = portfolios.filter(tags__id=int(tags_id)).order_by('description')
 
-    paginator = Paginator(portfolios, 20)
+    portfolio = [p for p in portfolios if is_valid_text(p.description)]
+    paginator = Paginator(portfolio, 20)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
