@@ -9,6 +9,7 @@ from django.template.loader import get_template
 from django.views import View
 from django.contrib.auth import login
 from django.template import TemplateDoesNotExist
+from django.core.paginator import Paginator
 import logging
 import datetime
 from django.utils import timezone
@@ -53,8 +54,12 @@ def search_portfolio(request):
     if tags_id:
         portfolios = portfolios.filter(tags__id=tags_id).order_by('description')
 
+    paginator = Paginator(portfolios, 20)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     return render(request, template_name, {
-        'portfolios': portfolios,
+        'portfolios': page_obj,
         'tags': tags,
     })
 
