@@ -48,10 +48,10 @@ def search_portfolio(request):
     tags = TagPortfolio.objects.all()
     tags_id = request.GET.get('tags')
 
-    portfolios = Link.objects.all()
+    portfolios = Link.objects.all().order_by('description')
 
     if tags_id:
-        portfolios = portfolios.filter(tags__id=tags_id)
+        portfolios = portfolios.filter(tags__id=tags_id).order_by('description')
 
     return render(request, template_name, {
         'portfolios': portfolios,
