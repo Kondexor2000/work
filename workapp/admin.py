@@ -15,5 +15,6 @@ admin.site.register(TagPortfolio, TagPortfolioAdmin)
 
 class LinkAdmin(admin.ModelAdmin):
     list_display = ['description']
+    actions = ['delete_selected']
 
 admin.site.register(Link, LinkAdmin)
