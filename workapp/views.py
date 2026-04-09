@@ -71,12 +71,12 @@ def search_portfolio(request):
     tags = TagPortfolio.objects.all()
     tags_id = request.GET.get('tags')
 
-    portfolios = Link.objects.all().prefetch_related('tags').order_by('description')
+    portfolios = Link.objects.all()
 
     if tags_id and tags_id.isdigit():
-        portfolios = portfolios.filter(tags__id=int(tags_id)).order_by('description')
+        portfolios = portfolios.filter(tags__id=int(tags_id))
 
-    portfolio = list(portfolios)
+    portfolio = [p for p in portfolios if is_valid_text(p.description)]
     paginator = Paginator(portfolio, 20)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
