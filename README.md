@@ -19,14 +19,14 @@ Eduwork helps you generate content ideas up to 5× faster.
 - [Uwagi dodatkowe](#uwagi-dodatkowe)
 - [Kontakt](#kontakt)
 
-## Instalacja
+## Instalation
 
 ```bash
 git clone https://github.com/Kondexor2000/work.git
 cd work
 ```
 
-## Konfiguracja
+## Konfiguration
 
 ```bash
 mkdir requirements.txt
@@ -41,8 +41,8 @@ python manage.py runserver
 ## Funkcje
 
 - Zarządzanie treściami przez administratora
-- Dodawanie inicjatywy
-- Wyszukiwanie pomysłów
+- Add ideas
+- Search ideas
 
 ## Tech stack
 
