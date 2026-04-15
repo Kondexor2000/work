@@ -12,8 +12,8 @@ Eduwork helps you generate content ideas up to 5× faster.
 
 ## Spis treści
 
-- [Instalacja](#instalacja)
-- [Konfiguracja](#konfiguracja)
+- [Installation](#installation)
+- [Configuration](#configuration)
 - [Funkcje](#funkcje)
 - [Tech stack](#tech-stack)
 - [Uwagi dodatkowe](#uwagi-dodatkowe)
@@ -26,7 +26,7 @@ git clone https://github.com/Kondexor2000/work.git
 cd work
 ```
 
-## Konfiguration
+## Configuration
 
 ```bash
 mkdir requirements.txt
