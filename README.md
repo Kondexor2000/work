@@ -16,7 +16,7 @@ Eduwork helps you generate content ideas up to 5× faster.
 - [Configuration](#configuration)
 - [functions](#functions)
 - [Tech stack](#tech-stack)
-- [Uwagi additional](#uwagi-additional)
+- [Comments additional](#comments-additional)
 - [Contact](#contact)
 
 ## Installation
@@ -52,7 +52,7 @@ python manage.py runserver
 - HTML, CSS, JS
 - tools with import in code
 
-## Uwagi additional
+## Comments additional
 - AI: python manage.py ai
       python chat.py
 - Cryptography: python manage.py secure_backup
