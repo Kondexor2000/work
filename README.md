@@ -19,7 +19,7 @@ Eduwork helps you generate content ideas up to 5× faster.
 - [Uwagi dodatkowe](#uwagi-dodatkowe)
 - [Kontakt](#kontakt)
 
-## Instalation
+## Installation
 
 ```bash
 git clone https://github.com/Kondexor2000/work.git
