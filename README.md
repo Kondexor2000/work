@@ -10,7 +10,7 @@ Eduwork helps you generate content ideas up to 5× faster.
 
 ---
 
-## Spis content
+## Contents
 
 - [Installation](#installation)
 - [Configuration](#configuration)
