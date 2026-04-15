@@ -14,10 +14,10 @@ Eduwork helps you generate content ideas up to 5× faster.
 
 - [Installation](#installation)
 - [Configuration](#configuration)
-- [Funkcje](#funkcje)
+- [functions](#functions)
 - [Tech stack](#tech-stack)
 - [Uwagi dodatkowe](#uwagi-dodatkowe)
-- [Kontakt](#kontakt)
+- [Contact](#contact)
 
 ## Installation
 
@@ -38,7 +38,7 @@ python manage.py test
 python manage.py runserver
 ```
 
-## Funkcje
+## Functions
 
 - Zarządzanie treściami przez administratora
 - Add ideas
@@ -58,6 +58,6 @@ python manage.py runserver
 - Cryptography: python manage.py secure_backup
 - Certificate Security: python manage.py generate_cert
 
-## Kontakt
+## Contact
 
 - Jeśli masz jakiekolwiek pytań lub sugestii, skontaktuj się z nami na adres e-mail: k.kosciecha20@gmail.com
