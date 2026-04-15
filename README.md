@@ -40,7 +40,7 @@ python manage.py runserver
 
 ## Functions
 
-- Zarządzanie treściami by admin
+- Content management by admin
 - Add ideas
 - Search ideas
 
