@@ -10,13 +10,13 @@ Eduwork helps you generate content ideas up to 5× faster.
 
 ---
 
-## Spis treści
+## Spis content
 
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [functions](#functions)
 - [Tech stack](#tech-stack)
-- [Uwagi dodatkowe](#uwagi-dodatkowe)
+- [Uwagi additional](#uwagi-additional)
 - [Contact](#contact)
 
 ## Installation
@@ -52,7 +52,7 @@ python manage.py runserver
 - HTML, CSS, JS
 - tools with import in code
 
-## Uwagi dodatkowe
+## Uwagi additional
 - AI: python manage.py ai
       python chat.py
 - Cryptography: python manage.py secure_backup
