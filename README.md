@@ -60,4 +60,4 @@ python manage.py runserver
 
 ## Contact
 
-- If you have any questions or suggestions, skontaktuj się z nami na adres e-mail: k.kosciecha20@gmail.com
+- If you have any questions or suggestions, skontaktuj się z nami on e-mail address: k.kosciecha20@gmail.com
