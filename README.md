@@ -14,7 +14,7 @@ Eduwork helps you generate content ideas up to 5× faster.
 
 - [Installation](#installation)
 - [Configuration](#configuration)
-- [functions](#functions)
+- [Functions](#functions)
 - [Tech stack](#tech-stack)
 - [Additional comments](#additional-comments)
 - [Contact](#contact)
