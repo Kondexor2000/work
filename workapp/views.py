@@ -38,7 +38,6 @@ class AddLinkView(CreateView):
         )
         return reverse('thanks')
 
-@transaction.atomic
 def search_portfolio(request):
     template_name = 'search_portfolio.html'
 
