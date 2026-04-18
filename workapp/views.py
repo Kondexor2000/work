@@ -56,6 +56,7 @@ def is_valid_text(text):
         return latin_like < 3
 
     except:
+        logger.exception("Language detection failed")
         return False
 
 @transaction.atomic
