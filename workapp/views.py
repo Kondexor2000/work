@@ -22,6 +22,8 @@ from django.contrib.auth.views import LoginView, LogoutView
 from .models import TagPortfolio, Link
 from .forms import LinkForm, LinkForm
 
+logger = logging.getLogger(__name__)
+
 # === Link ===
 
 class AddLinkView(CreateView):
@@ -59,9 +61,11 @@ def search_portfolio(request):
     tags_id = request.GET.get('tags')
 
     portfolios = Link.objects.all().prefetch_related('tags').order_by('description')
+    logger.info(portfolios.values('id', 'description'))
 
     if tags_id and tags_id.isdigit():
         portfolios = portfolios.filter(tags__id=int(tags_id)).order_by('description')
+        logger.info(portfolios.values('id', 'description'))
 
     portfolio = [p for p in portfolios if is_valid_text(p.description)]
     paginator = Paginator(portfolio, 20)

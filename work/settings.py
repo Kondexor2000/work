@@ -211,7 +211,7 @@ LOGGING = {
             'level': 'INFO',
             'propagate': True,
         },
-        'blogserviceapp': {
+        'workapp': {
             'handlers': ['console', 'file'],
             'level': 'DEBUG',
             'propagate': False,
