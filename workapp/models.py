@@ -19,3 +19,10 @@ class TagPortfolio(models.Model):
 class Link(models.Model):
     tags = models.ForeignKey(TagPortfolio, on_delete=models.CASCADE, null=True, blank=True)
     description = models.TextField(blank=True, null=True)
+    is_valid = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        from .text_filter import is_valid_text
+
+        self.is_valid = is_valid_text(self.description)
+        super().save(*args, **kwargs)

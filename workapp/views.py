@@ -38,27 +38,6 @@ class AddLinkView(CreateView):
         )
         return reverse('thanks')
 
-def is_valid_text(text):
-    try:
-        text = text.strip()
-        if not text or not text[0].isalpha():
-            return False
-
-        lang = detect(text)
-
-        # tylko PL
-        if lang not in ["pl"]:
-            return False
-
-        # dodatkowy filtr łacińskich końcówek
-        latin_like = len(re.findall(r'\b\w+(us|um|ae|is)\b', text.lower()))
-
-        return latin_like < 3
-
-    except:
-        logger.exception("Language detection failed")
-        return False
-
 @transaction.atomic
 def search_portfolio(request):
     template_name = 'search_portfolio.html'
@@ -66,15 +45,19 @@ def search_portfolio(request):
     tags = TagPortfolio.objects.all()
     tags_id = request.GET.get('tags')
 
-    portfolios = Link.objects.all().prefetch_related('tags').order_by('description')
+    portfolios = (
+        Link.objects
+        .filter(is_valid=True)
+        .prefetch_related('tags')
+        .order_by('description')
+    )
     logger.info(portfolios.values('id', 'description'))
 
     if tags_id and tags_id.isdigit():
         portfolios = portfolios.filter(tags__id=int(tags_id)).order_by('description')
         logger.info(portfolios.values('id', 'description'))
 
-    portfolio = [p for p in portfolios if is_valid_text(p.description)]
-    paginator = Paginator(portfolio, 20)
+    paginator = Paginator(portfolios, 20)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
