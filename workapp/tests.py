@@ -72,10 +72,19 @@ class SearchPortfolioViewTest(TestCase):
     def test_search_portfolio_pagination(self):
         # Dodajemy 25 linków z poprawnymi opisami
         for i in range(25):
-            Link.objects.create(description=f"Poprawny opis {i}", tags=self.tag1)
+            Link.objects.create(
+                description=f"Poprawny opis {i}",
+                is_valid=True
+            )
+
         response = self.client.get(self.url)
-        page_obj = response.context['portfolios']
+
+        page_obj = response.context['page_obj']
+
+        # 25 elementów przy paginate_by=20 => 2 strony
         self.assertEqual(page_obj.paginator.num_pages, 2)
+
+        # Na pierwszej stronie powinno być 20 elementów
         self.assertEqual(len(page_obj.object_list), 20)
 
 class ThankingViewTest(TestCase):

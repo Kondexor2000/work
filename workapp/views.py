@@ -4,7 +4,7 @@ from django.db import transaction
 from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.decorators import login_required
-from django.views.generic import CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView, DeleteView, ListView, TemplateView
 from django.template.loader import get_template
 from django.views import View
 from django.contrib.auth import login
@@ -20,7 +20,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from .models import TagPortfolio, Link
-from .forms import LinkForm, LinkForm
+from .forms import LinkForm
 
 logger = logging.getLogger(__name__)
 
@@ -38,33 +38,34 @@ class AddLinkView(CreateView):
         )
         return reverse('thanks')
 
-def search_portfolio(request):
+class SearchPortfolioView(ListView):
+    model = Link
     template_name = 'search_portfolio.html'
+    context_object_name = 'portfolios'
+    paginate_by = 20
 
-    tags = TagPortfolio.objects.all()
-    tags_id = request.GET.get('tags')
+    def get_queryset(self):
+        queryset = (
+            Link.objects
+            .filter(is_valid=True)
+            .prefetch_related('tags')
+            .order_by('description')
+        )
 
-    portfolios = (
-        Link.objects
-        .filter(is_valid=True)
-        .prefetch_related('tags')
-        .order_by('description')
-    )
-    logger.info(portfolios.values('id', 'description'))
+        logger.info(queryset.values('id', 'description'))
 
-    if tags_id and tags_id.isdigit():
-        portfolios = portfolios.filter(tags__id=int(tags_id)).order_by('description')
-        logger.info(portfolios.values('id', 'description'))
+        tags_id = self.request.GET.get('tags')
 
-    paginator = Paginator(portfolios, 20)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+        if tags_id and tags_id.isdigit():
+            queryset = queryset.filter(tags__id=int(tags_id)).order_by('description')
+            logger.info(queryset.values('id', 'description'))
 
-    return render(request, template_name, {
-        'portfolios': page_obj,
-        'tags': tags,
-    })
+        return queryset
 
-def thanking_view(request):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tags'] = TagPortfolio.objects.all()
+        return context
+
+class ThankingView(TemplateView):
     template_name = 'thanks.html'
-    return render(request, template_name)

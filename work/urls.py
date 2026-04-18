@@ -24,7 +24,7 @@ from workapp.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', lambda request: render(request, 'get_started.html'), name='get_started'),
-    path('thanks/', thanking_view, name='thanks'),
+    path('thanks/', ThankingView.as_view(), name='thanks'),
     path('link/create/', AddLinkView.as_view(), name='add_link'),
-    path('link/', search_portfolio, name='search_portfolio'),
+    path('link/', SearchPortfolioView.as_view(), name='search_portfolio'),
  ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
