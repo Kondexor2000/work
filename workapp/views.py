@@ -31,6 +31,11 @@ class AddLinkView(CreateView):
     template_name = 'add_link.html'
     
     def get_success_url(self):
+        logger.info(
+            "NEW LINK CREATED: id=%s, description=%s",
+            self.object.id,
+            self.object.description
+        )
         return reverse('thanks')
 
 def is_valid_text(text):
