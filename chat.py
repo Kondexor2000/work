@@ -72,7 +72,7 @@ while True:
     faiss.normalize_L2(q_embedding)
 
     # 🔎 search
-    D, I = index.search(np.array(q_embedding), k=1)
+    D, I = index.search(np.array(q_embedding), k=5)
     context = docs[I[0][0]]
 
     # 🧠 prompt QA
