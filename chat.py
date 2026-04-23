@@ -73,7 +73,7 @@ while True:
 
     # 🔎 search
     D, I = index.search(np.array(q_embedding), k=5)
-    context = docs[I[0][0]]
+    context = "\n".join([docs[i] for i in I[0]])
 
     # 🧠 prompt QA
     prompt = f"""
