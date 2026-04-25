@@ -57,6 +57,7 @@ python manage.py runserver
       python chat.py
 - Cryptography: python manage.py secure_backup
 - Certificate Security: python manage.py generate_cert
+- Adding Google Login API or Facebook Login API is suggested
 
 ## Contact
 
