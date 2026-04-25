@@ -58,6 +58,7 @@ python manage.py runserver
 - Cryptography: python manage.py secure_backup
 - Certificate Security: python manage.py generate_cert
 - Adding Google Login API or Facebook Login API is suggested
+- class SearchPortfolioView is created according to business value by search
 
 ## Contact
 
